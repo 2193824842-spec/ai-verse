@@ -96,26 +96,12 @@ const articlesHref = `${base}/${lang}/`;
           <a href={`${base}/${lang}/articles/?cat=insight`} class="sidebar-subitem">{lang === 'en' ? 'Industry Insights' : '行业洞察'}</a>
           <a href={`${base}/${lang}/articles/?cat=trending`} class="sidebar-subitem">{lang === 'en' ? 'Trending' : '热点解析'}</a>
         </div>
-        <div class="sidebar-tools-wrap">
-          <a href={`${base}/${lang}/tools/`} class="sidebar-item sidebar-item--tools">
-            <span class="sidebar-icon">
-              <svg width="18" height="18" viewBox="0 0 256 256" fill="currentColor"><path d="M221.86,114.72A8,8,0,0,0,216,112H168V88a8,8,0,0,0-4.42-7.14l-112-56A8,8,0,0,0,40,32V224a8,8,0,0,0,16,0V168h56v24a8,8,0,0,0,4.42,7.14l80,40A8,8,0,0,0,208,232V120A8,8,0,0,0,221.86,114.72ZM56,152V52.94l96,48V152Z"/></svg>
-            </span>
-            <span class="sidebar-label">{lang === 'en' ? 'Tools' : '工具'}</span>
-          </a>
-          <button class="tools-expand-btn sidebar-label" id="tools-expand-btn" aria-label="Toggle tools menu">
-            <svg class="tools-chevron" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-              <polyline points="6 9 12 15 18 9"/>
-            </svg>
-          </button>
-        </div>
-        <div class="sidebar-submenu" id="tools-submenu">
-          {TOOLS.map(cat => (
-            <a href={`${base}/${lang}/tools/#${cat.slug}`} class="sidebar-subitem">
-              {cat.category}
-            </a>
-          ))}
-        </div>
+        <a href={`${base}/${lang}/tools/`} class="sidebar-item">
+          <span class="sidebar-icon">
+            <svg width="18" height="18" viewBox="0 0 256 256" fill="currentColor"><path d="M221.86,114.72A8,8,0,0,0,216,112H168V88a8,8,0,0,0-4.42-7.14l-112-56A8,8,0,0,0,40,32V224a8,8,0,0,0,16,0V168h56v24a8,8,0,0,0,4.42,7.14l80,40A8,8,0,0,0,208,232V120A8,8,0,0,0,221.86,114.72ZM56,152V52.94l96,48V152Z"/></svg>
+          </span>
+          <span class="sidebar-label">{lang === 'en' ? 'Tools' : '工具'}</span>
+        </a>
         <a href={`${base}/${lang}/news/`} class="sidebar-item">
           <span class="sidebar-icon">
             <svg width="18" height="18" viewBox="0 0 256 256" fill="currentColor"><path d="M216,40H40A16,16,0,0,0,24,56V200a16,16,0,0,0,16,16H216a16,16,0,0,0,16-16V56A16,16,0,0,0,216,40Zm0,160H40V56H216V200ZM184,96a8,8,0,0,1-8,8H80a8,8,0,0,1,0-16h96A8,8,0,0,1,184,96Zm0,32a8,8,0,0,1-8,8H80a8,8,0,0,1,0-16h96A8,8,0,0,1,184,128Zm0,32a8,8,0,0,1-8,8H80a8,8,0,0,1,0-16h96A8,8,0,0,1,184,160Z"/></svg>
@@ -370,32 +356,24 @@ const articlesHref = `${base}/${lang}/`;
       // Sidebar toggle
       const sidebar = document.getElementById('sidebar') as HTMLElement;
       const sidebarToggle = document.getElementById('sidebar-toggle') as HTMLButtonElement;
-      const toolsExpandBtn = document.getElementById('tools-expand-btn') as HTMLButtonElement;
-      const toolsSubmenu = document.getElementById('tools-submenu') as HTMLDivElement;
       const articlesExpandBtn = document.getElementById('articles-expand-btn') as HTMLButtonElement;
       const articlesSubmenu = document.getElementById('articles-submenu') as HTMLDivElement;
 
-      function makeExpandable(btn: HTMLButtonElement, submenu: HTMLDivElement) {
-        btn?.addEventListener('click', (e) => {
-          e.stopPropagation();
-          if (btn.hasAttribute('data-open')) {
-            btn.removeAttribute('data-open');
-            submenu.removeAttribute('data-open');
-          } else {
-            btn.setAttribute('data-open', '');
-            submenu.setAttribute('data-open', '');
-          }
-        });
-      }
-      makeExpandable(toolsExpandBtn, toolsSubmenu);
-      makeExpandable(articlesExpandBtn, articlesSubmenu);
+      articlesExpandBtn?.addEventListener('click', (e) => {
+        e.stopPropagation();
+        if (articlesExpandBtn.hasAttribute('data-open')) {
+          articlesExpandBtn.removeAttribute('data-open');
+          articlesSubmenu.removeAttribute('data-open');
+        } else {
+          articlesExpandBtn.setAttribute('data-open', '');
+          articlesSubmenu.setAttribute('data-open', '');
+        }
+      });
 
       sidebarToggle?.addEventListener('click', (e) => {
         e.stopPropagation();
         if (sidebar.hasAttribute('data-open')) {
           sidebar.removeAttribute('data-open');
-          toolsExpandBtn?.removeAttribute('data-open');
-          toolsSubmenu?.removeAttribute('data-open');
           articlesExpandBtn?.removeAttribute('data-open');
           articlesSubmenu?.removeAttribute('data-open');
         } else {
@@ -406,8 +384,6 @@ const articlesHref = `${base}/${lang}/`;
       document.addEventListener('click', (e) => {
         if (sidebar?.hasAttribute('data-open') && !sidebar.contains(e.target as Node)) {
           sidebar.removeAttribute('data-open');
-          toolsExpandBtn?.removeAttribute('data-open');
-          toolsSubmenu?.removeAttribute('data-open');
           articlesExpandBtn?.removeAttribute('data-open');
           articlesSubmenu?.removeAttribute('data-open');
         }
