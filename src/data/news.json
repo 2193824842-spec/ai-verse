@@ -1,5 +1,5 @@
 {
-  "updated": "2026-04-16 09:38 UTC",
+  "updated": "2026-04-16 09:46 UTC",
   "items": [
     {
       "title": "瑞和数智战略投资盛合晶微，布局AI算力核心赛道",
@@ -23,6 +23,30 @@
       "summary_zh": "36氪获悉，澜舟科技2026春季媒体闭门沟通会在北京中关村公司总部举办。会上，正式发布澜舟可信AI全栈技术体系、公司自研的企业智能体OS LangClaw，与“三智”产品矩阵的全新升级。",
       "title_en": "Lanzhou Technology releases trusted AI technology system",
       "summary_en": "36Kr learned that Lanzhou Technology’s 2026 Spring Media Closed Communication Meeting was held at the company’s headquarters in Zhongguancun, Beijing. At the meeting, Lanzhou's trusted AI full-stack technology system, the company's self-developed enterprise intelligence OS LangClaw, and a new upgrade of the \"three intelligences\" product matrix were officially released.",
+      "image": "https://img.36krcdn.com/20191024/v2_1571894049839_img_jpg"
+    },
+    {
+      "title": "亚马逊全球智能枢纽仓（GWD）深圳首仓面向卖家正式开放",
+      "url": "https://36kr.com/newsflashes/3769310482514438?f=rss",
+      "source": "36Kr",
+      "summary": "36氪获悉，亚马逊今日宣布，全球首个亚马逊全球智能枢纽仓（Global Warehousing and Distribution, GWD）在深圳正式向卖家全面开放。目前，深圳GWD仓支持向亚马逊美国站运营中心（Fulfillment Center）发货。",
+      "date": "2026-04-16",
+      "title_zh": "亚马逊全球智能枢纽仓（GWD）深圳首仓面向卖家正式开放",
+      "summary_zh": "36氪获悉，亚马逊今日宣布，全球首个亚马逊全球智能枢纽仓（Global Warehousing and Distribution, GWD）在深圳正式向卖家全面开放。目前，深圳GWD仓支持向亚马逊美国站运营中心（Fulfillment Center）发货。",
+      "title_en": "Amazon’s Global Smart Hub (GWD) Shenzhen first warehouse is officially open to sellers",
+      "summary_en": "36Kr learned that Amazon announced today that the world’s first Amazon Global Warehousing and Distribution (GWD) is officially open to sellers in Shenzhen. Currently, the Shenzhen GWD warehouse supports shipments to Amazon’s US fulfillment center (Fulfillment Center).",
+      "image": "https://img.36krcdn.com/20191024/v2_1571894049839_img_jpg"
+    },
+    {
+      "title": "台积电CEO：全力扩产仍难以满足强劲AI需求",
+      "url": "https://36kr.com/newsflashes/3769310852301573?f=rss",
+      "source": "36Kr",
+      "summary": "本周四下午，台积电高管在法说会上宣布，预计2026年公司资本支出将接近520亿至560亿美元的区间顶端水平。当被问及支撑这一资本支出的信心来源时，台积电董事长兼CEO魏哲家回答：“答案很简单：需求极为强劲，尤其是高性能计算与人工智能应用。我们全力加速、提前采购设备，但供应依旧紧张，需求持续增长。这就是资本支出指向区间上限的原因。”（财联社）",
+      "date": "2026-04-16",
+      "title_zh": "台积电CEO：全力扩产仍难以满足强劲AI需求",
+      "summary_zh": "本周四下午，台积电高管在法说会上宣布，预计2026年公司资本支出将接近520亿至560亿美元的区间顶端水平。当被问及支撑这一资本支出的信心来源时，台积电董事长兼CEO魏哲家回答：“答案很简单：需求极为强劲，尤其是高性能计算与人工智能应用。我们全力加速、提前采购设备，但供应依旧紧张，需求持续增长。这就是资本支出指向区间上限的原因。”（财联社）",
+      "title_en": "TSMC CEO: Fully expanding production is still unable to meet strong AI demand",
+      "summary_en": "On Thursday afternoon, TSMC executives announced at a press conference that the company’s capital expenditures in 2026 are expected to be close to the top of the range of US$52 billion to US$56 billion. When asked about the source of confidence to support this capital expenditure, TSMC Chairman and CEO Wei Zhejia replied: \"The answer is simple: demand is extremely strong, especially for high-performance computing and artificial intelligence applications. We are fully accelerating and purchasing equipment in advance, but supply is still tight and demand continues to grow. This is why capital expenditures point to the upper limit of the range.\" (Financial Associated Press)",
       "image": "https://img.36krcdn.com/20191024/v2_1571894049839_img_jpg"
     },
     {
@@ -395,7 +419,7 @@
       "summary_zh": "OpenAI 推出网络安全专用模型 GPT-5.4-Cyber、索尼宣布将调整 Bravia 电视的功能等。查看全文",
       "title_en": "Pai Zaobao: Keychron launches lightweight mouse G3, Microsoft launches new model, etc.",
       "summary_en": "OpenAI launches network security-specific model GPT-5.4-Cyber, Sony announces that it will adjust the functions of Bravia TV, etc. View full text",
-      "image": "https://rssfile.sspai.com/15/04/2026/article/dd018f81-ef3e-6013-837c-064ef490ff60.jpeg?imageMogr2/auto-orient/ignore-error/1"
+      "image": "https://rssfile.sspai.com/15/04/2026/article/dd018f81-ef3e-6013-837c-064ef490ff60.jpeg?imageMogr2/auto-orient/format/webp/ignore-error/1"
     },
     {
       "title": "早报｜手机销量十季度首降，三星苹果成唯二赢家/李想：不招非原生AI人才/苹果将Siri程序员送进AI「训练营」",
@@ -683,7 +707,7 @@
       "summary_zh": "我想与你分享AI无法真正共情的人生大事：睡眠。查看全文",
       "title_en": "From a sleepless night to a sweet night: A good night’s sleep is not difficult",
       "summary_en": "I want to share with you an important life event that AI cannot truly empathize with: sleep. View full text",
-      "image": "https://rssfile.sspai.com/2026/03/12/8f55a6cd9c3affadf3a21be293b82494.jpg?imageMogr2/auto-orient/ignore-error/1"
+      "image": "https://rssfile.sspai.com/2026/03/12/8f55a6cd9c3affadf3a21be293b82494.jpg?imageMogr2/auto-orient/format/webp/ignore-error/1"
     },
     {
       "title": "Anthropic 的崛起让一些 OpenAI 投资者重新考虑",
@@ -1200,6 +1224,174 @@
       "title_zh": "PRX 第 3 部分 — 在 24 小时内训练文本到图像模型！",
       "summary_zh": "",
       "image": "https://cdn-uploads.huggingface.co/production/uploads/68e529af513e724edd8702f6/zMyALdakGbN6SDG3ucmLd.jpeg"
+    },
+    {
+      "title": "变形金刚专家 (MoE) 的混合体",
+      "url": "https://huggingface.co/blog/moe-transformers",
+      "source": "Hugging Face",
+      "summary": "",
+      "date": "2026-02-26",
+      "title_en": "Mixture of Experts (MoEs) in Transformers",
+      "summary_en": "",
+      "title_zh": "变形金刚专家 (MoE) 的混合体",
+      "summary_zh": "",
+      "image": "https://huggingface.co/blog/assets/moe-transformers/thumbnail.png"
+    },
+    {
+      "title": "GGML和llama.cpp加入HF，保证Local AI的长期进步",
+      "url": "https://huggingface.co/blog/ggml-joins-hf",
+      "source": "Hugging Face",
+      "summary": "",
+      "date": "2026-02-20",
+      "title_en": "GGML and llama.cpp join HF to ensure the long-term progress of Local AI",
+      "summary_en": "",
+      "title_zh": "GGML和llama.cpp加入HF，保证Local AI的长期进步",
+      "summary_zh": "",
+      "image": "https://huggingface.co/blog/assets/ggml-joins-hf/ggml-joins-hf.png"
+    },
+    {
+      "title": "免费使用 Unsloth 和 Hugging Face Jobs 训练 AI 模型",
+      "url": "https://huggingface.co/blog/unsloth-jobs",
+      "source": "Hugging Face",
+      "summary": "",
+      "date": "2026-02-20",
+      "title_en": "Train AI models with Unsloth and Hugging Face Jobs for FREE",
+      "summary_en": "",
+      "title_zh": "免费使用 Unsloth 和 Hugging Face Jobs 训练 AI 模型",
+      "summary_zh": "",
+      "image": "https://huggingface.co/blog/assets/unsloth-jobs/thumbnail.png"
+    },
+    {
+      "title": "IBM 和加州大学伯克利分校使用 IT-Bench 和 MAST 诊断企业代理失败的原因",
+      "url": "https://huggingface.co/blog/ibm-research/itbenchandmast",
+      "source": "Hugging Face",
+      "summary": "",
+      "date": "2026-02-18",
+      "title_en": "IBM and UC Berkeley Diagnose Why Enterprise Agents Fail Using IT-Bench and MAST",
+      "summary_en": "",
+      "title_zh": "IBM 和加州大学伯克利分校使用 IT-Bench 和 MAST 诊断企业代理失败的原因",
+      "summary_zh": "",
+      "image": "https://cdn-uploads.huggingface.co/production/uploads/64e8143f6de557454220921e/pcP8QgkPqNpcygSbT6p60.png"
+    },
+    {
+      "title": "使用 Gradio 的 gr.HTML 一次性创建任何 Web 应用程序",
+      "url": "https://huggingface.co/blog/gradio-html-one-shot-apps",
+      "source": "Hugging Face",
+      "summary": "",
+      "date": "2026-02-18",
+      "title_en": "One-Shot Any Web App with Gradio's gr.HTML",
+      "summary_en": "",
+      "title_zh": "使用 Gradio 的 gr.HTML 一次性创建任何 Web 应用程序",
+      "summary_zh": "",
+      "image": "https://huggingface.co/blog/assets/gradio-html-one-shot-apps/thumbnail.png"
+    },
+    {
+      "title": "Codex 和 Claude 为所有人提供的定制内核",
+      "url": "https://huggingface.co/blog/custom-cuda-kernels-agent-skills",
+      "source": "Hugging Face",
+      "summary": "",
+      "date": "2026-02-13",
+      "title_en": "Custom Kernels for All from Codex and Claude",
+      "summary_en": "",
+      "title_zh": "Codex 和 Claude 为所有人提供的定制内核",
+      "summary_zh": "",
+      "image": "https://huggingface.co/blog/assets/custom-cuda-kernels/meme.png"
+    },
+    {
+      "title": "OpenEnv 实践：评估现实环境中使用工具的代理",
+      "url": "https://huggingface.co/blog/openenv-turing",
+      "source": "Hugging Face",
+      "summary": "",
+      "date": "2026-02-12",
+      "title_en": "OpenEnv in Practice: Evaluating Tool-Using Agents in Real-World Environments",
+      "summary_en": "",
+      "title_zh": "OpenEnv 实践：评估现实环境中使用工具的代理",
+      "summary_zh": "",
+      "image": "https://huggingface.co/blog/assets/openenv-turing/thumbnail.png"
+    },
+    {
+      "title": "Railway 融资 1 亿美元，利用 AI 原生云基础设施挑战 AWS",
+      "url": "https://venturebeat.com/infrastructure/railway-secures-usd100-million-to-challenge-aws-with-ai-native-cloud",
+      "source": "VentureBeat AI",
+      "summary": "Railway 是一家总部位于旧金山的云平台，在没有花费一美元营销费用的情况下悄悄聚集了 200 万开发人员，周四宣布在 B 轮融资中筹集了 1 亿美元……",
+      "date": "2026-01-22",
+      "title_en": "Railway secures $100 million to challenge AWS with AI-native cloud infrastructure",
+      "summary_en": "Railway, a San Francisco-based cloud platform that has quietly amassed two million developers without spending a dollar on marketing, announced Thursday that it raised $100 million in a Series B fundi…",
+      "title_zh": "Railway 融资 1 亿美元，利用 AI 原生云基础设施挑战 AWS",
+      "summary_zh": "Railway 是一家总部位于旧金山的云平台，在没有花费一美元营销费用的情况下悄悄聚集了 200 万开发人员，周四宣布在 B 轮融资中筹集了 1 亿美元……",
+      "image": ""
+    },
+    {
+      "title": "Claude Code 每月费用高达 200 美元。 Goose 免费做同样的事情。",
+      "url": "https://venturebeat.com/infrastructure/claude-code-costs-up-to-usd200-a-month-goose-does-the-same-thing-for-free",
+      "source": "VentureBeat AI",
+      "summary": "人工智能编码革命伴随着一个问题：价格昂贵。Claude Code 是 Anthropic 的基于终端的 AI 代理，可以自主编写、调试和部署代码，具有以下功能：",
+      "date": "2026-01-19",
+      "title_en": "Claude Code costs up to $200 a month. Goose does the same thing for free.",
+      "summary_en": "The artificial intelligence coding revolution comes with a catch: it&#x27;s expensive.Claude Code, Anthropic&#x27;s terminal-based AI agent that can write, debug, and deploy code autonomously, has cap…",
+      "title_zh": "Claude Code 每月费用高达 200 美元。 Goose 免费做同样的事情。",
+      "summary_zh": "人工智能编码革命伴随着一个问题：价格昂贵。Claude Code 是 Anthropic 的基于终端的 AI 代理，可以自主编写、调试和部署代码，具有以下功能：",
+      "image": ""
+    },
+    {
+      "title": "Listen Labs 在病毒式广告牌招聘噱头扩大 AI 客户访谈后筹集了 6900 万美元",
+      "url": "https://venturebeat.com/technology/listen-labs-raises-usd69m-after-viral-billboard-hiring-stunt-to-scale-ai",
+      "source": "VentureBeat AI",
+      "summary": "阿尔弗雷德·沃尔福斯已经没有选择了。他的初创公司 Listen Labs 需要雇用 100 多名工程师，但与马克·扎克伯格 (Mark Zuckerberg) 的 1 亿美元报价竞争似乎是不可能的。于是他花了……",
+      "date": "2026-01-16",
+      "title_en": "Listen Labs raises $69M after viral billboard hiring stunt to scale AI customer interviews",
+      "summary_en": "Alfred Wahlforss was running out of options. His startup, Listen Labs, needed to hire over 100 engineers, but competing against Mark Zuckerberg&#x27;s $100 million offers seemed impossible. So he spen…",
+      "title_zh": "Listen Labs 在病毒式广告牌招聘噱头扩大 AI 客户访谈后筹集了 6900 万美元",
+      "summary_zh": "阿尔弗雷德·沃尔福斯已经没有选择了。他的初创公司 Listen Labs 需要雇用 100 多名工程师，但与马克·扎克伯格 (Mark Zuckerberg) 的 1 亿美元报价竞争似乎是不可能的。于是他花了……",
+      "image": ""
+    },
+    {
+      "title": "Salesforce 推出新的 Slackbot AI 代理，在工作场所 AI 领域与微软和谷歌展开竞争",
+      "url": "https://venturebeat.com/technology/salesforce-rolls-out-new-slackbot-ai-agent-as-it-battles-microsoft-and",
+      "source": "VentureBeat AI",
+      "summary": "Salesforce 周二推出了公司工作场所助手 Slackbot 的完全重建版本，将其从一个简单的通知工具转变为高管们所描述的完全......",
+      "date": "2026-01-13",
+      "title_en": "Salesforce rolls out new Slackbot AI agent as it battles Microsoft and Google in workplace AI",
+      "summary_en": "Salesforce on Tuesday launched an entirely rebuilt version of Slackbot, the company&#x27;s workplace assistant, transforming it from a simple notification tool into what executives describe as a fully…",
+      "title_zh": "Salesforce 推出新的 Slackbot AI 代理，在工作场所 AI 领域与微软和谷歌展开竞争",
+      "summary_zh": "Salesforce 周二推出了公司工作场所助手 Slackbot 的完全重建版本，将其从一个简单的通知工具转变为高管们所描述的完全......",
+      "image": ""
+    },
+    {
+      "title": "Anthropic 推出 Cowork，这是一款可以在您的文件中工作的 Claude Desktop 代理 - 无需编码",
+      "url": "https://venturebeat.com/technology/anthropic-launches-cowork-a-claude-desktop-agent-that-works-in-your-files-no",
+      "source": "VentureBeat AI",
+      "summary": "Anthropic 于周一发布了 Cowork，这是一种新的人工智能代理功能，可将其大获成功的 Claude Code 工具的功能扩展到非技术用户 - 据公司内部人士称，该团队...",
+      "date": "2026-01-12",
+      "title_en": "Anthropic launches Cowork, a Claude Desktop agent that works in your files — no coding required",
+      "summary_en": "Anthropic released Cowork on Monday, a new AI agent capability that extends the power of its wildly successful Claude Code tool to non-technical users — and according to company insiders, the team bui…",
+      "title_zh": "Anthropic 推出 Cowork，这是一款可以在您的文件中工作的 Claude Desktop 代理 - 无需编码",
+      "summary_zh": "Anthropic 于周一发布了 Cowork，这是一种新的人工智能代理功能，可将其大获成功的 Claude Code 工具的功能扩展到非技术用户 - 据公司内部人士称，该团队...",
+      "image": ""
+    },
+    {
+      "title": "Nous Research 的 NousCoder-14B 是一款开源编码模型，恰逢 Claude Code 时刻",
+      "url": "https://venturebeat.com/technology/nous-researchs-nouscoder-14b-is-an-open-source-coding-model-landing-right-in",
+      "source": "VentureBeat AI",
+      "summary": "由加密风险投资公司 Paradigm 支持的开源人工智能初创公司 Nous Research 周一发布了一种新的竞争性编程模型，称该模型匹配或超过了数个…",
+      "date": "2026-01-07",
+      "title_en": "Nous Research's NousCoder-14B is an open-source coding model landing right in the Claude Code moment",
+      "summary_en": "Nous Research, the open-source artificial intelligence startup backed by crypto venture firm Paradigm, released a new competitive programming model on Monday that it says matches or exceeds several la…",
+      "title_zh": "Nous Research 的 NousCoder-14B 是一款开源编码模型，恰逢 Claude Code 时刻",
+      "summary_zh": "由加密风险投资公司 Paradigm 支持的开源人工智能初创公司 Nous Research 周一发布了一种新的竞争性编程模型，称该模型匹配或超过了数个…",
+      "image": ""
+    },
+    {
+      "title": "Claude Code 的创建者刚刚透露了他的工作流程，开发者们都疯了",
+      "url": "https://venturebeat.com/technology/the-creator-of-claude-code-just-revealed-his-workflow-and-developers-are",
+      "source": "VentureBeat AI",
+      "summary": "当世界上最先进的编码代理的创建者讲话时，硅谷不仅在听，而且还做笔记。在过去的一周里，工程界一直在剖析三个……",
+      "date": "2026-01-05",
+      "title_en": "The creator of Claude Code just revealed his workflow, and developers are losing their minds",
+      "summary_en": "When the creator of the world&#x27;s most advanced coding agent speaks, Silicon Valley doesn&#x27;t just listen — it takes notes.For the past week, the engineering community has been dissecting a thre…",
+      "title_zh": "Claude Code 的创建者刚刚透露了他的工作流程，开发者们都疯了",
+      "summary_zh": "当世界上最先进的编码代理的创建者讲话时，硅谷不仅在听，而且还做笔记。在过去的一周里，工程界一直在剖析三个……",
+      "image": ""
     }
   ]
 }
