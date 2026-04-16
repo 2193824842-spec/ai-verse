@@ -1,5 +1,6 @@
 ---
 import '../styles/global.css';
+import { TOOLS } from '../data/tools';
 
 interface Props {
   title: string;
@@ -21,6 +22,9 @@ const articlesHref = `${base}/${lang}/`;
     <meta name="description" content={description} />
     <meta name="google-site-verification" content="azDQKFOaF1WTTS9FXHmNz7lDeRDGITYuJfUqcTYDqEs" />
     <link rel="canonical" href={Astro.url.href} />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@700;800;900&display=swap" rel="stylesheet" />
     <!-- Open Graph -->
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
@@ -48,7 +52,6 @@ const articlesHref = `${base}/${lang}/`;
             <a href={`${base}/${lang}/tools/`} class="nav-primary">{lang === 'en' ? 'Tools' : '工具'}</a>
             <a href={`${base}/${lang}/news/`} class="nav-primary">{lang === 'en' ? 'News' : '资讯'}</a>
             <a href={`${base}/${lang}/about/`}>{lang === 'en' ? 'About' : '关于'}</a>
-            <a href="https://github.com" target="_blank">GitHub</a>
           </div>
           <div class="nav-actions">
             <button id="search-btn" aria-label="Search">
@@ -66,6 +69,57 @@ const articlesHref = `${base}/${lang}/`;
         <input id="search-overlay-input" type="search" placeholder={lang === 'en' ? 'Search articles...' : '搜索文章...'} autocomplete="off" />
       </div>
     </header>
+
+    <!-- ── 左侧导航侧边栏 ── -->
+    <aside class="sidebar" id="sidebar">
+      <button class="sidebar-toggle" id="sidebar-toggle" aria-label="Toggle sidebar">
+        <svg class="chevron-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+          <polyline points="9 18 15 12 9 6"/>
+        </svg>
+      </button>
+      <nav class="sidebar-nav">
+        <a href={`${base}/`} class="sidebar-item">
+          <span class="sidebar-icon">
+            <svg width="18" height="18" viewBox="0 0 256 256" fill="currentColor"><path d="M224,115.55V208a16,16,0,0,1-16,16H168a16,16,0,0,1-16-16V168a8,8,0,0,0-8-8H112a8,8,0,0,0-8,8v40a16,16,0,0,1-16,16H48a16,16,0,0,1-16-16V115.55a16,16,0,0,1,5.17-11.78l80-75.48a16,16,0,0,1,21.66,0l80,75.48A16,16,0,0,1,224,115.55Z"/></svg>
+          </span>
+          <span class="sidebar-label">{lang === 'en' ? 'Home' : '首页'}</span>
+        </a>
+        <a href={`${base}/${lang}/articles/`} class="sidebar-item">
+          <span class="sidebar-icon">
+            <svg width="18" height="18" viewBox="0 0 256 256" fill="currentColor"><path d="M213.66,82.34l-56-56A8,8,0,0,0,152,24H56A16,16,0,0,0,40,40V216a16,16,0,0,0,16,16H200a16,16,0,0,0,16-16V88A8,8,0,0,0,213.66,82.34ZM160,51.31,188.69,80H160ZM200,216H56V40h88V88a8,8,0,0,0,8,8h48V216Zm-32-80a8,8,0,0,1-8,8H96a8,8,0,0,1,0-16h64A8,8,0,0,1,168,136Zm0,32a8,8,0,0,1-8,8H96a8,8,0,0,1,0-16h64A8,8,0,0,1,168,168Z"/></svg>
+          </span>
+          <span class="sidebar-label">{lang === 'en' ? 'Articles' : '文章'}</span>
+        </a>
+        <button class="sidebar-item sidebar-item--tools" id="tools-toggle" aria-label="Tools menu">
+          <span class="sidebar-icon">
+            <svg width="18" height="18" viewBox="0 0 256 256" fill="currentColor"><path d="M221.86,114.72A8,8,0,0,0,216,112H168V88a8,8,0,0,0-4.42-7.14l-112-56A8,8,0,0,0,40,32V224a8,8,0,0,0,16,0V168h56v24a8,8,0,0,0,4.42,7.14l80,40A8,8,0,0,0,208,232V120A8,8,0,0,0,221.86,114.72ZM56,152V52.94l96,48V152Z"/></svg>
+          </span>
+          <span class="sidebar-label">{lang === 'en' ? 'Tools' : '工具'}</span>
+          <svg class="tools-chevron sidebar-label" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="6 9 12 15 18 9"/>
+          </svg>
+        </button>
+        <div class="sidebar-submenu" id="tools-submenu">
+          {TOOLS.map(cat => (
+            <a href={`${base}/${lang}/tools/#${cat.slug}`} class="sidebar-subitem">
+              <span>{cat.category}</span>
+            </a>
+          ))}
+        </div>
+        <a href={`${base}/${lang}/news/`} class="sidebar-item">
+          <span class="sidebar-icon">
+            <svg width="18" height="18" viewBox="0 0 256 256" fill="currentColor"><path d="M216,40H40A16,16,0,0,0,24,56V200a16,16,0,0,0,16,16H216a16,16,0,0,0,16-16V56A16,16,0,0,0,216,40Zm0,160H40V56H216V200ZM184,96a8,8,0,0,1-8,8H80a8,8,0,0,1,0-16h96A8,8,0,0,1,184,96Zm0,32a8,8,0,0,1-8,8H80a8,8,0,0,1,0-16h96A8,8,0,0,1,184,128Zm0,32a8,8,0,0,1-8,8H80a8,8,0,0,1,0-16h96A8,8,0,0,1,184,160Z"/></svg>
+          </span>
+          <span class="sidebar-label">{lang === 'en' ? 'News' : '资讯'}</span>
+        </a>
+        <a href={`${base}/${lang}/about/`} class="sidebar-item">
+          <span class="sidebar-icon">
+            <svg width="18" height="18" viewBox="0 0 256 256" fill="currentColor"><path d="M128,24A104,104,0,1,0,232,128,104.11,104.11,0,0,0,128,24Zm0,192a88,88,0,1,1,88-88A88.1,88.1,0,0,1,128,216Zm16-40a8,8,0,0,1-8,8,16,16,0,0,1-16-16V128a8,8,0,0,1,0-16,16,16,0,0,1,16,16v40A8,8,0,0,1,144,176ZM112,84a16,16,0,1,1,16,16A16,16,0,0,1,112,84Z"/></svg>
+          </span>
+          <span class="sidebar-label">{lang === 'en' ? 'About' : '关于'}</span>
+        </a>
+      </nav>
+    </aside>
 
     <main class="container" style="padding-top: 56px;">
       <slot />
@@ -85,6 +139,152 @@ const articlesHref = `${base}/${lang}/`;
     </footer>
 
     <style>
+      /* ── Sidebar ── */
+      .sidebar {
+        position: fixed;
+        left: 0;
+        top: var(--header-h, 56px);
+        bottom: 0;
+        width: 48px;
+        background: var(--bg-card);
+        border-right: 1px solid var(--border);
+        z-index: 90;
+        transition: width 0.22s cubic-bezier(0.4,0,0.2,1);
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+      }
+      .sidebar[data-open] {
+        width: 200px;
+        box-shadow: 4px 0 24px rgba(0,0,0,0.18);
+      }
+      .sidebar-toggle {
+        width: 48px;
+        height: 48px;
+        flex-shrink: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: none;
+        border: none;
+        border-bottom: 1px solid var(--border);
+        color: var(--text-dim);
+        cursor: pointer;
+        transition: color 0.15s, background 0.15s;
+      }
+      .sidebar-toggle:hover { color: var(--accent); background: rgba(79,172,254,0.06); }
+      .sidebar-nav {
+        display: flex;
+        flex-direction: column;
+        padding: 8px 0;
+        flex: 1;
+      }
+      .sidebar-item {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        height: 44px;
+        padding: 0 15px;
+        color: var(--text-dim);
+        text-decoration: none;
+        white-space: nowrap;
+        transition: color 0.15s, background 0.15s;
+        border-left: 2px solid transparent;
+        flex-shrink: 0;
+      }
+      .sidebar-item:hover {
+        color: var(--accent);
+        background: rgba(79,172,254,0.06);
+        border-left-color: var(--accent);
+        text-decoration: none;
+      }
+      .sidebar-icon {
+        width: 18px;
+        height: 18px;
+        flex-shrink: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      .sidebar-label {
+        font-size: 0.875rem;
+        font-weight: 500;
+        opacity: 0;
+        transition: opacity 0.15s;
+      }
+      .sidebar[data-open] .sidebar-label { opacity: 1; }
+
+      @media (max-width: 640px) {
+        .sidebar { display: none; }
+      }
+
+      /* Chevron rotation */
+      .chevron-icon {
+        transition: transform 0.22s cubic-bezier(0.4,0,0.2,1);
+      }
+      .sidebar[data-open] .chevron-icon {
+        transform: rotate(180deg);
+      }
+
+      /* Tools toggle button */
+      .sidebar-item--tools {
+        background: none;
+        border: none;
+        border-left: 2px solid transparent;
+        width: 100%;
+        cursor: pointer;
+        padding: 0 15px;
+        margin: 0;
+        font-family: inherit;
+        font-size: inherit;
+        color: var(--text-dim);
+        box-sizing: border-box;
+      }
+      .sidebar-item--tools:hover {
+        color: var(--accent);
+        background: rgba(79,172,254,0.06);
+        border-left-color: var(--accent);
+        text-decoration: none;
+      }
+
+      /* Tools submenu */
+      .sidebar-submenu {
+        display: none;
+        flex-direction: column;
+        overflow: hidden;
+      }
+      .sidebar[data-open] .sidebar-submenu[data-open] {
+        display: flex;
+      }
+      .sidebar-subitem {
+        display: flex;
+        align-items: center;
+        height: 34px;
+        padding: 0 12px 0 46px;
+        color: var(--text-dim);
+        text-decoration: none;
+        font-size: 0.78rem;
+        white-space: nowrap;
+        transition: color 0.15s, background 0.15s;
+        border-left: 2px solid transparent;
+      }
+      .sidebar-subitem:hover {
+        color: var(--accent);
+        background: rgba(79,172,254,0.06);
+        border-left-color: var(--accent);
+        text-decoration: none;
+      }
+
+      /* Tools expand chevron */
+      .tools-chevron {
+        margin-left: auto;
+        transition: transform 0.2s;
+        flex-shrink: 0;
+      }
+      .sidebar-item--tools[data-open] .tools-chevron {
+        transform: rotate(180deg);
+      }
+
       .logo-ai {
         background: linear-gradient(135deg, #4FACFE 0%, #A855F7 100%);
         -webkit-background-clip: text;
@@ -92,7 +292,8 @@ const articlesHref = `${base}/${lang}/`;
         background-clip: text;
       }
       .logo-dot {
-        color: var(--color-accent, #A855F7);
+        color: #A855F7;
+        font-weight: 800;
       }
       .logo-blog {
         /* inherits default logo color */
@@ -160,6 +361,42 @@ const articlesHref = `${base}/${lang}/`;
     </style>
 
     <script>
+      // Sidebar toggle
+      const sidebar = document.getElementById('sidebar') as HTMLElement;
+      const sidebarToggle = document.getElementById('sidebar-toggle') as HTMLButtonElement;
+      const toolsToggle = document.getElementById('tools-toggle') as HTMLButtonElement;
+      const toolsSubmenu = document.getElementById('tools-submenu') as HTMLDivElement;
+
+      sidebarToggle?.addEventListener('click', (e) => {
+        e.stopPropagation();
+        if (sidebar.hasAttribute('data-open')) {
+          sidebar.removeAttribute('data-open');
+          toolsToggle?.removeAttribute('data-open');
+          toolsSubmenu?.removeAttribute('data-open');
+        } else {
+          sidebar.setAttribute('data-open', '');
+        }
+      });
+
+      toolsToggle?.addEventListener('click', (e) => {
+        e.stopPropagation();
+        if (toolsToggle.hasAttribute('data-open')) {
+          toolsToggle.removeAttribute('data-open');
+          toolsSubmenu?.removeAttribute('data-open');
+        } else {
+          toolsToggle.setAttribute('data-open', '');
+          toolsSubmenu?.setAttribute('data-open', '');
+        }
+      });
+
+      document.addEventListener('click', (e) => {
+        if (sidebar?.hasAttribute('data-open') && !sidebar.contains(e.target as Node)) {
+          sidebar.removeAttribute('data-open');
+          toolsToggle?.removeAttribute('data-open');
+          toolsSubmenu?.removeAttribute('data-open');
+        }
+      });
+
       // Theme toggle
       const themeBtn = document.getElementById('theme-btn') as HTMLButtonElement;
       const iconDark = document.getElementById('theme-icon-dark') as SVGElement;
