@@ -1,0 +1,655 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { getCollection } from 'astro:content';
+import { TOOLS } from '../../data/tools';
+import newsData from '../../data/news.json';
+
+const allPosts = await getCollection('posts-zh');
+const latest = allPosts
+  .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf())
+  .slice(0, 3);
+
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+
+function formatDate(date: Date) {
+  return date.toLocaleDateString('zh-CN', { month: '2-digit', day: '2-digit' });
+}
+
+// 分类配色
+const CAT_STYLE: Record<string, { emoji: string; color: string; glow: string }> = {
+  coding:       { emoji: '💻', color: '#58a6ff', glow: 'rgba(88,166,255,0.15)' },
+  models:       { emoji: '🤖', color: '#bc8cff', glow: 'rgba(188,140,255,0.15)' },
+  writing:      { emoji: '✍️', color: '#3fb950', glow: 'rgba(63,185,80,0.15)' },
+  image:        { emoji: '🎨', color: '#f79000', glow: 'rgba(247,144,0,0.15)' },
+  video:        { emoji: '🎬', color: '#f85149', glow: 'rgba(248,81,73,0.15)' },
+  productivity: { emoji: '⚡', color: '#39d353', glow: 'rgba(57,211,83,0.15)' },
+  audio:        { emoji: '🎵', color: '#f59e0b', glow: 'rgba(245,158,11,0.15)' },
+};
+
+// 统计
+const totalTools = TOOLS.reduce((sum, cat) => sum + cat.items.length, 0);
+const totalPosts = allPosts.length;
+
+// 热门工具（每个分类取前 2 个）
+const hotTools = TOOLS.flatMap(cat =>
+  cat.items.slice(0, 2).map(t => ({ ...t, catStyle: CAT_STYLE[cat.slug] ?? CAT_STYLE.coding }))
+);
+
+// 最新资讯（取 4 条）
+const latestNews = (newsData.items ?? []).slice(0, 4);
+---
+
+<BaseLayout
+  title="AI工具评测与教程 2026 · 国内免费AI工具推荐"
+  description="2026年最全AI工具评测与使用教程，涵盖国内免费AI工具、AI编程助手、AI绘图工具推荐。"
+  lang="zh"
+>
+
+<!-- ① Hero -->
+<section class="hero">
+  <div class="hero-bg-dots"></div>
+  <div class="hero-inner">
+    <div class="hero-badge">2026 · 持续更新</div>
+    <h1 class="hero-title">
+      发现最好用的<br/>
+      <span class="hero-gradient">AI 工具</span>
+    </h1>
+    <p class="hero-sub">精选评测 · 实用教程 · 每日资讯，省去你筛选工具的时间</p>
+
+    <!-- 搜索框 -->
+    <div class="search-wrap">
+      <svg class="search-icon" viewBox="0 0 20 20" fill="none">
+        <circle cx="9" cy="9" r="6" stroke="currentColor" stroke-width="1.8"/>
+        <path d="M13.5 13.5L17 17" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+      </svg>
+      <input
+        id="tool-search"
+        type="text"
+        class="search-input"
+        placeholder="搜索工具，如 Cursor、Midjourney..."
+        autocomplete="off"
+      />
+    </div>
+
+    <!-- CTA 按钮 -->
+    <div class="hero-ctas">
+      <a href={`${base}/zh/tools/`} class="cta-primary">探索全部工具 →</a>
+      <a href={`${base}/zh/news/`} class="cta-secondary">每日 AI 资讯</a>
+    </div>
+
+    <!-- 统计 -->
+    <div class="hero-stats">
+      <div class="stat-item">
+        <span class="stat-num">{totalTools}+</span>
+        <span class="stat-label">精选工具</span>
+      </div>
+      <div class="stat-divider"></div>
+      <div class="stat-item">
+        <span class="stat-num">{TOOLS.length}</span>
+        <span class="stat-label">工具分类</span>
+      </div>
+      <div class="stat-divider"></div>
+      <div class="stat-item">
+        <span class="stat-num">{totalPosts}+</span>
+        <span class="stat-label">评测教程</span>
+      </div>
+      <div class="stat-divider"></div>
+      <div class="stat-item">
+        <span class="stat-num">每日</span>
+        <span class="stat-label">自动更新</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 搜索结果覆盖层 -->
+<div id="search-results" class="search-results" style="display:none">
+  <ul id="search-list" class="search-list"></ul>
+  <div id="search-empty" class="search-empty" style="display:none">未找到相关工具</div>
+</div>
+
+<!-- ② 工具分类 -->
+<section class="home-section">
+  <div class="section-hd">
+    <h2>工具分类</h2>
+    <a href={`${base}/zh/tools/`} class="more-link">全部工具 →</a>
+  </div>
+  <div class="cat-grid">
+    {TOOLS.map(cat => {
+      const s = CAT_STYLE[cat.slug] ?? { emoji: '🔧', color: '#58a6ff', glow: 'rgba(88,166,255,0.15)' };
+      return (
+        <a
+          href={`${base}/zh/tools/#${cat.slug}`}
+          class="cat-card"
+          style={`--cat-color:${s.color};--cat-glow:${s.glow}`}
+        >
+          <span class="cat-emoji">{s.emoji}</span>
+          <div class="cat-info">
+            <span class="cat-name">{cat.category}</span>
+            <span class="cat-count">{cat.items.length} 个工具</span>
+          </div>
+          <svg class="cat-arrow" viewBox="0 0 16 16" fill="none">
+            <path d="M6 12l4-4-4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+          </svg>
+        </a>
+      );
+    })}
+  </div>
+</section>
+
+<!-- ③ 热门工具 -->
+<section class="home-section">
+  <div class="section-hd">
+    <h2>热门工具</h2>
+    <a href={`${base}/zh/tools/`} class="more-link">查看全部 →</a>
+  </div>
+  <ul class="hot-tools-grid">
+    {hotTools.map(tool => {
+      const domain = new URL(tool.url).hostname;
+      return (
+        <li class="htool-card">
+          <a href={`${base}/zh/tools/${tool.slug}/`} class="htool-link" style={`--cat-color:${tool.catStyle.color}`}>
+            <img
+              src={`https://www.google.com/s2/favicons?domain=${domain}&sz=64`}
+              alt={tool.name}
+              width="32" height="32"
+              loading="lazy"
+              class="htool-icon"
+            />
+            <div class="htool-info">
+              <span class="htool-name">{tool.name}</span>
+              <span class="htool-desc">{tool.desc}</span>
+            </div>
+          </a>
+        </li>
+      );
+    })}
+  </ul>
+</section>
+
+<!-- ④ 每日资讯 -->
+{latestNews.length > 0 && (
+  <section class="home-section">
+    <div class="section-hd">
+      <h2>每日资讯</h2>
+      <a href={`${base}/zh/news/`} class="more-link">更多资讯 →</a>
+    </div>
+    <ul class="news-list">
+      {latestNews.map(item => (
+        <li class="news-item">
+          <a href={item.url} target="_blank" rel="noopener noreferrer" class="news-link">
+            <span class="news-source">{item.source}</span>
+            <span class="news-title">{(item as any).title_zh || item.title}</span>
+            <span class="news-date">{item.date?.slice(5, 10) ?? ''}</span>
+          </a>
+        </li>
+      ))}
+    </ul>
+  </section>
+)}
+
+<!-- ⑤ 最新文章 -->
+{latest.length > 0 && (
+  <section class="home-section">
+    <div class="section-hd">
+      <h2>最新文章</h2>
+      <a href={`${base}/zh/articles/`} class="more-link">查看全部 →</a>
+    </div>
+    <ul class="post-grid">
+      {latest.map(post => (
+        <li class="post-card">
+          <a href={`${base}/zh/posts/${post.slug}/`} class="post-card-link">
+            <div class="post-card-cover-wrap">
+              {post.data.cover
+                ? <img src={post.data.cover} alt={post.data.title} class="post-card-cover" loading="lazy" />
+                : <div class="post-card-cover post-card-cover--placeholder" />
+              }
+            </div>
+            <div class="post-card-body">
+              <div class="post-card-meta">
+                {post.data.tags[0] && <span class="post-card-tag">#{post.data.tags[0]}</span>}
+                <span class="post-card-date">{formatDate(post.data.date)}</span>
+              </div>
+              <h3 class="post-card-title">{post.data.title}</h3>
+              {post.data.summary && <p class="post-card-summary">{post.data.summary}</p>}
+            </div>
+          </a>
+        </li>
+      ))}
+    </ul>
+  </section>
+)}
+
+</BaseLayout>
+
+<!-- 搜索 JS（工具快速搜索） -->
+<script define:vars={{ toolsJson: TOOLS.flatMap(c => c.items.map(t => ({ name: t.name, slug: t.slug, desc: t.desc, cat: c.category }))) }}>
+  const input = document.getElementById('tool-search');
+  const resultsBox = document.getElementById('search-results');
+  const list = document.getElementById('search-list');
+  const emptyTip = document.getElementById('search-empty');
+  const base = document.querySelector('meta[name="base-url"]')?.getAttribute('content') || '';
+
+  input.addEventListener('input', () => {
+    const q = input.value.trim().toLowerCase();
+    if (!q) { resultsBox.style.display = 'none'; return; }
+
+    const matches = toolsJson.filter(t =>
+      t.name.toLowerCase().includes(q) || t.desc.toLowerCase().includes(q)
+    ).slice(0, 8);
+
+    resultsBox.style.display = '';
+    list.innerHTML = '';
+    if (matches.length === 0) {
+      emptyTip.style.display = '';
+      return;
+    }
+    emptyTip.style.display = 'none';
+    matches.forEach(t => {
+      const li = document.createElement('li');
+      li.innerHTML = `<a href="${base}/zh/tools/${t.slug}/" class="sresult-link">
+        <span class="sresult-name">${t.name}</span>
+        <span class="sresult-cat">${t.cat}</span>
+        <span class="sresult-desc">${t.desc}</span>
+      </a>`;
+      list.appendChild(li);
+    });
+  });
+
+  input.addEventListener('keydown', e => {
+    if (e.key === 'Escape') { input.value = ''; resultsBox.style.display = 'none'; }
+  });
+
+  document.addEventListener('click', e => {
+    if (!resultsBox.contains(e.target) && e.target !== input) {
+      resultsBox.style.display = 'none';
+    }
+  });
+</script>
+
+<style>
+/* ===== Hero ===== */
+.hero {
+  position: relative;
+  padding: 4rem 0 3rem;
+  text-align: center;
+  margin-bottom: 3.5rem;
+  overflow: hidden;
+}
+
+/* 点阵背景 */
+.hero-bg-dots {
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(circle, var(--border) 1px, transparent 1px);
+  background-size: 28px 28px;
+  opacity: 0.45;
+  pointer-events: none;
+}
+/* 底部渐出 */
+.hero::after {
+  content: '';
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  height: 80px;
+  background: linear-gradient(to bottom, transparent, var(--bg));
+  pointer-events: none;
+}
+
+.hero-inner {
+  position: relative;
+  z-index: 1;
+  max-width: 620px;
+  margin: 0 auto;
+}
+
+.hero-badge {
+  display: inline-block;
+  padding: 0.25rem 0.85rem;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  font-size: 0.75rem;
+  color: var(--text-dim);
+  font-family: var(--font-mono);
+  margin-bottom: 1.2rem;
+  background: var(--bg-card);
+}
+
+.hero-title {
+  font-size: clamp(2rem, 6vw, 3rem);
+  font-weight: 800;
+  line-height: 1.15;
+  letter-spacing: -0.03em;
+  margin: 0 0 0.75rem;
+  color: var(--text);
+}
+
+.hero-gradient {
+  background: linear-gradient(135deg, var(--accent) 0%, var(--accent-2) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.hero-sub {
+  color: var(--text-dim);
+  font-size: 1rem;
+  margin: 0 0 1.8rem;
+  line-height: 1.6;
+}
+
+/* 搜索框 */
+.search-wrap {
+  position: relative;
+  max-width: 500px;
+  margin: 0 auto 1.25rem;
+}
+.search-icon {
+  position: absolute;
+  left: 1rem; top: 50%; transform: translateY(-50%);
+  width: 17px; height: 17px;
+  color: var(--text-dim);
+  pointer-events: none;
+}
+.search-input {
+  width: 100%;
+  padding: 0.8rem 1.2rem 0.8rem 2.75rem;
+  border: 1.5px solid var(--border);
+  border-radius: 14px;
+  background: var(--bg-card);
+  color: var(--text);
+  font-size: 0.9rem;
+  outline: none;
+  transition: border-color 0.15s, box-shadow 0.15s;
+}
+.search-input:focus {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px rgba(88,166,255,0.12);
+}
+.search-input::placeholder { color: var(--text-dim); }
+
+/* CTA 按钮 */
+.hero-ctas {
+  display: flex;
+  gap: 0.75rem;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-bottom: 2rem;
+}
+.cta-primary {
+  padding: 0.6rem 1.4rem;
+  background: var(--accent);
+  color: #fff;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  text-decoration: none;
+  transition: opacity 0.15s, transform 0.15s;
+}
+.cta-primary:hover { opacity: 0.88; transform: translateY(-1px); text-decoration: none; }
+.cta-secondary {
+  padding: 0.6rem 1.4rem;
+  border: 1.5px solid var(--border);
+  color: var(--text-dim);
+  border-radius: 8px;
+  font-size: 0.9rem;
+  text-decoration: none;
+  transition: border-color 0.15s, color 0.15s, transform 0.15s;
+  background: var(--bg-card);
+}
+.cta-secondary:hover { border-color: var(--accent); color: var(--accent); transform: translateY(-1px); text-decoration: none; }
+
+/* 统计 */
+.hero-stats {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0;
+  flex-wrap: wrap;
+}
+.stat-item {
+  display: flex; flex-direction: column; align-items: center;
+  padding: 0 1.4rem;
+}
+.stat-num { font-size: 1.3rem; font-weight: 700; color: var(--text); }
+.stat-label { font-size: 0.72rem; color: var(--text-dim); margin-top: 0.1rem; }
+.stat-divider { width: 1px; height: 1.8rem; background: var(--border); flex-shrink: 0; }
+@media (max-width: 480px) {
+  .stat-divider { display: none; }
+  .stat-item { padding: 0.3rem 0.8rem; }
+}
+
+/* ===== 搜索结果下拉 ===== */
+.search-results {
+  max-width: 500px;
+  margin: -1.5rem auto 2rem;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.2);
+  position: relative;
+  z-index: 10;
+}
+.search-list { list-style: none; padding: 0.4rem 0; margin: 0; }
+.sresult-link {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  gap: 0.5rem 0.75rem;
+  padding: 0.6rem 1rem;
+  text-decoration: none;
+  color: inherit;
+  transition: background 0.1s;
+}
+.sresult-link:hover { background: rgba(88,166,255,0.07); text-decoration: none; }
+.sresult-name { font-size: 0.9rem; font-weight: 600; color: var(--text); }
+.sresult-cat {
+  font-size: 0.7rem; color: var(--accent);
+  background: rgba(88,166,255,0.1); border-radius: 4px;
+  padding: 0.05rem 0.4rem; white-space: nowrap;
+}
+.sresult-desc {
+  grid-column: 1 / -1;
+  font-size: 0.75rem; color: var(--text-dim);
+  padding-left: 0; margin-top: -0.2rem;
+  overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+}
+.search-empty {
+  text-align: center; padding: 1rem;
+  font-size: 0.875rem; color: var(--text-dim);
+}
+
+/* ===== Section 通用 ===== */
+.home-section { margin-bottom: 3.5rem; }
+.section-hd {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  border-bottom: 2px solid var(--border);
+  padding-bottom: 0.5rem;
+  margin-bottom: 1.25rem;
+}
+.section-hd h2 { font-size: 1.05rem; font-weight: 700; margin: 0; color: var(--text); }
+.more-link { font-size: 0.82rem; color: var(--accent); text-decoration: none; }
+.more-link:hover { text-decoration: underline; }
+
+/* ===== 分类卡片 ===== */
+.cat-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.75rem;
+}
+@media (max-width: 720px) { .cat-grid { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 420px) { .cat-grid { grid-template-columns: 1fr; } }
+
+.cat-card {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.9rem 1rem;
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  background: var(--bg-card);
+  text-decoration: none;
+  color: inherit;
+  transition: border-color 0.2s, transform 0.15s, box-shadow 0.2s;
+  position: relative;
+  overflow: hidden;
+}
+.cat-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: var(--cat-glow);
+  opacity: 0;
+  transition: opacity 0.2s;
+}
+.cat-card:hover {
+  border-color: var(--cat-color);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px var(--cat-glow);
+  text-decoration: none;
+}
+.cat-card:hover::before { opacity: 1; }
+.cat-emoji {
+  font-size: 1.6rem;
+  line-height: 1;
+  flex-shrink: 0;
+  position: relative;
+}
+.cat-info {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-width: 0;
+  position: relative;
+}
+.cat-name { font-size: 0.88rem; font-weight: 600; color: var(--text); }
+.cat-count { font-size: 0.7rem; color: var(--text-dim); margin-top: 0.1rem; }
+.cat-arrow {
+  width: 16px; height: 16px;
+  color: var(--text-dim);
+  flex-shrink: 0;
+  transition: color 0.15s, transform 0.15s;
+  position: relative;
+}
+.cat-card:hover .cat-arrow { color: var(--cat-color); transform: translateX(2px); }
+
+/* ===== 热门工具 ===== */
+.hot-tools-grid {
+  list-style: none;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.6rem;
+}
+@media (max-width: 860px) { .hot-tools-grid { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 480px) { .hot-tools-grid { grid-template-columns: 1fr; } }
+
+.htool-link {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+  padding: 0.7rem 0.9rem;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  background: var(--bg-card);
+  text-decoration: none;
+  color: inherit;
+  transition: border-color 0.15s, transform 0.12s, box-shadow 0.15s;
+}
+.htool-link:hover {
+  border-color: var(--cat-color);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 14px rgba(0,0,0,0.1);
+  text-decoration: none;
+}
+.htool-icon { border-radius: 8px; flex-shrink: 0; }
+.htool-info { flex: 1; min-width: 0; }
+.htool-name {
+  display: block;
+  font-size: 0.85rem; font-weight: 600; color: var(--text);
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+.htool-link:hover .htool-name { color: var(--cat-color); }
+.htool-desc {
+  display: block;
+  font-size: 0.7rem; color: var(--text-dim);
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+  margin-top: 0.1rem;
+}
+
+/* ===== 每日资讯 ===== */
+.news-list { list-style: none; padding: 0; display: flex; flex-direction: column; }
+.news-item { border-bottom: 1px solid var(--border); }
+.news-item:last-child { border-bottom: none; }
+.news-link {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.7rem 0;
+  text-decoration: none;
+  color: inherit;
+  transition: color 0.15s;
+}
+.news-link:hover { text-decoration: none; }
+.news-link:hover .news-title { color: var(--accent); }
+.news-source {
+  font-size: 0.7rem; font-family: var(--font-mono);
+  color: var(--accent); background: rgba(88,166,255,0.1);
+  border-radius: 4px; padding: 0.1rem 0.4rem;
+  white-space: nowrap; flex-shrink: 0;
+}
+.news-title {
+  font-size: 0.875rem; color: var(--text);
+  overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+}
+.news-date { font-size: 0.72rem; color: var(--text-dim); white-space: nowrap; flex-shrink: 0; font-family: var(--font-mono); }
+
+/* ===== 最新文章 ===== */
+.post-grid {
+  list-style: none; padding: 0;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.1rem;
+}
+@media (max-width: 860px) { .post-grid { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 540px) { .post-grid { grid-template-columns: 1fr; } }
+
+.post-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  overflow: hidden;
+  transition: border-color 0.2s, transform 0.15s, box-shadow 0.2s;
+}
+.post-card:hover {
+  border-color: var(--accent);
+  transform: translateY(-3px);
+  box-shadow: 0 8px 24px rgba(0,0,0,0.12);
+}
+.post-card-link { display: flex; flex-direction: column; height: 100%; text-decoration: none; color: inherit; }
+.post-card-link:hover { text-decoration: none; }
+.post-card-cover-wrap { width: 100%; aspect-ratio: 16/9; overflow: hidden; background: var(--border); }
+.post-card-cover { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 0.3s; }
+.post-card:hover .post-card-cover { transform: scale(1.04); }
+.post-card-cover--placeholder { width: 100%; height: 100%; background: linear-gradient(135deg, var(--border) 0%, var(--bg) 100%); }
+.post-card-body { padding: 0.85rem 1rem 1rem; display: flex; flex-direction: column; flex: 1; }
+.post-card-meta { display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.45rem; }
+.post-card-tag {
+  font-size: 0.7rem; color: var(--accent);
+  background: rgba(88,166,255,0.1); border-radius: 4px; padding: 0.1rem 0.45rem;
+}
+.post-card-date { font-size: 0.7rem; color: var(--text-dim); font-family: var(--font-mono); }
+.post-card-title {
+  font-size: 0.875rem; font-weight: 600; margin: 0 0 0.35rem; color: var(--text);
+  line-height: 1.45;
+  display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;
+}
+.post-card:hover .post-card-title { color: var(--accent); }
+.post-card-summary {
+  font-size: 0.75rem; color: var(--text-dim); line-height: 1.5; margin: 0;
+  display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;
+}
+</style>

@@ -1,0 +1,127 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+---
+
+<BaseLayout title="搜索 · AI Verse" description="搜索文章">
+  <div class="page-header">
+    <h1 id="search-heading">搜索</h1>
+  </div>
+
+  <div class="search-bar-wrap">
+    <input id="search-input" type="search" placeholder="输入关键词..." autocomplete="off" />
+  </div>
+
+  <div id="search-status" class="search-status"></div>
+  <ul id="results" class="post-list"></ul>
+</BaseLayout>
+
+<script define:vars={{ base }}>
+  const input = document.getElementById('search-input');
+  const resultsList = document.getElementById('results');
+  const statusEl = document.getElementById('search-status');
+  const heading = document.getElementById('search-heading');
+
+  const params = new URLSearchParams(window.location.search);
+  const q = params.get('q') || '';
+  const lang = params.get('lang') || 'zh';
+
+  // Update heading language
+  heading.textContent = lang === 'en' ? 'Search' : '搜索';
+  input.placeholder = lang === 'en' ? 'Search articles...' : '输入关键词...';
+  input.value = q;
+
+  // Re-search on input change (update URL too)
+  input.addEventListener('input', () => {
+    const newQ = input.value.trim();
+    const url = new URL(window.location.href);
+    url.searchParams.set('q', newQ);
+    url.searchParams.set('lang', lang);
+    window.history.replaceState({}, '', url);
+    if (allPosts.length) renderResults(newQ);
+  });
+
+  let allPosts = [];
+
+  async function loadAndSearch() {
+    if (!q) {
+      statusEl.textContent = lang === 'en' ? 'Enter a keyword to search.' : '请输入关键词开始搜索。';
+      return;
+    }
+    statusEl.textContent = lang === 'en' ? 'Searching...' : '搜索中...';
+    try {
+      const res = await fetch(`${base}/search-index.json`);
+      allPosts = await res.json();
+      renderResults(q);
+    } catch {
+      statusEl.textContent = lang === 'en' ? 'Failed to load search index.' : '加载搜索索引失败。';
+    }
+  }
+
+  function renderResults(query) {
+    if (!query.trim()) {
+      statusEl.textContent = lang === 'en' ? 'Enter a keyword to search.' : '请输入关键词开始搜索。';
+      resultsList.innerHTML = '';
+      return;
+    }
+    const q = query.toLowerCase();
+    const filtered = allPosts.filter(p => {
+      if (p.lang !== lang) return false;
+      const haystack = [p.title, p.summary, ...(p.tags || [])].join(' ').toLowerCase();
+      return haystack.includes(q);
+    });
+
+    statusEl.textContent = lang === 'en'
+      ? `${filtered.length} result${filtered.length !== 1 ? 's' : ''} for "${query}"`
+      : `找到 ${filtered.length} 篇关于「${query}」的文章`;
+
+    if (!filtered.length) {
+      resultsList.innerHTML = '';
+      return;
+    }
+
+    resultsList.innerHTML = filtered.map(p => {
+      const href = `${base}/${p.lang}/posts/${p.slug}/`;
+      const cover = p.cover ? `<a href="${href}"><img src="${p.cover}" alt="${p.title}" class="post-card-cover" /></a>` : '';
+      const tags = (p.tags || []).map(t =>
+        `<a href="${base}/${p.lang}/tags/${t}/" class="tag">#${t}</a>`
+      ).join('');
+      return `
+        <li class="post-card">
+          ${cover}
+          <div class="post-card-meta">
+            <span class="badge" style="color:var(--accent-2);border-color:rgba(188,140,255,.3);background:rgba(188,140,255,.07)">${p.lang === 'en' ? 'EN' : '中文'}</span>
+          </div>
+          <h2><a href="${href}">${p.title}</a></h2>
+          ${p.summary ? `<p class="post-summary">${p.summary}</p>` : ''}
+          <div class="tag-list">${tags}</div>
+        </li>`;
+    }).join('');
+  }
+
+  loadAndSearch();
+</script>
+
+<style>
+  .search-bar-wrap {
+    margin-bottom: 24px;
+  }
+  #search-input {
+    width: 100%;
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    color: var(--text);
+    font-size: 16px;
+    padding: 12px 16px;
+    outline: none;
+    transition: border-color 0.15s;
+  }
+  #search-input:focus { border-color: var(--accent); }
+  .search-status {
+    color: var(--text-dim);
+    font-size: 14px;
+    margin-bottom: 20px;
+    font-family: var(--font-mono);
+  }
+</style>

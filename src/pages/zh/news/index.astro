@@ -1,0 +1,747 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import newsData from '../../../data/news.json';
+
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+
+const SOURCE_COLORS: Record<string, string> = {
+  '量子位':         '#3b82f6',
+  '机器之心':       '#8b5cf6',
+  '少数派':         '#10b981',
+  '36Kr':          '#f59e0b',
+  '爱范儿':         '#ef4444',
+  '极客公园':       '#06b6d4',
+  '新智元':         '#6366f1',
+  '虎嗅':          '#f97316',
+  '钛媒体':         '#84cc16',
+  'IT之家':         '#ec4899',
+  'TechCrunch AI':  '#7c3aed',
+  'The Verge AI':   '#0ea5e9',
+  'VentureBeat AI': '#d97706',
+  'MIT Tech Review': '#059669',
+  'Google AI':      '#4285f4',
+  'Hugging Face':   '#ff9d00',
+};
+
+const SOURCE_DOMAINS: Record<string, string> = {
+  '量子位':         'qbitai.com',
+  '机器之心':       'jiqizhixin.com',
+  '少数派':         'sspai.com',
+  '36Kr':          '36kr.com',
+  '爱范儿':         'ifanr.com',
+  '极客公园':       'geekpark.net',
+  '新智元':         'aizhuanzhu.com',
+  '虎嗅':          'huxiu.com',
+  '钛媒体':         'tmtpost.com',
+  'IT之家':         'ithome.com',
+  'TechCrunch AI':  'techcrunch.com',
+  'The Verge AI':   'theverge.com',
+  'VentureBeat AI': 'venturebeat.com',
+  'MIT Tech Review': 'technologyreview.com',
+  'Google AI':      'blog.google',
+  'Hugging Face':   'huggingface.co',
+};
+
+const items = newsData.items as {
+  title: string; title_zh: string; title_en: string;
+  url: string; source: string;
+  summary: string; summary_zh: string; summary_en: string;
+  date: string;
+  image?: string;
+}[];
+
+const CAT_KEYWORDS: Record<string, string[]> = {
+  '大模型': ['模型', 'gpt', 'claude', 'gemini', 'llm', '语言模型', 'llama', 'deepseek', 'qwen', 'grok', 'mistral', 'o1', 'o3', 'phi'],
+  '图像视频': ['图像', '视频', 'sora', '文生图', '生图', 'dall', 'stable diffusion', 'midjourney', '文生视频', '图生视频', 'kling', 'runway', 'imagen'],
+  '行业动态': ['融资', '收购', '估值', '上市', '投资', '亿美元', '裁员', '合并'],
+  '工具产品': ['发布', '推出', '上线', '更新', '版本', '功能', '新功能', '升级'],
+};
+
+function getCat(item: { title_zh?: string; title?: string }): string {
+  const text = ((item.title_zh || item.title) ?? '').toLowerCase();
+  for (const [cat, kws] of Object.entries(CAT_KEYWORDS)) {
+    if (kws.some(kw => text.includes(kw))) return cat;
+  }
+  return '其他';
+}
+
+function getReadTime(item: { summary_zh?: string; summary?: string }): number {
+  return Math.max(1, Math.ceil(((item.summary_zh || item.summary) ?? '').length / 400));
+}
+
+function getTimeLabel(dateStr: string): string {
+  const t = dateStr?.slice(11, 16);
+  return t && t !== '00:00' ? t : dateStr?.slice(5, 10) ?? '';
+}
+
+const sources = [...new Set(items.map(i => i.source))];
+
+// 按日期分组
+const grouped: Record<string, typeof items> = {};
+for (const item of items) {
+  const day = item.date?.slice(0, 10) ?? 'unknown';
+  if (!grouped[day]) grouped[day] = [];
+  grouped[day].push(item);
+}
+const days = Object.keys(grouped).sort((a, b) => b.localeCompare(a));
+
+function dayLabel(d: string) {
+  const today = new Date().toISOString().slice(0, 10);
+  const yesterday = new Date(Date.now() - 86400000).toISOString().slice(0, 10);
+  if (d === today) return '今日';
+  if (d === yesterday) return '昨日';
+  return d.slice(5).replace('-', '/');
+}
+
+// 右侧精选：有图的优先，取前 10 条
+const sidebarItems = [...items]
+  .sort((a, b) => (b.image ? 1 : 0) - (a.image ? 1 : 0))
+  .slice(0, 10);
+
+const allCats = ['全部', '大模型', '图像视频', '行业动态', '工具产品', '其他'];
+const CAT_COLORS: Record<string, string> = {
+  '大模型':  '#8b5cf6',
+  '图像视频': '#ec4899',
+  '行业动态': '#f59e0b',
+  '工具产品': '#10b981',
+  '其他':    '#64748b',
+};
+---
+
+<BaseLayout
+  title="每日 AI 资讯 · AI 新闻速报"
+  description="每日自动抓取量子位、机器之心等 AI 资讯，掌握最新人工智能动态。"
+  lang="zh"
+>
+
+<div class="news-page">
+
+  <!-- ── 顶部 Hero ── -->
+  <div class="news-hero">
+    <div class="hero-left">
+      <h1 class="hero-title">AI 资讯速报</h1>
+      <p class="hero-sub">省去刷信息的时间，只看 AI 最重要的事</p>
+    </div>
+    <div class="hero-right">
+      <div class="hero-stats">
+        <div class="hstat-item">
+          <strong>{items.length}</strong>
+          <span>条资讯</span>
+        </div>
+        <div class="hstat-divider"></div>
+        <div class="hstat-item">
+          <strong>{sources.length}</strong>
+          <span>个来源</span>
+        </div>
+        <div class="hstat-divider"></div>
+        <div class="hstat-item">
+          <span class="hstat-dot"></span>
+          <span>更新于 {newsData.updated?.slice(0, 10)}</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── 分类筛选 ── -->
+  <div class="cat-bar">
+    {allCats.map(cat => (
+      <button
+        class={`cpill${cat === '全部' ? ' active' : ''}`}
+        data-cat={cat}
+        style={cat !== '全部' ? `--cc:${CAT_COLORS[cat] ?? '#64748b'}` : ''}
+      >
+        {cat !== '全部' && <span class="cpill-dot" style={`background:${CAT_COLORS[cat]}`}></span>}
+        {cat}
+      </button>
+    ))}
+    <div class="cat-bar-sep"></div>
+    <!-- 来源筛选 -->
+    {sources.slice(0, 8).map(src => {
+      const color = SOURCE_COLORS[src] ?? '#64748b';
+      return (
+        <button class="fpill" data-source={src} style={`--sc:${color}`}>
+          <img
+            src={`https://www.google.com/s2/favicons?domain=${SOURCE_DOMAINS[src] ?? 'example.com'}&sz=32`}
+            width="12" height="12" class="fpill-favicon" alt=""
+          />
+          {src}
+        </button>
+      );
+    })}
+    <button class="fpill active" data-source="all" style="--sc:var(--accent)">全部来源</button>
+  </div>
+
+  <!-- ── 双栏主体 ── -->
+  <div class="news-layout">
+
+    <!-- ── 左侧：资讯 Feed ── -->
+    <div class="news-main" id="news-feed">
+      {days.map(day => (
+        <div class="day-group" data-day={day}>
+          <div class="day-label">
+            <span class="day-dot"></span>
+            <span class="day-text">{dayLabel(day)}</span>
+            <span class="day-date">{day.slice(5).replace('-', '/')}</span>
+            <span class="day-count">{grouped[day].length} 条</span>
+          </div>
+
+          {grouped[day].map((item, idx) => {
+            const color = SOURCE_COLORS[item.source] ?? '#64748b';
+            const domain = (() => { try { return new URL(item.url).hostname; } catch { return 'example.com'; } })();
+            const cat = getCat(item);
+            const readTime = getReadTime(item);
+            return (
+              <a
+                href={item.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                class="news-item"
+                data-source={item.source}
+                data-cat={cat}
+                style={`--ic:${color}`}
+              >
+                {/* 左侧时间 */}
+                <div class="ni-time">{getTimeLabel(item.date)}</div>
+
+                {/* 中间内容 */}
+                <div class="ni-body">
+                  <div class="ni-meta">
+                    <img
+                      src={`https://www.google.com/s2/favicons?domain=${domain}&sz=32`}
+                      width="13" height="13" class="ni-favicon" loading="lazy" alt=""
+                    />
+                    <span class="ni-source">{item.source}</span>
+                    <span class="ni-cat-tag" style={`--ct:${CAT_COLORS[cat] ?? '#64748b'}`}>{cat}</span>
+                    <span class="ni-readtime">约{readTime}分钟</span>
+                  </div>
+                  <h2 class="ni-title">{item.title_zh || item.title}</h2>
+                  {(item.summary_zh || item.summary) && (
+                    <p class="ni-summary">{item.summary_zh || item.summary}</p>
+                  )}
+                </div>
+
+                {/* 右侧缩略图 */}
+                <div class="ni-thumb">
+                  {item.image
+                    ? <img src={item.image} alt="" class="ni-img" loading="lazy" />
+                    : <div class="ni-placeholder"></div>
+                  }
+                </div>
+              </a>
+            );
+          })}
+        </div>
+      ))}
+
+      {items.length === 0 && (
+        <div class="feed-empty">
+          <p>暂无资讯，今日资讯将在北京时间 08:00 自动更新</p>
+        </div>
+      )}
+    </div>
+
+    <!-- ── 右侧：精选侧边栏 ── -->
+    <aside class="news-sidebar">
+      <div class="sb-card">
+        <div class="sb-header">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" class="sb-icon"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+          今日精选
+        </div>
+        <ul class="sb-list">
+          {sidebarItems.map((item, idx) => {
+            const color = SOURCE_COLORS[item.source] ?? '#64748b';
+            return (
+              <li class="sb-item">
+                <a href={item.url} target="_blank" rel="noopener noreferrer" class="sb-link" style={`--ic:${color}`}>
+                  <span class="sb-num">{String(idx + 1).padStart(2, '0')}</span>
+                  <div class="sb-content">
+                    <span class="sb-title">{item.title_zh || item.title}</span>
+                    <span class="sb-source">{item.source}</span>
+                  </div>
+                  {item.image && (
+                    <img src={item.image} alt="" class="sb-thumb" loading="lazy" />
+                  )}
+                </a>
+              </li>
+            );
+          })}
+        </ul>
+      </div>
+
+      <!-- 来源统计 -->
+      <div class="sb-card sb-sources-card">
+        <div class="sb-header">来源分布</div>
+        <div class="sb-sources">
+          {sources.map(src => {
+            const color = SOURCE_COLORS[src] ?? '#64748b';
+            const count = items.filter(i => i.source === src).length;
+            const pct = Math.round(count / items.length * 100);
+            return (
+              <div class="sb-src-row">
+                <span class="sb-src-name" style={`color:${color}`}>{src}</span>
+                <div class="sb-src-bar-wrap">
+                  <div class="sb-src-bar" style={`width:${pct}%;background:${color}`}></div>
+                </div>
+                <span class="sb-src-count">{count}</span>
+              </div>
+            );
+          })}
+        </div>
+      </div>
+    </aside>
+  </div>
+
+</div>
+
+</BaseLayout>
+
+<script>
+  const catBtns = Array.from(document.querySelectorAll<HTMLButtonElement>('.cpill'));
+  const srcBtns = Array.from(document.querySelectorAll<HTMLButtonElement>('.fpill'));
+  const feed = document.getElementById('news-feed')!;
+  const allItems = Array.from(feed.querySelectorAll<HTMLElement>('.news-item'));
+  const dayGroups = Array.from(feed.querySelectorAll<HTMLElement>('.day-group'));
+
+  let activeCat = '全部';
+  let activeSrc = 'all';
+
+  function applyFilters() {
+    allItems.forEach(item => {
+      const matchCat = activeCat === '全部' || item.dataset.cat === activeCat;
+      const matchSrc = activeSrc === 'all' || item.dataset.source === activeSrc;
+      item.style.display = (matchCat && matchSrc) ? '' : 'none';
+    });
+    dayGroups.forEach(g => {
+      const visible = Array.from(g.querySelectorAll<HTMLElement>('.news-item')).some(el => el.style.display !== 'none');
+      (g as HTMLElement).style.display = visible ? '' : 'none';
+    });
+  }
+
+  catBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      catBtns.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      activeCat = btn.dataset.cat ?? '全部';
+      applyFilters();
+    });
+  });
+
+  srcBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      srcBtns.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      activeSrc = btn.dataset.source ?? 'all';
+      applyFilters();
+    });
+  });
+</script>
+
+<style>
+.news-page {
+  /* 大幅突破 container 限制 */
+  margin-left: -24px;
+  margin-right: -24px;
+  width: calc(100% + 48px);
+  padding: 0 56px 5rem;
+  box-sizing: border-box;
+}
+
+/* ── Hero ── */
+.news-hero {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1.75rem 0 1.25rem;
+  border-bottom: 1px solid var(--border);
+  margin-bottom: 1rem;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+.hero-title {
+  font-size: 1.5rem;
+  font-weight: 800;
+  margin: 0 0 0.2rem;
+  background: linear-gradient(135deg, var(--accent) 0%, var(--accent-2) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+.hero-sub {
+  color: var(--text-dim);
+  font-size: 0.85rem;
+  margin: 0;
+}
+.hero-stats {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+.hstat-item {
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+  font-size: 0.8rem;
+  color: var(--text-dim);
+}
+.hstat-item strong { color: var(--text); font-weight: 700; font-size: 1rem; }
+.hstat-divider { width: 1px; height: 20px; background: var(--border); }
+.hstat-dot {
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  background: var(--green);
+  box-shadow: 0 0 6px var(--green);
+  animation: pulse 2s infinite;
+}
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.4; }
+}
+
+/* ── 分类 + 来源筛选栏 ── */
+.cat-bar {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  flex-wrap: wrap;
+  padding: 0.75rem 0;
+  margin-bottom: 1.25rem;
+  border-bottom: 1px solid var(--border);
+}
+.cat-bar-sep {
+  width: 1px;
+  height: 18px;
+  background: var(--border);
+  margin: 0 0.2rem;
+}
+.cpill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  padding: 0.28rem 0.7rem;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  background: transparent;
+  color: var(--text-dim);
+  font-size: 0.78rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.15s;
+  white-space: nowrap;
+}
+.cpill:hover { border-color: var(--cc, var(--accent)); color: var(--cc, var(--accent)); }
+.cpill.active { background: var(--cc, var(--accent)); border-color: var(--cc, var(--accent)); color: #fff; }
+.cpill[data-cat="全部"].active { background: var(--accent); border-color: var(--accent); }
+.cpill[data-cat="全部"]:hover:not(.active) { border-color: var(--accent); color: var(--accent); }
+.cpill-dot { width: 6px; height: 6px; border-radius: 50%; flex-shrink: 0; }
+
+.fpill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  padding: 0.28rem 0.65rem;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  background: transparent;
+  color: var(--text-dim);
+  font-size: 0.75rem;
+  cursor: pointer;
+  transition: all 0.15s;
+  white-space: nowrap;
+}
+.fpill:hover { border-color: var(--sc, var(--accent)); color: var(--sc, var(--accent)); }
+.fpill.active { background: var(--sc, var(--accent)); border-color: var(--sc, var(--accent)); color: #fff; }
+.fpill-favicon { border-radius: 2px; opacity: 0.8; }
+
+/* ── 双栏布局 ── */
+.news-layout {
+  display: grid;
+  grid-template-columns: 1fr 400px;
+  gap: 40px;
+  align-items: flex-start;
+}
+@media (max-width: 960px) {
+  .news-layout { grid-template-columns: 1fr; }
+  .news-sidebar { display: none; }
+}
+
+/* ── 左侧 Feed ── */
+.news-main {}
+
+.day-group { margin-bottom: 0.5rem; }
+
+.day-label {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.6rem 0 0.4rem;
+  position: sticky;
+  top: var(--header-h);
+  background: var(--bg);
+  z-index: 10;
+  border-bottom: 1px solid var(--border);
+  margin-bottom: 0;
+}
+.day-dot {
+  width: 8px; height: 8px;
+  border-radius: 50%;
+  background: var(--accent);
+  flex-shrink: 0;
+}
+.day-text {
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: var(--text);
+}
+.day-date {
+  font-size: 0.75rem;
+  color: var(--text-dim);
+  font-family: var(--font-mono);
+}
+.day-count {
+  font-size: 0.7rem;
+  color: var(--text-dim);
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  padding: 0.05rem 0.45rem;
+  margin-left: auto;
+}
+
+/* 单条资讯 */
+.news-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 0;
+  padding: 1.3rem 0.5rem 1.3rem 0;
+  border-bottom: 1px solid var(--border);
+  text-decoration: none;
+  color: inherit;
+  transition: background 0.12s;
+  cursor: pointer;
+}
+.news-item:hover { background: rgba(var(--accent), 0.02); text-decoration: none; }
+[data-theme="dark"] .news-item:hover { background: rgba(255,255,255,0.025); }
+
+/* 左侧时间 */
+.ni-time {
+  flex-shrink: 0;
+  width: 70px;
+  font-size: 0.82rem;
+  font-family: var(--font-mono);
+  color: var(--text-dim);
+  padding-top: 0.15rem;
+  text-align: right;
+  padding-right: 18px;
+}
+
+/* 中间内容 */
+.ni-body { flex: 1; min-width: 0; }
+.ni-meta {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  margin-bottom: 0.35rem;
+  flex-wrap: wrap;
+}
+.ni-favicon { border-radius: 2px; opacity: 0.8; flex-shrink: 0; }
+.ni-source {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--ic);
+}
+.ni-cat-tag {
+  font-size: 0.68rem;
+  font-weight: 500;
+  padding: 0.05rem 0.45rem;
+  border-radius: 3px;
+  border: 1px solid;
+  border-color: color-mix(in srgb, var(--ct) 30%, transparent);
+  color: var(--ct);
+  background: color-mix(in srgb, var(--ct) 8%, transparent);
+}
+.ni-readtime {
+  font-size: 0.68rem;
+  color: var(--text-dim);
+  font-family: var(--font-mono);
+  margin-left: auto;
+}
+.ni-title {
+  font-size: 1.05rem;
+  font-weight: 600;
+  line-height: 1.5;
+  margin: 0 0 0.35rem;
+  color: var(--text);
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+.news-item:hover .ni-title { color: var(--accent); }
+.ni-summary {
+  font-size: 0.875rem;
+  color: var(--text-dim);
+  line-height: 1.65;
+  margin: 0;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/* 右侧缩略图 */
+.ni-thumb {
+  flex-shrink: 0;
+  width: 160px;
+  height: 108px;
+  border-radius: 10px;
+  overflow: hidden;
+  margin-left: 20px;
+  align-self: flex-start;
+  margin-top: 0.1rem;
+}
+.ni-img {
+  width: 100%; height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.3s;
+}
+.news-item:hover .ni-img { transform: scale(1.06); }
+.ni-placeholder {
+  width: 100%; height: 100%;
+  background: linear-gradient(135deg,
+    color-mix(in srgb, var(--ic) 15%, transparent),
+    color-mix(in srgb, var(--ic) 5%, transparent)
+  );
+  border: 1px solid color-mix(in srgb, var(--ic) 20%, transparent);
+  border-radius: 8px;
+}
+@media (max-width: 480px) {
+  .ni-thumb { width: 72px; height: 54px; }
+  .ni-time { width: 40px; font-size: 0.68rem; }
+}
+
+/* ── 右侧侧边栏 ── */
+.news-sidebar {
+  position: sticky;
+  top: var(--header-h);
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.sb-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.sb-header {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 12px 16px;
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: var(--text);
+  border-bottom: 1px solid var(--border);
+  background: linear-gradient(90deg, rgba(79,172,254,0.05), transparent);
+}
+.sb-icon { color: var(--accent); flex-shrink: 0; }
+
+.sb-list { list-style: none; padding: 0; margin: 0; }
+.sb-item { border-bottom: 1px solid var(--border); }
+.sb-item:last-child { border-bottom: none; }
+
+.sb-link {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 10px 14px;
+  text-decoration: none;
+  color: inherit;
+  transition: background 0.12s;
+}
+.sb-link:hover { background: rgba(79,172,254,0.04); text-decoration: none; }
+
+.sb-num {
+  flex-shrink: 0;
+  font-size: 0.72rem;
+  font-family: var(--font-mono);
+  font-weight: 700;
+  color: var(--text-dim);
+  width: 20px;
+  padding-top: 1px;
+}
+.sb-item:nth-child(1) .sb-num { color: #ef4444; }
+.sb-item:nth-child(2) .sb-num { color: #f97316; }
+.sb-item:nth-child(3) .sb-num { color: #f59e0b; }
+
+.sb-content { flex: 1; min-width: 0; }
+.sb-title {
+  display: block;
+  font-size: 0.8rem;
+  font-weight: 500;
+  line-height: 1.45;
+  color: var(--text);
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  margin-bottom: 3px;
+}
+.sb-link:hover .sb-title { color: var(--accent); }
+.sb-source {
+  font-size: 0.68rem;
+  color: var(--ic, var(--text-dim));
+}
+
+.sb-thumb {
+  flex-shrink: 0;
+  width: 52px;
+  height: 40px;
+  border-radius: 5px;
+  object-fit: cover;
+}
+
+/* 来源分布 */
+.sb-sources { padding: 10px 14px 12px; display: flex; flex-direction: column; gap: 7px; }
+.sb-src-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.sb-src-name {
+  font-size: 0.7rem;
+  font-weight: 600;
+  width: 72px;
+  flex-shrink: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.sb-src-bar-wrap {
+  flex: 1;
+  height: 4px;
+  background: var(--border);
+  border-radius: 2px;
+  overflow: hidden;
+}
+.sb-src-bar { height: 100%; border-radius: 2px; opacity: 0.7; }
+.sb-src-count {
+  font-size: 0.68rem;
+  font-family: var(--font-mono);
+  color: var(--text-dim);
+  width: 20px;
+  text-align: right;
+  flex-shrink: 0;
+}
+
+/* ── Empty ── */
+.feed-empty {
+  text-align: center;
+  padding: 4rem 2rem;
+  color: var(--text-dim);
+  font-size: 0.9rem;
+}
+</style>

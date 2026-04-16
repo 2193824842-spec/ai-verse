@@ -1,0 +1,14 @@
+---
+const redirectUrl = `${import.meta.env.BASE_URL}/zh/tags/`;
+---
+<!doctype html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="refresh" content={`0; url=${redirectUrl}`} />
+    <link rel="canonical" href={redirectUrl} />
+  </head>
+  <body>
+    <p>Redirecting... <a href={redirectUrl}>Click here</a></p>
+  </body>
+</html>
