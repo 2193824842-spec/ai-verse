@@ -6,28 +6,18 @@ const allPosts = await getCollection('posts-en');
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 
 const CATEGORIES = [
-  { name: 'All',         slug: 'all',     keywords: [] },
-  { name: 'AI Coding',   slug: 'coding',  keywords: ['Coding', 'Cursor', 'Copilot', 'Windsurf', 'CodeGeeX', 'Trae', 'Claude Code'] },
-  { name: 'AI Models',   slug: 'models',  keywords: ['ChatGPT', 'Claude', 'DeepSeek', 'Gemini', 'LLM'] },
-  { name: 'AI Image',    slug: 'image',   keywords: ['Image', 'Midjourney', 'DALL', 'Stable Diffusion'] },
-  { name: 'AI Writing',  slug: 'writing', keywords: ['Writing', 'Copywriting'] },
-  { name: 'General',     slug: 'general', keywords: [] },
+  { name: 'All',               slug: 'all'      },
+  { name: 'Deep Tutorials',    slug: 'tutorial' },
+  { name: 'Reviews',           slug: 'review'   },
+  { name: 'Industry Insights', slug: 'insight'  },
+  { name: 'Trending',          slug: 'trending' },
 ];
-
-function matchCat(tags: string[]): string {
-  const s = tags.join(' ');
-  for (const c of CATEGORIES) {
-    if (c.slug === 'all' || c.slug === 'general') continue;
-    if (c.keywords.some(k => s.includes(k))) return c.slug;
-  }
-  return 'general';
-}
 
 const grouped: Record<string, typeof allPosts> = {};
 for (const c of CATEGORIES) grouped[c.slug] = [];
 for (const p of allPosts) {
-  const slug = matchCat(p.data.tags || []);
-  grouped[slug].push(p);
+  const cat = (p.data as any).category || 'review';
+  if (grouped[cat]) grouped[cat].push(p);
   grouped['all'].push(p);
 }
 for (const slug of Object.keys(grouped))
@@ -38,13 +28,13 @@ for (const p of allPosts)
   for (const t of p.data.tags || [])
     tagCount.set(t, (tagCount.get(t) ?? 0) + 1);
 
-const catTags: Record<string, string[]> = { all: [] };
+const catTags: Record<string, string[]> = {};
 for (const c of CATEGORIES) catTags[c.slug] = [];
 for (const p of allPosts) {
-  const slug = matchCat(p.data.tags || []);
+  const cat = (p.data as any).category || 'review';
   for (const t of p.data.tags || []) {
     if ((tagCount.get(t) ?? 0) >= 2) {
-      if (!catTags[slug].includes(t)) catTags[slug].push(t);
+      if (catTags[cat] && !catTags[cat].includes(t)) catTags[cat].push(t);
       if (!catTags['all'].includes(t)) catTags['all'].push(t);
     }
   }
@@ -65,7 +55,6 @@ const postMeta = Object.fromEntries(
     summary: p.data.summary ?? '',
     cover: p.data.cover ?? '',
     href: `${base}/en/posts/${p.slug}/`,
-    category: (p.data as any).category ?? '',
   }])
 );
 ---
@@ -77,14 +66,9 @@ const postMeta = Object.fromEntries(
     <p class="page-desc">{allPosts.length} articles</p>
   </div>
 
-  <div id="content-type-bar" class="content-type-bar" hidden>
-    <span id="content-type-label" class="content-type-label"></span>
-    <a href="?" class="content-type-clear">✕ Clear filter</a>
-  </div>
-
   <nav class="cat-tabs" id="cat-tabs">
-    {CATEGORIES.filter(c => c.slug === 'all' || grouped[c.slug].length > 0).map((cat, i) => (
-      <button class={`cat-tab${i === 0 ? ' active' : ''}`} data-cat={cat.slug}>
+    {CATEGORIES.filter(c => c.slug === 'all' || grouped[c.slug].length > 0).map((cat) => (
+      <button class="cat-tab" data-cat={cat.slug}>
         {cat.name}
         <span class="tab-count">{grouped[cat.slug].length}</span>
       </button>
@@ -93,7 +77,6 @@ const postMeta = Object.fromEntries(
 
   <div class="tag-bar" id="tag-bar"></div>
 
-  <!-- Search box -->
   <div class="article-search-wrap">
     <svg class="article-search-icon" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
     <input id="article-search" class="article-search-input" type="search" placeholder="Search articles…" autocomplete="off" />
@@ -107,19 +90,19 @@ const postMeta = Object.fromEntries(
 </BaseLayout>
 
 <script define:vars={{ groupedSlugs, postMeta, catTags }}>
-  let currentCat = 'all';
+  const initCat = new URLSearchParams(window.location.search).get('cat') || 'all';
+  let currentCat = initCat;
   let currentTag = '';
   let currentSearch = '';
-  let currentContentType = new URLSearchParams(window.location.search).get('cat') || '';
-
-  const CONTENT_TYPE_LABELS: Record<string, string> = {
-    tutorial: 'Deep Tutorials', review: 'Reviews', insight: 'Industry Insights', trending: 'Trending',
-  };
 
   const tabsEl   = document.getElementById('cat-tabs');
   const tagBarEl = document.getElementById('tag-bar');
   const listEl   = document.getElementById('post-list');
   const searchEl = document.getElementById('article-search');
+
+  tabsEl.querySelectorAll('.cat-tab').forEach(btn => {
+    btn.classList.toggle('active', btn.dataset.cat === currentCat);
+  });
 
   function renderTags() {
     const tags = catTags[currentCat] || [];
@@ -129,8 +112,7 @@ const postMeta = Object.fromEntries(
     ).join('');
     tagBarEl.querySelectorAll('.tag-chip').forEach(btn => {
       btn.addEventListener('click', () => {
-        const t = btn.dataset.tag;
-        currentTag = currentTag === t ? '' : t;
+        currentTag = currentTag === btn.dataset.tag ? '' : btn.dataset.tag;
         renderTags();
         renderPosts();
       });
@@ -140,9 +122,6 @@ const postMeta = Object.fromEntries(
   function renderPosts() {
     let slugs = groupedSlugs[currentCat] || [];
     if (currentTag) slugs = slugs.filter(s => postMeta[s]?.tags?.includes(currentTag));
-    if (currentContentType) {
-      slugs = slugs.filter(s => postMeta[s]?.category === currentContentType);
-    }
     if (currentSearch) {
       const q = currentSearch.toLowerCase();
       slugs = slugs.filter(s => {
@@ -159,8 +138,7 @@ const postMeta = Object.fromEntries(
             <div class="post-card-cover-wrap">
               ${p.cover
                 ? `<img src="${p.cover}" alt="${p.title}" class="post-card-cover" loading="lazy" />`
-                : `<div class="post-card-cover post-card-cover--placeholder"></div>`
-              }
+                : `<div class="post-card-cover post-card-cover--placeholder"></div>`}
             </div>
             <div class="post-card-body">
               <div class="post-card-meta">
@@ -189,22 +167,8 @@ const postMeta = Object.fromEntries(
   renderTags();
   renderPosts();
 
-  if (currentContentType && CONTENT_TYPE_LABELS[currentContentType]) {
-    const bar = document.getElementById('content-type-bar');
-    const label = document.getElementById('content-type-label');
-    if (bar && label) {
-      label.textContent = 'Category: ' + CONTENT_TYPE_LABELS[currentContentType];
-      bar.hidden = false;
-    }
-  }
-
   const searchBtnEl = document.getElementById('article-search-btn');
-
-  function doSearch() {
-    currentSearch = searchEl.value.trim();
-    renderPosts();
-  }
-
+  function doSearch() { currentSearch = searchEl.value.trim(); renderPosts(); }
   searchBtnEl?.addEventListener('click', doSearch);
   searchEl?.addEventListener('keydown', (e) => { if (e.key === 'Enter') doSearch(); });
 </script>
@@ -227,7 +191,7 @@ const postMeta = Object.fromEntries(
   }
   .tab-count { font-size: 0.72rem; opacity: 0.8; }
 
-  /* ── Tag bar (horizontal scroll) ── */
+  /* ── Tag bar ── */
   .tag-bar {
     display: flex; flex-wrap: nowrap; overflow-x: auto; gap: 0.4rem;
     min-height: 1.5rem; margin-bottom: 1.5rem; padding-bottom: 2px;
@@ -282,76 +246,27 @@ const postMeta = Object.fromEntries(
   }
   .empty { padding: 2rem 0; color: var(--text-dim); font-size: 0.9rem; }
 
-  /* ── Content type banner ── */
-  .content-type-bar {
-    display: flex;
-    align-items: center;
-    gap: 0.75rem;
-    margin-bottom: 1rem;
-    padding: 0.5rem 0.9rem;
-    background: rgba(79,172,254,0.08);
-    border: 1px solid rgba(79,172,254,0.2);
-    border-radius: 8px;
-    font-size: 0.875rem;
-  }
-  .content-type-label { color: var(--accent); font-weight: 500; }
-  .content-type-clear {
-    color: var(--text-dim); font-size: 0.8rem;
-    text-decoration: none; margin-left: auto;
-    transition: color 0.15s;
-  }
-  .content-type-clear:hover { color: var(--danger); text-decoration: none; }
-
-  /* ── Article search box ── */
-  .article-search-wrap {
-    position: relative;
-    margin-bottom: 1.25rem;
-  }
+  /* ── Search box ── */
+  .article-search-wrap { position: relative; margin-bottom: 1.25rem; }
   .article-search-icon {
-    position: absolute;
-    left: 12px;
-    top: 50%;
-    transform: translateY(-50%);
-    color: var(--text-dim);
-    pointer-events: none;
+    position: absolute; left: 12px; top: 50%; transform: translateY(-50%);
+    color: var(--text-dim); pointer-events: none;
   }
   .article-search-input {
-    width: 100%;
-    background: var(--bg-card);
-    border: 1px solid var(--border);
-    border-radius: 8px;
-    color: var(--text);
-    font-size: 0.875rem;
-    padding: 0.55rem 2.6rem 0.55rem 2.2rem;
-    outline: none;
+    width: 100%; background: var(--bg-card); border: 1px solid var(--border);
+    border-radius: 8px; color: var(--text); font-size: 0.875rem;
+    padding: 0.55rem 2.6rem 0.55rem 2.2rem; outline: none;
     transition: border-color 0.15s, box-shadow 0.15s;
   }
   .article-search-input::placeholder { color: var(--text-dim); }
-  .article-search-input:focus {
-    border-color: var(--accent);
-    box-shadow: 0 0 0 3px rgba(79,172,254,0.12);
-  }
-  [data-theme="light"] .article-search-input:focus {
-    box-shadow: 0 0 0 3px rgba(9,105,218,0.1);
-  }
+  .article-search-input:focus { border-color: var(--accent); box-shadow: 0 0 0 3px rgba(79,172,254,0.12); }
+  [data-theme="light"] .article-search-input:focus { box-shadow: 0 0 0 3px rgba(9,105,218,0.1); }
   .article-search-btn {
-    position: absolute;
-    right: 0;
-    top: 0;
-    bottom: 0;
-    width: 38px;
-    background: none;
-    border: none;
-    border-radius: 0 8px 8px 0;
-    color: var(--text-dim);
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    position: absolute; right: 0; top: 0; bottom: 0; width: 38px;
+    background: none; border: none; border-radius: 0 8px 8px 0;
+    color: var(--text-dim); cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
     transition: color 0.15s, background 0.15s;
   }
-  .article-search-btn:hover {
-    color: var(--accent);
-    background: rgba(79,172,254,0.08);
-  }
+  .article-search-btn:hover { color: var(--accent); background: rgba(79,172,254,0.08); }
 </style>

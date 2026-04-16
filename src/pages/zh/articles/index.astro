@@ -6,28 +6,18 @@ const allPosts = await getCollection('posts-zh');
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 
 const CATEGORIES = [
-  { name: '全部',       slug: 'all',     keywords: [] },
-  { name: 'AI编程工具', slug: 'coding',  keywords: ['编程', 'Cursor', 'Copilot', 'Vibe', 'CodeGeeX', 'Windsurf', 'Trae', 'Claude Code'] },
-  { name: 'AI大模型',   slug: 'models',  keywords: ['ChatGPT', 'Claude', 'DeepSeek', 'Gemini', '大模型', '平替'] },
-  { name: 'AI图像生成', slug: 'image',   keywords: ['图像', '绘画', 'Midjourney', 'AI图'] },
-  { name: 'AI写作工具', slug: 'writing', keywords: ['写作', '自媒体'] },
-  { name: '综合推荐',   slug: 'general', keywords: [] },
+  { name: '全部',   slug: 'all'      },
+  { name: '深度教程', slug: 'tutorial' },
+  { name: '对比评测', slug: 'review'   },
+  { name: '行业洞察', slug: 'insight'  },
+  { name: '热点解析', slug: 'trending' },
 ];
-
-function matchCat(tags: string[]): string {
-  const s = tags.join(' ');
-  for (const c of CATEGORIES) {
-    if (c.slug === 'all' || c.slug === 'general') continue;
-    if (c.keywords.some(k => s.includes(k))) return c.slug;
-  }
-  return 'general';
-}
 
 const grouped: Record<string, typeof allPosts> = {};
 for (const c of CATEGORIES) grouped[c.slug] = [];
 for (const p of allPosts) {
-  const slug = matchCat(p.data.tags || []);
-  grouped[slug].push(p);
+  const cat = (p.data as any).category || 'review';
+  if (grouped[cat]) grouped[cat].push(p);
   grouped['all'].push(p);
 }
 for (const slug of Object.keys(grouped))
@@ -38,14 +28,13 @@ for (const p of allPosts)
   for (const t of p.data.tags || [])
     tagCount.set(t, (tagCount.get(t) ?? 0) + 1);
 
-const catTags: Record<string, string[]> = { all: [] };
+const catTags: Record<string, string[]> = {};
 for (const c of CATEGORIES) catTags[c.slug] = [];
-
 for (const p of allPosts) {
-  const slug = matchCat(p.data.tags || []);
+  const cat = (p.data as any).category || 'review';
   for (const t of p.data.tags || []) {
     if ((tagCount.get(t) ?? 0) >= 2) {
-      if (!catTags[slug].includes(t)) catTags[slug].push(t);
+      if (catTags[cat] && !catTags[cat].includes(t)) catTags[cat].push(t);
       if (!catTags['all'].includes(t)) catTags['all'].push(t);
     }
   }
@@ -66,9 +55,10 @@ const postMeta = Object.fromEntries(
     summary: p.data.summary ?? '',
     cover: p.data.cover ?? '',
     href: `${base}/zh/posts/${p.slug}/`,
-    category: (p.data as any).category ?? '',
   }])
 );
+// ?cat= 初始 tab（传给客户端脚本）
+const initCat = 'all';
 ---
 
 <BaseLayout title="文章索引 · AI博客" description="按分类和标签浏览所有AI工具评测与教程文章" lang="zh">
@@ -78,16 +68,10 @@ const postMeta = Object.fromEntries(
     <p class="page-desc">共 {allPosts.length} 篇文章</p>
   </div>
 
-  <!-- 内容类型过滤 banner（?cat= 激活时显示） -->
-  <div id="content-type-bar" class="content-type-bar" hidden>
-    <span id="content-type-label" class="content-type-label"></span>
-    <a href="?" class="content-type-clear">✕ 清除筛选</a>
-  </div>
-
   <!-- 分类 Tab -->
   <nav class="cat-tabs" id="cat-tabs">
-    {CATEGORIES.filter(c => c.slug === 'all' || grouped[c.slug].length > 0).map((cat, i) => (
-      <button class={`cat-tab${i === 0 ? ' active' : ''}`} data-cat={cat.slug}>
+    {CATEGORIES.filter(c => c.slug === 'all' || grouped[c.slug].length > 0).map((cat) => (
+      <button class="cat-tab" data-cat={cat.slug}>
         {cat.name}
         <span class="tab-count">{grouped[cat.slug].length}</span>
       </button>
@@ -112,19 +96,21 @@ const postMeta = Object.fromEntries(
 </BaseLayout>
 
 <script define:vars={{ groupedSlugs, postMeta, catTags }}>
-  let currentCat = 'all';
+  // ?cat= 参数直接激活对应 Tab
+  const initCat = new URLSearchParams(window.location.search).get('cat') || 'all';
+  let currentCat = initCat;
   let currentTag = '';
   let currentSearch = '';
-  let currentContentType = new URLSearchParams(window.location.search).get('cat') || '';
-
-  const CONTENT_TYPE_LABELS: Record<string, string> = {
-    tutorial: '深度教程', review: '对比评测', insight: '行业洞察', trending: '热点解析',
-  };
 
   const tabsEl   = document.getElementById('cat-tabs');
   const tagBarEl = document.getElementById('tag-bar');
   const listEl   = document.getElementById('post-list');
   const searchEl = document.getElementById('article-search');
+
+  // 激活初始 Tab
+  tabsEl.querySelectorAll('.cat-tab').forEach(btn => {
+    btn.classList.toggle('active', btn.dataset.cat === currentCat);
+  });
 
   function renderTags() {
     const tags = catTags[currentCat] || [];
@@ -134,8 +120,7 @@ const postMeta = Object.fromEntries(
     ).join('');
     tagBarEl.querySelectorAll('.tag-chip').forEach(btn => {
       btn.addEventListener('click', () => {
-        const t = btn.dataset.tag;
-        currentTag = currentTag === t ? '' : t;
+        currentTag = currentTag === btn.dataset.tag ? '' : btn.dataset.tag;
         renderTags();
         renderPosts();
       });
@@ -144,12 +129,7 @@ const postMeta = Object.fromEntries(
 
   function renderPosts() {
     let slugs = groupedSlugs[currentCat] || [];
-    if (currentTag) {
-      slugs = slugs.filter(s => postMeta[s]?.tags?.includes(currentTag));
-    }
-    if (currentContentType) {
-      slugs = slugs.filter(s => postMeta[s]?.category === currentContentType);
-    }
+    if (currentTag) slugs = slugs.filter(s => postMeta[s]?.tags?.includes(currentTag));
     if (currentSearch) {
       const q = currentSearch.toLowerCase();
       slugs = slugs.filter(s => {
@@ -157,10 +137,7 @@ const postMeta = Object.fromEntries(
         return p.title.toLowerCase().includes(q) || p.summary.toLowerCase().includes(q);
       });
     }
-    if (!slugs.length) {
-      listEl.innerHTML = '<li class="empty">暂无文章</li>';
-      return;
-    }
+    if (!slugs.length) { listEl.innerHTML = '<li class="empty">暂无文章</li>'; return; }
     listEl.innerHTML = slugs.map(s => {
       const p = postMeta[s];
       return `
@@ -169,8 +146,7 @@ const postMeta = Object.fromEntries(
             <div class="post-card-cover-wrap">
               ${p.cover
                 ? `<img src="${p.cover}" alt="${p.title}" class="post-card-cover" loading="lazy" />`
-                : `<div class="post-card-cover post-card-cover--placeholder"></div>`
-              }
+                : `<div class="post-card-cover post-card-cover--placeholder"></div>`}
             </div>
             <div class="post-card-body">
               <div class="post-card-meta">
@@ -199,49 +175,14 @@ const postMeta = Object.fromEntries(
   renderTags();
   renderPosts();
 
-  // 内容类型 banner
-  if (currentContentType && CONTENT_TYPE_LABELS[currentContentType]) {
-    const bar = document.getElementById('content-type-bar');
-    const label = document.getElementById('content-type-label');
-    if (bar && label) {
-      label.textContent = '当前分类：' + CONTENT_TYPE_LABELS[currentContentType];
-      bar.hidden = false;
-    }
-  }
-
   const searchBtnEl = document.getElementById('article-search-btn');
-
-  function doSearch() {
-    currentSearch = searchEl.value.trim();
-    renderPosts();
-  }
-
+  function doSearch() { currentSearch = searchEl.value.trim(); renderPosts(); }
   searchBtnEl?.addEventListener('click', doSearch);
   searchEl?.addEventListener('keydown', (e) => { if (e.key === 'Enter') doSearch(); });
 </script>
 
 <style is:global>
   .page-desc { color: var(--text-dim); font-size: 0.9rem; margin-top: 0.2rem; }
-
-  /* ── 内容类型 banner ── */
-  .content-type-bar {
-    display: flex;
-    align-items: center;
-    gap: 0.75rem;
-    margin-bottom: 1rem;
-    padding: 0.5rem 0.9rem;
-    background: rgba(79,172,254,0.08);
-    border: 1px solid rgba(79,172,254,0.2);
-    border-radius: 8px;
-    font-size: 0.875rem;
-  }
-  .content-type-label { color: var(--accent); font-weight: 500; }
-  .content-type-clear {
-    color: var(--text-dim); font-size: 0.8rem;
-    text-decoration: none; margin-left: auto;
-    transition: color 0.15s;
-  }
-  .content-type-clear:hover { color: var(--danger); text-decoration: none; }
 
   /* ── 分类 Tab ── */
   .cat-tabs { display: flex; flex-wrap: wrap; gap: 0.5rem; margin: 1.5rem 0 1rem; }
