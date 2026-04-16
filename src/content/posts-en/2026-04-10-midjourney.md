@@ -3,6 +3,7 @@ title: "How to Use Midjourney: Complete Guide (2026) — 10 Steps from Zero to F
 date: 2026-04-10
 tags: ["how to use Midjourney", "Midjourney tutorial", "AI image generation", "Midjourney prompts"]
 difficulty: "Beginner"
+category: "tutorial"
 summary: "Step-by-step Midjourney tutorial for beginners: account setup, subscription, prompts, parameters, image-to-image, and common error fixes."
 cover: "/ai-verse/covers/midjourney.png"
 ---

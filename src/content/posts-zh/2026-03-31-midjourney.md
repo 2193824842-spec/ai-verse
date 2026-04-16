@@ -5,6 +5,7 @@ tags: ["Midjourney", "AI绘画", "图像生成", "AI工具", "AI教程"]
 summary: "2026年最新Midjourney完整入门教程，从注册到出图，涵盖V7新功能、提示词技巧、参数详解。"
 cover: "/ai-verse/covers/2026-03-31-midjourney.png"
 difficulty: "入门"
+category: "tutorial"
 ---
 # Midjourney使用教程（2026最新版）：从注册到出图的完整入门指南
 

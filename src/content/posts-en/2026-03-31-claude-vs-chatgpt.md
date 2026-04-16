@@ -5,6 +5,7 @@ tags: ["Claude", "ChatGPT", "AI Comparison", "AI Assistant", "AI Tools"]
 summary: "A 2026 deep-dive comparison of Claude and ChatGPT across capabilities, pricing, and use cases — so you can pick the right one for your workflow."
 cover: "/ai-verse/covers/2026-03-31-claude-vs-chatgpt.png"
 difficulty: "Beginner"
+category: "review"
 ---
 
 ## Introduction

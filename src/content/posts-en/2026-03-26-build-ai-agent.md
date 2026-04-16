@@ -2,6 +2,7 @@
 title: "Build Your First Multi-Step AI Agent with Claude 4.6 API"
 date: 2026-03-26
 difficulty: Intermediate
+category: "tutorial"
 summary: "Step-by-step guide to building a real AI Agent using the Anthropic Python SDK — one that autonomously breaks down tasks, calls tools, and loops until done."
 cover: "/ai-verse/covers/2026-03-26-build-ai-agent.png"
 tags: ["AI Agent", "Claude 4.6", "AI Tutorial", "Python", "LLM"]

@@ -3,6 +3,7 @@ title: "2026年7款ChatGPT平替免费国产AI工具：按场景选，不踩坑"
 date: 2026-04-13
 tags: ["AI大模型", "AI工具", "ChatGPT平替免费国产AI工具", "免费国产AI工具推荐", "不用翻墙的免费AI工具", "国内免费AI助手"]
 difficulty: "入门"
+category: "review"
 summary: "2026年真正免费、无需翻墙的国产AI工具有哪些？本文按7个使用场景逐一推荐，附免费额度横向对比表，帮你直接选对工具。"
 cover: "/ai-verse/covers/chatgptai.png"
 ---
