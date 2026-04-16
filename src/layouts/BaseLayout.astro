@@ -35,7 +35,6 @@ const articlesHref = `${base}/${lang}/`;
     <meta name="twitter:card" content="summary" />
     <meta name="twitter:title" content={title} />
     <meta name="twitter:description" content={description} />
-    <meta name="base-url" content={base} />
     <title>{title}</title>
     <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🤖</text></svg>" />
   </head>
@@ -54,9 +53,6 @@ const articlesHref = `${base}/${lang}/`;
             <a href={`${base}/${lang}/about/`}>{lang === 'en' ? 'About' : '关于'}</a>
           </div>
           <div class="nav-actions">
-            <button id="search-btn" aria-label="Search">
-              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
-            </button>
             <button id="theme-btn" aria-label="Toggle theme">
               <svg id="theme-icon-dark" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
               <svg id="theme-icon-light" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display:none"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
@@ -64,9 +60,6 @@ const articlesHref = `${base}/${lang}/`;
             <a id="lang-toggle" href="#" aria-label="Switch language">{lang === 'en' ? '中' : 'EN'}</a>
           </div>
         </nav>
-      </div>
-      <div id="search-overlay" class="search-overlay" hidden>
-        <input id="search-overlay-input" type="search" placeholder={lang === 'en' ? 'Search articles...' : '搜索文章...'} autocomplete="off" />
       </div>
     </header>
 
@@ -470,32 +463,6 @@ const articlesHref = `${base}/${lang}/`;
         toggle.href = path.replace('/en/', '/zh/');
       }
 
-      // Search
-      const searchBtn = document.getElementById('search-btn') as HTMLButtonElement;
-      const overlay = document.getElementById('search-overlay') as HTMLDivElement;
-      const searchInput = document.getElementById('search-overlay-input') as HTMLInputElement;
-      const base = document.querySelector('meta[name="base-url"]')?.getAttribute('content') || '/ai-blog';
-      const lang = document.documentElement.lang.startsWith('en') ? 'en' : 'zh';
-
-      searchBtn.addEventListener('click', () => {
-        overlay.hidden = !overlay.hidden;
-        if (!overlay.hidden) searchInput.focus();
-      });
-
-      searchInput.addEventListener('keydown', (e) => {
-        if (e.key === 'Enter' && searchInput.value.trim()) {
-          window.location.href = `${base}/search/?q=${encodeURIComponent(searchInput.value.trim())}&lang=${lang}`;
-        }
-        if (e.key === 'Escape') { overlay.hidden = true; }
-      });
-
-      document.addEventListener('keydown', (e) => {
-        if ((e.key === 'k' && (e.metaKey || e.ctrlKey)) || e.key === '/') {
-          e.preventDefault();
-          overlay.hidden = false;
-          searchInput.focus();
-        }
-      });
     </script>
   </body>
 </html>
