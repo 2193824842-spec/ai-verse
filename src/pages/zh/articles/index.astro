@@ -68,6 +68,15 @@ const initCat = 'all';
     <p class="page-desc">共 {allPosts.length} 篇文章</p>
   </div>
 
+  <!-- 搜索框 -->
+  <div class="article-search-wrap">
+    <svg class="article-search-icon" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+    <input id="article-search" class="article-search-input" type="search" placeholder="搜索文章标题、摘要…" autocomplete="off" />
+    <button id="article-search-btn" class="article-search-btn" aria-label="搜索">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+    </button>
+  </div>
+
   <!-- 分类 Tab -->
   <nav class="cat-tabs" id="cat-tabs">
     {CATEGORIES.filter(c => c.slug === 'all' || grouped[c.slug].length > 0).map((cat) => (
@@ -77,15 +86,6 @@ const initCat = 'all';
       </button>
     ))}
   </nav>
-
-  <!-- 搜索框 -->
-  <div class="article-search-wrap">
-    <svg class="article-search-icon" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
-    <input id="article-search" class="article-search-input" type="search" placeholder="搜索文章标题、摘要…" autocomplete="off" />
-    <button id="article-search-btn" class="article-search-btn" aria-label="搜索">
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
-    </button>
-  </div>
 
   <!-- 热门标签 -->
   <div class="tag-bar" id="tag-bar"></div>
