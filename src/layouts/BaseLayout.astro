@@ -204,15 +204,25 @@ const articlesHref = `${base}/${lang}/`;
         display: flex;
         align-items: center;
         justify-content: center;
+        /* collapsed: icon centered in 48px strip */
+      }
+      .sidebar[data-open] .sidebar-icon {
+        width: 40px;
+        justify-content: flex-start;
+        padding-left: 15px;
       }
       .sidebar-label {
         font-size: 0.875rem;
         font-weight: 500;
         display: none;
-        padding-right: 12px;
+        flex: 1;
       }
-      .sidebar[data-open] .sidebar-label { display: block; }
-      .sidebar[data-open] .tools-chevron { display: block; }
+      .sidebar[data-open] .sidebar-label {
+        display: block;
+      }
+      .sidebar[data-open] .tools-chevron {
+        display: block;
+      }
 
       @media (max-width: 640px) {
         .sidebar { display: none; }
