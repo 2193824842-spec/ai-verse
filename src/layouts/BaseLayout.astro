@@ -182,8 +182,6 @@ const articlesHref = `${base}/${lang}/`;
       .sidebar-item {
         display: flex;
         align-items: center;
-        justify-content: center;
-        gap: 10px;
         height: 44px;
         padding: 0;
         color: var(--text-dim);
@@ -193,10 +191,6 @@ const articlesHref = `${base}/${lang}/`;
         border-left: 2px solid transparent;
         flex-shrink: 0;
       }
-      .sidebar[data-open] .sidebar-item {
-        justify-content: flex-start;
-        padding: 0 15px;
-      }
       .sidebar-item:hover {
         color: var(--accent);
         background: rgba(79,172,254,0.06);
@@ -204,8 +198,8 @@ const articlesHref = `${base}/${lang}/`;
         text-decoration: none;
       }
       .sidebar-icon {
-        width: 18px;
-        height: 18px;
+        width: 48px;
+        height: 44px;
         flex-shrink: 0;
         display: flex;
         align-items: center;
@@ -216,6 +210,7 @@ const articlesHref = `${base}/${lang}/`;
         font-weight: 500;
         opacity: 0;
         transition: opacity 0.15s;
+        padding-right: 12px;
       }
       .sidebar[data-open] .sidebar-label { opacity: 1; }
 
@@ -244,11 +239,6 @@ const articlesHref = `${base}/${lang}/`;
         font-size: inherit;
         color: var(--text-dim);
         box-sizing: border-box;
-        justify-content: center;
-      }
-      .sidebar[data-open] .sidebar-item--tools {
-        padding: 0 15px;
-        justify-content: flex-start;
       }
       .sidebar-item--tools:hover {
         color: var(--accent);
