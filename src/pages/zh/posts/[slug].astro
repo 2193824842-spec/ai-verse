@@ -1,0 +1,132 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import { getCollection } from 'astro:content';
+
+export async function getStaticPaths() {
+  const posts = await getCollection('posts-zh');
+  return posts.map((post) => ({ params: { slug: post.slug }, props: { post } }));
+}
+
+const { post } = Astro.props;
+const { Content } = await post.render();
+
+function formatDate(date: Date) {
+  return date.toLocaleDateString('zh-CN', { year: 'numeric', month: 'long', day: 'numeric' });
+}
+
+const rawContent = post.body;
+const headingRegex = /^(#{2,3})\s+(.+)$/gm;
+const tocItems: { level: number; text: string; id: string }[] = [];
+let match;
+while ((match = headingRegex.exec(rawContent)) !== null) {
+  const level = match[1].length;
+  if (level !== 2) continue;
+  const text = match[2].trim();
+  const id = text.toLowerCase().replace(/[^\w\u4e00-\u9fff]+/g, '-').replace(/^-|-$/g, '');
+  tocItems.push({ level, text, id });
+}
+
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": post.data.title,
+  "description": post.data.summary,
+  "datePublished": post.data.date.toISOString().split('T')[0],
+  "dateModified": post.data.date.toISOString().split('T')[0],
+  "url": Astro.url.href,
+  "publisher": { "@type": "Organization", "name": "AI Verse", "url": import.meta.env.SITE + import.meta.env.BASE_URL },
+  "keywords": post.data.tags?.join(', '),
+};
+---
+
+<BaseLayout title={post.data.title} description={post.data.summary} lang="zh">
+  <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
+  <div class="article-outer">
+    <div class="article-main">
+      <a href={`${base}/zh/articles/`} class="back-link">← 返回列表</a>
+      <article>
+        <header class="article-header">
+          <div class="tag-list">
+            {post.data.tags.map((tag) => (
+              <span class="tag">#{tag}</span>
+            ))}
+          </div>
+          <h1>{post.data.title}</h1>
+          <div class="article-meta">
+            <span>{formatDate(post.data.date)}</span>
+            <span class="badge badge-difficulty">{post.data.difficulty}</span>
+          </div>
+        </header>
+        {post.data.cover && (
+          <img src={post.data.cover} alt={post.data.title} class="cover-image" />
+        )}
+        <div class="prose"><Content /></div>
+      </article>
+    </div>
+
+    {tocItems.length > 0 && (
+      <aside class="toc-sidebar">
+        <div class="toc-box">
+          <div class="toc-title">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="15" y2="12"/><line x1="3" y1="18" x2="18" y2="18"/></svg>
+            目录
+          </div>
+          <nav>
+            <ul class="toc-list">
+              {tocItems.map((item) => (
+                <li class={`toc-item toc-h${item.level}`}>
+                  <a href={`#${item.id}`} class="toc-link">{item.text}</a>
+                </li>
+              ))}
+            </ul>
+          </nav>
+        </div>
+      </aside>
+    )}
+  </div>
+
+  <script>
+    const toc = document.querySelector<HTMLElement>('.toc-sidebar');
+    const articleMain = document.querySelector<HTMLElement>('.article-main');
+    const prose = document.querySelector<HTMLElement>('.prose');
+
+    const domHeadings = Array.from(document.querySelectorAll<HTMLElement>('.prose h2'));
+    const tocLinks = Array.from(document.querySelectorAll<HTMLAnchorElement>('.toc-link'));
+    domHeadings.forEach((h, i) => {
+      if (tocLinks[i] && h.id) tocLinks[i].href = '#' + h.id;
+    });
+
+    function positionToc() {
+      if (!toc || !articleMain || !prose) return;
+      const rect = articleMain.getBoundingClientRect();
+      const viewportWidth = window.innerWidth;
+      if (viewportWidth - rect.right > 280) {
+        toc.style.left = (rect.right + 32) + 'px';
+        const proseTop = prose.getBoundingClientRect().top;
+        const top = Math.max(80, proseTop);
+        toc.style.top = top + 'px';
+        toc.style.display = 'block';
+      } else {
+        toc.style.display = 'none';
+      }
+    }
+
+    positionToc();
+    window.addEventListener('resize', positionToc);
+    window.addEventListener('scroll', positionToc, { passive: true });
+
+    function onScroll() {
+      let current = '';
+      for (const h of domHeadings) {
+        if (h.getBoundingClientRect().top <= 100) current = h.id;
+      }
+      tocLinks.forEach(a => {
+        const href = a.getAttribute('href') || '';
+        a.classList.toggle('toc-active', href === '#' + current);
+      });
+    }
+    window.addEventListener('scroll', onScroll, { passive: true });
+  </script>
+</BaseLayout>
