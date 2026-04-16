@@ -98,6 +98,20 @@ const jsonLd = {
       if (tocLinks[i] && h.id) tocLinks[i].href = '#' + h.id;
     });
 
+    // Use replaceState instead of default pushState to avoid stacking history entries
+    tocLinks.forEach(a => {
+      a.addEventListener('click', (e) => {
+        e.preventDefault();
+        const id = a.getAttribute('href')?.slice(1);
+        if (!id) return;
+        const target = document.getElementById(id);
+        if (target) {
+          target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          history.replaceState(null, '', '#' + id);
+        }
+      });
+    });
+
     function positionToc() {
       if (!toc || !articleMain || !prose) return;
       const rect = articleMain.getBoundingClientRect();

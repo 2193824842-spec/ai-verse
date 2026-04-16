@@ -98,6 +98,20 @@ const jsonLd = {
       if (tocLinks[i] && h.id) tocLinks[i].href = '#' + h.id;
     });
 
+    // 用 replaceState 替代默认的 pushState，防止目录点击堆积历史记录
+    tocLinks.forEach(a => {
+      a.addEventListener('click', (e) => {
+        e.preventDefault();
+        const id = a.getAttribute('href')?.slice(1);
+        if (!id) return;
+        const target = document.getElementById(id);
+        if (target) {
+          target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          history.replaceState(null, '', '#' + id);
+        }
+      });
+    });
+
     function positionToc() {
       if (!toc || !articleMain || !prose) return;
       const rect = articleMain.getBoundingClientRect();
