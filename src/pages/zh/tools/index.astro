@@ -6,6 +6,19 @@ import { TOOLS } from '../../../data/tools';
 const toolEntries = await getCollection('tools-zh');
 const detailSlugs = new Set(toolEntries.map(e => e.slug));
 
+// Build inline compare data map
+const compareDataMap: Record<string, {
+  name: string; url: string; tag: string; category: string;
+  longDesc: string; pros: string[]; cons: string[];
+}> = {};
+for (const e of toolEntries) {
+  compareDataMap[e.slug] = {
+    name: e.data.name, url: e.data.url, tag: e.data.tag,
+    category: e.data.category, longDesc: e.data.longDesc,
+    pros: e.data.pros ?? [], cons: e.data.cons ?? [],
+  };
+}
+
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 
 const TAG_COLORS: Record<string, string> = {
@@ -205,6 +218,7 @@ const CATEGORY_ICONS: Record<string, string> = {
       })}
     </div>
   </div>
+  <script type="application/json" id="compare-data" set:html={JSON.stringify(compareDataMap)} />
 </BaseLayout>
 
 <!-- Compare bar -->
@@ -777,6 +791,10 @@ const CATEGORY_ICONS: Record<string, string> = {
   type CompareItem = { slug: string; name: string; desc: string; tag: string; favicon: string };
   let compareList: CompareItem[] = [];
 
+  const compareData: Record<string, any> = JSON.parse(
+    document.getElementById('compare-data')?.textContent ?? '{}'
+  );
+
   const bar = document.getElementById('compare-bar')!;
   const barItems = document.getElementById('compare-bar-items')!;
   const startBtn = document.getElementById('compare-start-btn')!;
@@ -784,11 +802,23 @@ const CATEGORY_ICONS: Record<string, string> = {
   const panel = document.getElementById('compare-panel')!;
   const panelBody = document.getElementById('compare-panel-body')!;
   const panelClose = document.getElementById('compare-panel-close')!;
+  const panelTitle = document.getElementById('compare-panel-title')!;
+
+  const toast = document.createElement('div');
+  toast.style.cssText = 'position:fixed;bottom:80px;left:50%;transform:translateX(-50%);background:#1a1a2e;color:#fff;font-size:13px;padding:8px 18px;border-radius:8px;z-index:300;pointer-events:none;opacity:0;transition:opacity 0.2s';
+  document.body.appendChild(toast);
+  function showToast(msg: string) {
+    toast.textContent = msg; toast.style.opacity = '1';
+    setTimeout(() => { toast.style.opacity = '0'; }, 2000);
+  }
 
   function renderBar() {
     bar.style.display = compareList.length > 0 ? 'flex' : 'none';
     barItems.innerHTML = compareList.map(item => `
-      <span class="compare-bar-chip">${item.name}<button data-slug="${item.slug}">×</button></span>
+      <span class="compare-bar-chip">
+        <img src="${item.favicon}" width="16" height="16" style="border-radius:4px;flex-shrink:0" alt="" />
+        ${item.name}<button data-slug="${item.slug}">×</button>
+      </span>
     `).join('');
     barItems.querySelectorAll<HTMLButtonElement>('button[data-slug]').forEach(btn => {
       btn.addEventListener('click', () => removeCompare(btn.dataset.slug!));
@@ -811,9 +841,9 @@ const CATEGORY_ICONS: Record<string, string> = {
       const slug = btn.dataset.slug!;
       const name = btn.dataset.name!;
       if (compareList.findIndex(i => i.slug === slug) >= 0) { removeCompare(slug); return; }
-      if (compareList.length >= 3) { alert('最多对比 3 个工具'); return; }
+      if (compareList.length >= 3) { showToast('最多对比 3 个工具'); return; }
       const desc = card.querySelector('.tool-desc')?.textContent ?? '';
-      const tag = card.querySelector('.tool-badge')?.textContent ?? '';
+      const tag = card.dataset.tag ?? card.querySelector('.tool-badge')?.textContent ?? '';
       const favicon = (card.querySelector('.tool-favicon') as HTMLImageElement)?.src ?? '';
       compareList.push({ slug, name, desc, tag, favicon });
       document.querySelectorAll<HTMLElement>(`.tool-card[data-slug="${slug}"]`).forEach(c => c.classList.add('comparing'));
@@ -825,20 +855,73 @@ const CATEGORY_ICONS: Record<string, string> = {
 
   closeBar.addEventListener('click', () => { [...compareList.map(i => i.slug)].forEach(removeCompare); });
 
+  const POPULAR = new Set(['chatgpt','cursor','midjourney','claude','github-copilot','notion-ai','perplexity','canva-ai']);
+  const LATEST  = new Set(['bolt-new','v0','devin','sora','grok','gemini','copilot','perplexity']);
+
   startBtn.addEventListener('click', () => {
-    const rows = [
-      ['名称', ...compareList.map(i => `<strong>${i.name}</strong>`)],
-      ['定价', ...compareList.map(i => i.tag)],
-      ['描述', ...compareList.map(i => i.desc)],
+    const count = compareList.length;
+    panelTitle.textContent = `对比 ${count} 个工具`;
+
+    function stars(slug: string) {
+      return POPULAR.has(slug) ? '★★★★★' : LATEST.has(slug) ? '★★★★☆' : '★★★☆☆';
+    }
+    function audience(d: any) {
+      const m = (d.longDesc ?? '').match(/适合([^。.]+)/);
+      return m ? m[1].trim() : (d.category ?? '—');
+    }
+    function company(url: string) {
+      try { return new URL(url).hostname.replace(/^www\./, ''); } catch { return '—'; }
+    }
+    function tagBadge(tag: string) {
+      const cls = tag === '免费' ? 'background:rgba(67,233,123,0.15);color:#10B981;border:1px solid rgba(67,233,123,0.4)'
+                : tag === '付费' ? 'background:rgba(168,85,247,0.12);color:#A855F7;border:1px solid rgba(168,85,247,0.35)'
+                : 'background:rgba(79,172,254,0.12);color:#4FACFE;border:1px solid rgba(79,172,254,0.35)';
+      return `<span style="display:inline-block;font-size:11px;font-weight:600;padding:2px 9px;border-radius:999px;${cls}">${tag}</span>`;
+    }
+
+    const headerCells = compareList.map(item => {
+      const d = compareData[item.slug] ?? {};
+      return `<th style="padding:14px 16px;text-align:center;border-left:1px solid var(--border);min-width:160px;vertical-align:bottom">
+        <img src="${item.favicon}" width="40" height="40" style="border-radius:10px;display:block;margin:0 auto 8px" alt="${item.name}" />
+        <div style="font-size:11px;font-weight:700;letter-spacing:.07em;color:var(--text-dim);margin-bottom:6px">${item.name.toUpperCase()}</div>
+        <a href="${d.url ?? '#'}" target="_blank" rel="noopener" style="font-size:11px;color:var(--accent);text-decoration:none;border:1px solid rgba(79,172,254,0.3);border-radius:4px;padding:2px 8px">访问 ↗</a>
+      </th>`;
+    }).join('');
+
+    const rowDefs = [
+      { label: '简介',    fn: (d: any) => `<span style="color:var(--text)">${(d.longDesc ?? '').split(/[。.]/)[0].trim()}。</span>` },
+      { label: '适合人群', fn: (d: any) => audience(d) },
+      { label: '所属公司', fn: (d: any) => company(d.url ?? '') },
+      { label: '分类',    fn: (d: any) => d.category ?? '—' },
+      { label: '定价',    fn: (_d: any, item: CompareItem) => tagBadge(item.tag) },
+      { label: '流行度',  fn: (_d: any, item: CompareItem) => `<span style="color:#F59E0B;letter-spacing:2px">${stars(item.slug)}</span>` },
+      { label: '最大优点', fn: (d: any) => d.pros?.[0] ? `<span style="color:#10B981">✓ ${d.pros[0]}</span>` : '—' },
+      { label: '主要缺点', fn: (d: any) => d.cons?.[0] ? `<span style="color:#EF4444">✗ ${d.cons[0]}</span>` : '—' },
     ];
-    panelBody.innerHTML = `<table class="compare-table">
-      <thead><tr><th>属性</th>${compareList.map(i => `<th><img src="${i.favicon}" width="20" height="20" style="border-radius:4px;vertical-align:middle;margin-right:6px">${i.name}</th>`).join('')}</tr></thead>
-      <tbody>${rows.map(row => `<tr>${row.map((cell, idx) => idx === 0 ? `<th>${cell}</th>` : `<td>${cell}</td>`).join('')}</tr>`).join('')}</tbody>
-    </table>`;
+
+    const bodyRows = rowDefs.map(row => {
+      const cells = compareList.map(item => {
+        const d = compareData[item.slug] ?? {};
+        return `<td style="padding:10px 16px;font-size:13px;color:var(--text-dim);line-height:1.5;border-left:1px solid var(--border);border-top:1px solid var(--border);vertical-align:top">${row.fn(d, item)}</td>`;
+      }).join('');
+      return `<tr>
+        <th style="padding:10px 14px;font-size:11px;font-weight:600;color:var(--text-dim);text-transform:uppercase;letter-spacing:.05em;white-space:nowrap;background:rgba(79,172,254,0.03);text-align:left;width:90px;border-top:1px solid var(--border)">${row.label}</th>
+        ${cells}
+      </tr>`;
+    }).join('');
+
+    panelBody.innerHTML = `
+      <table style="width:100%;border-collapse:collapse;margin-top:4px">
+        <thead><tr><th style="width:90px"></th>${headerCells}</tr></thead>
+        <tbody>${bodyRows}</tbody>
+      </table>`;
     panel.style.display = 'flex';
   });
 
   panelClose.addEventListener('click', () => { panel.style.display = 'none'; });
   panel.addEventListener('click', (e) => { if (e.target === panel) panel.style.display = 'none'; });
+  document.addEventListener('keydown', (e: KeyboardEvent) => {
+    if (e.key === 'Escape' && panel.style.display !== 'none') panel.style.display = 'none';
+  });
 </script>
 
