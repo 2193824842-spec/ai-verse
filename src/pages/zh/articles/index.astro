@@ -94,6 +94,9 @@ const postMeta = Object.fromEntries(
   <div class="article-search-wrap">
     <svg class="article-search-icon" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
     <input id="article-search" class="article-search-input" type="search" placeholder="搜索文章标题、摘要…" autocomplete="off" />
+    <button id="article-search-btn" class="article-search-btn" aria-label="搜索">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+    </button>
   </div>
 
   <!-- 文章列表 -->
@@ -181,10 +184,15 @@ const postMeta = Object.fromEntries(
   renderTags();
   renderPosts();
 
-  searchEl?.addEventListener('input', () => {
+  const searchBtnEl = document.getElementById('article-search-btn');
+
+  function doSearch() {
     currentSearch = searchEl.value.trim();
     renderPosts();
-  });
+  }
+
+  searchBtnEl?.addEventListener('click', doSearch);
+  searchEl?.addEventListener('keydown', (e) => { if (e.key === 'Enter') doSearch(); });
 </script>
 
 <style is:global>
@@ -280,7 +288,7 @@ const postMeta = Object.fromEntries(
     border-radius: 8px;
     color: var(--text);
     font-size: 0.875rem;
-    padding: 0.55rem 1rem 0.55rem 2.2rem;
+    padding: 0.55rem 2.6rem 0.55rem 2.2rem;
     outline: none;
     transition: border-color 0.15s, box-shadow 0.15s;
   }
@@ -291,5 +299,25 @@ const postMeta = Object.fromEntries(
   }
   [data-theme="light"] .article-search-input:focus {
     box-shadow: 0 0 0 3px rgba(9,105,218,0.1);
+  }
+  .article-search-btn {
+    position: absolute;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    width: 38px;
+    background: none;
+    border: none;
+    border-radius: 0 8px 8px 0;
+    color: var(--text-dim);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: color 0.15s, background 0.15s;
+  }
+  .article-search-btn:hover {
+    color: var(--accent);
+    background: rgba(79,172,254,0.08);
   }
 </style>
