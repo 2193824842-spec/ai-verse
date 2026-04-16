@@ -4,7 +4,7 @@ date: 2026-04-16
 tags: ["AI大模型", "Google Gemini国内使用教程"]
 summary: "2026年AI办公工具推荐：15款提升效率神器，按场景精选"
 difficulty: "入门"
-category: "review"
+category: "insight"
 cover: "/ai-verse/covers/google-gemini.png"
 ---
 
