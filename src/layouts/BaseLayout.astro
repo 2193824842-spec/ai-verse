@@ -191,9 +191,6 @@ const articlesHref = `${base}/${lang}/`;
         border-left: 2px solid transparent;
         flex-shrink: 0;
       }
-      .sidebar[data-open] .sidebar-item {
-        padding-left: 4px;
-      }
       .sidebar-item:hover {
         color: var(--accent);
         background: rgba(79,172,254,0.06);
@@ -213,9 +210,11 @@ const articlesHref = `${base}/${lang}/`;
         font-weight: 500;
         display: none;
         flex: 1;
+        min-width: 0;
       }
       .sidebar[data-open] .sidebar-label {
-        display: block;
+        display: flex;
+        align-items: center;
       }
 
       @media (max-width: 640px) {
@@ -243,16 +242,16 @@ const articlesHref = `${base}/${lang}/`;
         font-size: inherit;
         color: var(--text-dim);
         box-sizing: border-box;
+        display: flex;
+        align-items: center;
+        height: 44px;
         text-align: left;
-      }
-      .sidebar[data-open] .sidebar-item--tools {
-        padding-left: 4px;
+        flex-shrink: 0;
       }
       .sidebar-item--tools:hover {
         color: var(--accent);
         background: rgba(79,172,254,0.06);
         border-left-color: var(--accent);
-        text-decoration: none;
       }
 
       /* Tools submenu */
@@ -268,7 +267,7 @@ const articlesHref = `${base}/${lang}/`;
         display: flex;
         align-items: center;
         height: 34px;
-        padding: 0 12px 0 46px;
+        padding: 0 12px 0 48px;
         color: var(--text-dim);
         text-decoration: none;
         font-size: 0.78rem;
@@ -288,12 +287,12 @@ const articlesHref = `${base}/${lang}/`;
         display: none;
         margin-left: auto;
         flex-shrink: 0;
+        padding-right: 12px;
         transition: transform 0.2s;
       }
       .sidebar[data-open] .tools-chevron {
-        display: inline-flex;
+        display: flex;
         align-items: center;
-        padding-right: 12px;
       }
       .sidebar-item--tools[data-open] .tools-chevron {
         transform: rotate(180deg);
