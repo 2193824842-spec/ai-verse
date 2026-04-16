@@ -62,6 +62,7 @@ export const TOOLS: { category: string; slug: string; items: Tool[] }[] = [
       { name: 'QuillBot', slug: 'quillbot', desc: '英文改写和摘要工具，学术写作常用', url: 'https://quillbot.com', tag: '免费/付费', category: 'AI写作工具', categorySlug: 'writing' },
       { name: 'Writesonic', slug: 'writesonic', desc: 'AI 营销写作平台，100+ 模板，支持 SEO 内容生成', url: 'https://writesonic.com', tag: '免费/付费', category: 'AI写作工具', categorySlug: 'writing' },
       { name: 'Rytr', slug: 'rytr', desc: '高性价比 AI 写作工具，$9/月起，40+ 写作模板', url: 'https://rytr.me', tag: '免费/付费', category: 'AI写作工具', categorySlug: 'writing' },
+      { name: 'Sentence 3.0', slug: 'sentence-30', desc: '新一代 AI 写作助手，覆盖短文案到长内容，内置抄袭检测', url: 'https://www.sentence.ai', tag: '免费/付费', category: 'AI写作工具', categorySlug: 'writing' },
     ],
   },
   {
@@ -81,6 +82,7 @@ export const TOOLS: { category: string; slug: string; items: Tool[] }[] = [
       { name: 'Playground AI', slug: 'playground-ai', desc: '每天 500 张免费图，业内最高免费额度，支持多种模型', url: 'https://playground.com', tag: '免费/付费', category: 'AI图像生成', categorySlug: 'image' },
       { name: 'Freepik AI', slug: 'freepik-ai', desc: 'Freepik 出品，海量素材库 + AI 生图，设计师必备', url: 'https://freepik.com', tag: '免费/付费', category: 'AI图像生成', categorySlug: 'image' },
       { name: 'Kolors 可图', slug: 'kolors', desc: '快手出品的开源图像模型，中文提示词支持优秀', url: 'https://kolors.kuaishou.com', tag: '免费', category: 'AI图像生成', categorySlug: 'image' },
+      { name: 'Image to Prompt Generator', slug: 'image-to-prompt-generator', desc: 'AI 分析图像自动生成提示词，逆向工程 AI 绘画工作流', url: 'https://huggingface.co/spaces/timbrooks/instruct-pix2pix', tag: '免费/付费', category: 'AI图像生成', categorySlug: 'image' },
     ],
   },
   {
@@ -98,6 +100,8 @@ export const TOOLS: { category: string; slug: string; items: Tool[] }[] = [
       { name: '海螺 AI', slug: 'hailuo', desc: 'MiniMax 出品，人物动作表情逼真，国内可直接访问', url: 'https://hailuoai.com', tag: '免费/付费', category: 'AI视频工具', categorySlug: 'video' },
       { name: 'Vidu', slug: 'vidu', desc: '生数科技出品，国产高质量 AI 视频生成', url: 'https://vidu.studio', tag: '免费/付费', category: 'AI视频工具', categorySlug: 'video' },
       { name: '通义万象', slug: 'wanx', desc: '阿里出品，文生视频和图像生成，国内可用', url: 'https://tongyi.aliyun.com/wanxiang/', tag: '免费/付费', category: 'AI视频工具', categorySlug: 'video' },
+      { name: 'Free AI Video Upscaler', slug: 'free-ai-video-upscaler', desc: '开源桌面应用，神经网络超分辨率提升视频画质，支持批量处理', url: 'https://www.upscayl.org', tag: '免费', category: 'AI视频工具', categorySlug: 'video' },
+      { name: 'Warp Intro Creator', slug: 'warp-intro-creator', desc: 'AI 驱动的视频开场生成工具，秒出专业动画开场，无需剪辑技能', url: 'https://www.warp.dev', tag: '免费/付费', category: 'AI视频工具', categorySlug: 'video' },
     ],
   },
   {
@@ -114,6 +118,8 @@ export const TOOLS: { category: string; slug: string; items: Tool[] }[] = [
       { name: 'Google NotebookLM', slug: 'notebooklm', desc: 'Google 出品，基于你的资料问答，可一键生成播客', url: 'https://notebooklm.google.com', tag: '免费', category: 'AI效率工具', categorySlug: 'productivity' },
       { name: 'Manus', slug: 'manus', desc: '通用 AI 智能体，可自主完成深度研究、数据分析等复杂任务', url: 'https://manus.im', tag: '免费/付费', category: 'AI效率工具', categorySlug: 'productivity' },
       { name: 'Fireflies.ai', slug: 'fireflies', desc: 'AI 会议记录助手，自动转写、摘要、搜索会议内容', url: 'https://fireflies.ai', tag: '免费/付费', category: 'AI效率工具', categorySlug: 'productivity' },
+      { name: 'GoodBird', slug: 'goodbird', desc: 'AI 生产力平台，自动化工作流，深度集成 Slack/Asana/邮件', url: 'https://www.goodbird.ai', tag: '免费/付费', category: 'AI效率工具', categorySlug: 'productivity' },
+      { name: 'IndexFlow', slug: 'indexflow', desc: 'AI 文档索引与工作流自动化，智能分类海量非结构化数据', url: 'https://www.indexflow.ai', tag: '免费/付费', category: 'AI效率工具', categorySlug: 'productivity' },
     ],
   },
   {
