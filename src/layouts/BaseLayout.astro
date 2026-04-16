@@ -138,7 +138,7 @@ const articlesHref = `${base}/${lang}/`;
       </nav>
     </aside>
 
-    <main style="padding-top: 24px; margin-left: 48px; padding-left: 32px; padding-right: 32px; padding-bottom: 80px;"><div style="max-width: 1080px; margin: 0 auto;">
+    <main style="padding-top: 80px; margin-left: 48px; padding-left: 32px; padding-right: 32px; padding-bottom: 80px;"><div style="max-width: 1080px; margin: 0 auto;">
       <slot />
     </div></main>
 
@@ -160,7 +160,7 @@ const articlesHref = `${base}/${lang}/`;
       .sidebar {
         position: fixed;
         left: 0;
-        top: 0;
+        top: var(--header-h, 56px);
         bottom: 0;
         width: 48px;
         background: var(--bg-card);
