@@ -497,7 +497,7 @@ main { padding: 56px 0 80px; overflow: visible; }
   margin: 2em 0 0.75em;
 }
 
-.prose h1 { font-size: 28px; }
+.prose h1 { display: none; }
 .prose h2 { font-size: 22px; border-bottom: 1px solid var(--border); padding-bottom: 8px; scroll-margin-top: 80px; }
 .prose h3 { font-size: 18px; scroll-margin-top: 80px; }
 
