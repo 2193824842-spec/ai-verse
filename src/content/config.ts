@@ -5,6 +5,7 @@ const postSchema = z.object({
   date: z.coerce.date(),
   tags: z.array(z.string()).default([]),
   difficulty: z.string().default('中级'),
+  category: z.string().default('review'),
   summary: z.string().optional(),
   cover: z.string().optional(),
 });
