@@ -191,6 +191,9 @@ const articlesHref = `${base}/${lang}/`;
         border-left: 2px solid transparent;
         flex-shrink: 0;
       }
+      .sidebar[data-open] .sidebar-item {
+        padding-left: 4px;
+      }
       .sidebar-item:hover {
         color: var(--accent);
         background: rgba(79,172,254,0.06);
@@ -204,12 +207,6 @@ const articlesHref = `${base}/${lang}/`;
         display: flex;
         align-items: center;
         justify-content: center;
-        /* collapsed: icon centered in 48px strip */
-      }
-      .sidebar[data-open] .sidebar-icon {
-        width: 40px;
-        justify-content: flex-start;
-        padding-left: 15px;
       }
       .sidebar-label {
         font-size: 0.875rem;
@@ -249,6 +246,9 @@ const articlesHref = `${base}/${lang}/`;
         font-size: inherit;
         color: var(--text-dim);
         box-sizing: border-box;
+      }
+      .sidebar[data-open] .sidebar-item--tools {
+        padding-left: 4px;
       }
       .sidebar-item--tools:hover {
         color: var(--accent);
