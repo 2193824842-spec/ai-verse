@@ -4,7 +4,7 @@ date: 2026-04-14
 tags: ["AI编程工具", "AI编程IDE对比Cursor还是Copilot"]
 summary: "2026年AI办公工具推荐：15款提升效率神器，按场景精选"
 difficulty: "入门"
-cover: "/ai-blog/covers/aiidecursorcopilot.png"
+cover: "/ai-verse/covers/aiidecursorcopilot.png"
 ---
 
 # 2026年AI办公工具推荐：15款提升效率神器，按场景精选

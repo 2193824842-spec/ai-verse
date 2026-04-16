@@ -4,7 +4,7 @@ date: 2026-04-07
 tags: ["国内免费AI工具", "免费AI", "AI工具", "国产AI工具", "DeepSeek"]
 difficulty: "入门"
 summary: "2026年国内免费AI工具大全不限次数，涵盖DeepSeek、豆包、Kimi等30款工具，按写作/绘图/视频/编程分类，附场景选择指南，亲测可用持续更新。"
-cover: "/ai-blog/covers/2026-04-07-guonei-mianfei-ai.png"
+cover: "/ai-verse/covers/2026-04-07-guonei-mianfei-ai.png"
 ---
 
 # 2026年国内免费AI工具大全不限次数：30款亲测可用，按场景分类

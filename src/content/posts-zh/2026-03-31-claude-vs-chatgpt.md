@@ -3,7 +3,7 @@ title: "Claude vs ChatGPT 2026深度对比：哪个AI助手更适合你？"
 date: 2026-03-31
 tags: ["Claude", "ChatGPT", "AI对比", "AI助手", "AI工具"]
 summary: "2026年Claude与ChatGPT全面对比，从能力、价格、使用场景三个维度帮你选出最适合的AI助手。"
-cover: "/ai-blog/covers/2026-03-31-claude-vs-chatgpt.png"
+cover: "/ai-verse/covers/2026-03-31-claude-vs-chatgpt.png"
 difficulty: "入门"
 ---
 

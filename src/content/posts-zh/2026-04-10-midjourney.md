@@ -4,7 +4,7 @@ date: 2026-04-10
 summary: "2026最新Midjourney完整使用教程，手把手讲解从注册Discord、订阅付费、输入提示词到出图每一步，附6大常见报错解决方案和核心参数速查表。"
 tags: ["Midjourney怎么用", "Midjourney使用教程", "Midjourney完整教程", "AI绘画教程", "Midjourney新手入门"]
 difficulty: "入门"
-cover: "/ai-blog/covers/midjourney.png"
+cover: "/ai-verse/covers/midjourney.png"
 ---
 
 # Midjourney怎么用完整教程（2026）：10步从零出图，含常见报错解决
