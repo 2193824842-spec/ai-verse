@@ -1,0 +1,401 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import { getCollection } from 'astro:content';
+
+export async function getStaticPaths() {
+  const tools = await getCollection('tools-en');
+  return tools.map((tool) => ({
+    params: { slug: tool.slug },
+    props: { tool, allTools: tools },
+  }));
+}
+
+const { tool, allTools } = Astro.props;
+const { Content } = await tool.render();
+const { name, url, tag, category, longDesc, features, pricing, pros, cons } = tool.data;
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+
+const hostname = new URL(url).hostname;
+const faviconUrl = `https://www.google.com/s2/favicons?domain=${hostname}&sz=64`;
+
+const similarTools = (allTools as typeof tool[])
+  .filter((t) => t.data.category === category && t.slug !== tool.slug)
+  .slice(0, 5);
+
+const tagline = longDesc.split(/[.。]/)[0].trim();
+
+const startingPrice = tag.toLowerCase().includes('free') ? '$0' : tag;
+---
+
+<BaseLayout title={`${name} Review & Guide`} description={longDesc} lang="en">
+  <div class="tool-page">
+    <a href={`${base}/en/tools/`} class="back-link">← All Tools</a>
+
+    <div class="tool-layout">
+      <!-- Main content -->
+      <div class="tool-main">
+
+        <!-- Hero card -->
+        <div class="hero-card">
+          <div class="hero-top">
+            <img src={faviconUrl} alt={name} class="hero-favicon" width="48" height="48" />
+            <div>
+              <h1 class="hero-name">{name}</h1>
+              <p class="hero-by">by {category}</p>
+            </div>
+          </div>
+          <p class="hero-tagline">{tagline}.</p>
+          <div class="hero-actions">
+            <a href={url} target="_blank" rel="noopener noreferrer" class="visit-btn">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+              Visit {name}
+            </a>
+            <span class="tag-pill">{tag}</span>
+            <span class="tag-pill cat">{category}</span>
+          </div>
+        </div>
+
+        <!-- What is section -->
+        <div class="content-card">
+          <h2>What is {name}?</h2>
+          <p class="desc-text">{longDesc}</p>
+        </div>
+
+        <!-- Core Features -->
+        {features.length > 0 && (
+          <div class="content-card">
+            <h2>Core Features</h2>
+            <ul class="features-grid">
+              {features.map((f) => <li>{f}</li>)}
+            </ul>
+          </div>
+        )}
+
+        <!-- Pricing -->
+        {pricing && (
+          <div class="content-card">
+            <h2>Pricing Plans</h2>
+            <p class="desc-text">{pricing}</p>
+          </div>
+        )}
+
+        <!-- Pros / Cons -->
+        {(pros.length > 0 || cons.length > 0) && (
+          <div class="content-card">
+            <div class="pros-cons">
+              {pros.length > 0 && (
+                <div>
+                  <h3 class="pros-title">Pros</h3>
+                  <ul class="pc-list">
+                    {pros.map((p) => <li class="pro-item">{p}</li>)}
+                  </ul>
+                </div>
+              )}
+              {cons.length > 0 && (
+                <div>
+                  <h3 class="cons-title">Cons</h3>
+                  <ul class="pc-list">
+                    {cons.map((c) => <li class="con-item">{c}</li>)}
+                  </ul>
+                </div>
+              )}
+            </div>
+          </div>
+        )}
+
+        <!-- Markdown body -->
+        {tool.body.trim() && (
+          <div class="content-card prose">
+            <Content />
+          </div>
+        )}
+      </div>
+
+      <!-- Sidebar -->
+      <aside class="tool-sidebar">
+
+        <!-- Quick Stats -->
+        <div class="sidebar-card">
+          <h3 class="sidebar-title">Quick Stats</h3>
+          <div class="stats-row">
+            <span class="stat-label">Category</span>
+            <span class="stat-value">{category}</span>
+          </div>
+          <div class="stats-row">
+            <span class="stat-label">Pricing</span>
+            <span class="stat-value accent">{startingPrice}</span>
+          </div>
+          <div class="stats-row">
+            <span class="stat-label">Plan</span>
+            <span class="stat-value">{tag}</span>
+          </div>
+        </div>
+
+        <!-- Similar Tools -->
+        {similarTools.length > 0 && (
+          <div class="sidebar-card">
+            <h3 class="sidebar-title">Similar Tools</h3>
+            <ul class="similar-list">
+              {similarTools.map((t) => (
+                <li>
+                  <a href={`${base}/en/tools/${t.slug}/`} class="similar-item">
+                    <img
+                      src={`https://www.google.com/s2/favicons?domain=${new URL(t.data.url).hostname}&sz=32`}
+                      alt={t.data.name}
+                      width="24" height="24"
+                      class="similar-favicon"
+                    />
+                    <div class="similar-info">
+                      <span class="similar-name">{t.data.name}</span>
+                      <span class="similar-cat">{t.data.category}</span>
+                    </div>
+                    <span class={`similar-tag ${t.data.tag.toLowerCase().includes('free') ? 'free' : 'paid'}`}>
+                      {t.data.tag}
+                    </span>
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </div>
+        )}
+
+        <!-- CTA card -->
+        <div class="sidebar-card cta-card">
+          <img src={faviconUrl} alt={name} width="48" height="48" class="cta-favicon" />
+          <p class="cta-name">Try {name}</p>
+          <p class="cta-tag">{tag} · {category}</p>
+          <a href={url} target="_blank" rel="noopener noreferrer" class="cta-btn">Visit Site →</a>
+        </div>
+
+      </aside>
+    </div>
+  </div>
+</BaseLayout>
+
+<style>
+  .tool-page {
+    padding: 1.5rem 0 4rem;
+  }
+  .back-link {
+    display: inline-block;
+    margin-bottom: 1.25rem;
+    color: var(--text-dim);
+    font-size: 0.875rem;
+    text-decoration: none;
+  }
+  .back-link:hover { color: var(--accent); }
+
+  .tool-layout {
+    display: grid;
+    grid-template-columns: 1fr 300px;
+    gap: 20px;
+    align-items: start;
+  }
+
+  /* ── Cards ── */
+  .content-card, .hero-card, .sidebar-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 20px;
+    margin-bottom: 16px;
+  }
+  .sidebar-card { margin-bottom: 14px; }
+
+  /* ── Hero ── */
+  .hero-top {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 10px;
+  }
+  .hero-favicon {
+    width: 48px; height: 48px;
+    border-radius: 10px;
+    object-fit: contain;
+    border: 1px solid var(--border);
+    flex-shrink: 0;
+  }
+  .hero-name {
+    margin: 0 0 2px;
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--text);
+  }
+  .hero-by {
+    margin: 0;
+    font-size: 0.8rem;
+    color: var(--text-dim);
+  }
+  .hero-tagline {
+    color: var(--accent);
+    font-size: 0.9rem;
+    margin: 0 0 14px;
+    line-height: 1.5;
+  }
+  .hero-actions {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  .visit-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: var(--accent);
+    color: #fff;
+    font-size: 0.85rem;
+    font-weight: 500;
+    padding: 6px 14px;
+    border-radius: 8px;
+    text-decoration: none;
+  }
+  .visit-btn:hover { opacity: 0.85; }
+  .tag-pill {
+    font-size: 0.75rem;
+    padding: 3px 10px;
+    border-radius: 999px;
+    border: 1px solid var(--border);
+    color: var(--text-dim);
+    background: transparent;
+  }
+  .tag-pill.cat {
+    color: var(--accent);
+    border-color: rgba(79,172,254,0.3);
+    background: rgba(79,172,254,0.07);
+  }
+
+  /* ── Content sections ── */
+  .content-card h2 {
+    font-size: 1.05rem;
+    font-weight: 600;
+    margin: 0 0 12px;
+    color: var(--text);
+  }
+  .desc-text {
+    font-size: 0.9rem;
+    color: var(--text-dim);
+    line-height: 1.7;
+    margin: 0;
+  }
+
+  /* ── Features grid ── */
+  .features-grid {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+  }
+  .features-grid li {
+    font-size: 0.85rem;
+    color: var(--text);
+    padding-left: 1.1em;
+    position: relative;
+    line-height: 1.5;
+  }
+  .features-grid li::before {
+    content: '•';
+    position: absolute;
+    left: 0;
+    color: var(--accent);
+    font-weight: 700;
+  }
+
+  /* ── Pros / Cons ── */
+  .pros-cons {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+  }
+  .pros-title { color: #4caf50; font-size: 0.95rem; font-weight: 600; margin: 0 0 8px; }
+  .cons-title { color: #f44336; font-size: 0.95rem; font-weight: 600; margin: 0 0 8px; }
+  .pc-list { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 6px; }
+  .pro-item, .con-item {
+    font-size: 0.85rem;
+    color: var(--text);
+    padding: 5px 8px;
+    border-radius: 6px;
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+  }
+  .pro-item::before { content: '+ '; color: #4caf50; font-weight: 700; }
+  .con-item::before { content: '− '; color: #f44336; font-weight: 700; }
+
+  /* ── Prose ── */
+  .prose { font-size: 0.9rem; line-height: 1.75; color: var(--text); }
+  .prose :global(h2) { font-size: 1.05rem; font-weight: 600; margin: 1.25rem 0 0.5rem; }
+  .prose :global(p) { margin-bottom: 0.8rem; color: var(--text-dim); }
+  .prose :global(a) { color: var(--accent); }
+
+  /* ── Sidebar ── */
+  .sidebar-title {
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--text);
+    margin: 0 0 12px;
+  }
+  .stats-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 6px 0;
+    border-bottom: 1px solid var(--border);
+    font-size: 0.82rem;
+  }
+  .stats-row:last-child { border-bottom: none; }
+  .stat-label { color: var(--text-dim); }
+  .stat-value { color: var(--text); font-weight: 500; }
+  .stat-value.accent { color: var(--accent); }
+
+  .similar-list { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 2px; }
+  .similar-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 7px 6px;
+    border-radius: 8px;
+    text-decoration: none;
+    transition: background 0.15s;
+  }
+  .similar-item:hover { background: rgba(79,172,254,0.06); }
+  .similar-favicon { width: 24px; height: 24px; border-radius: 5px; flex-shrink: 0; }
+  .similar-info { flex: 1; min-width: 0; }
+  .similar-name { display: block; font-size: 0.82rem; font-weight: 500; color: var(--text); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .similar-cat { display: block; font-size: 0.72rem; color: var(--text-dim); }
+  .similar-tag {
+    font-size: 0.7rem;
+    padding: 2px 7px;
+    border-radius: 999px;
+    flex-shrink: 0;
+    border: 1px solid var(--border);
+    color: var(--text-dim);
+  }
+  .similar-tag.free { color: #4caf50; border-color: rgba(76,175,80,0.3); background: rgba(76,175,80,0.07); }
+  .similar-tag.paid { color: var(--accent); border-color: rgba(79,172,254,0.3); background: rgba(79,172,254,0.07); }
+
+  .cta-card { text-align: center; }
+  .cta-favicon { width: 48px; height: 48px; border-radius: 10px; margin: 0 auto 10px; display: block; border: 1px solid var(--border); }
+  .cta-name { font-size: 0.95rem; font-weight: 600; color: var(--text); margin: 0 0 4px; }
+  .cta-tag { font-size: 0.78rem; color: var(--text-dim); margin: 0 0 14px; }
+  .cta-btn {
+    display: block;
+    background: var(--accent);
+    color: #fff;
+    font-size: 0.875rem;
+    font-weight: 500;
+    padding: 8px 0;
+    border-radius: 8px;
+    text-decoration: none;
+    text-align: center;
+  }
+  .cta-btn:hover { opacity: 0.85; }
+
+  @media (max-width: 768px) {
+    .tool-layout { grid-template-columns: 1fr; }
+    .features-grid { grid-template-columns: 1fr; }
+    .pros-cons { grid-template-columns: 1fr; }
+  }
+</style>
