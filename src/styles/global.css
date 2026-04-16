@@ -62,7 +62,7 @@ a:hover { text-decoration: underline; }
 }
 
 /* ── Header ─────────────────────────────────────────── */
-header {
+body > header {
   position: fixed;
   top: 0;
   left: 0;
@@ -79,14 +79,14 @@ header {
 }
 
 /* 浅色模式：header 纯白，只保留渐变装饰线 */
-[data-theme="light"] header {
+[data-theme="light"] body > header {
   background: rgba(255, 255, 255, 0.75);
   border-bottom: 1px solid rgba(208, 215, 222, 0.6);
   box-shadow: 0 1px 8px rgba(0, 0, 0, 0.04);
 }
 
 /* 底部渐变色线条（伪元素叠加在 border-bottom 上） */
-header::after {
+body > header::after {
   content: "";
   position: absolute;
   bottom: -1px;
@@ -102,7 +102,7 @@ header::after {
   pointer-events: none;
 }
 
-[data-theme="light"] header::after {
+[data-theme="light"] body > header::after {
   background: linear-gradient(90deg,
     transparent 0%,
     rgba(9, 105, 218, 0.7) 25%,
@@ -111,7 +111,7 @@ header::after {
   );
 }
 
-header .inner {
+body > header .inner {
   display: flex;
   align-items: center;
   justify-content: space-between;
