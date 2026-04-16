@@ -118,8 +118,6 @@ export const TOOLS: { category: string; slug: string; items: Tool[] }[] = [
       { name: 'Google NotebookLM', slug: 'notebooklm', desc: 'Google 出品，基于你的资料问答，可一键生成播客', url: 'https://notebooklm.google.com', tag: '免费', category: 'AI效率工具', categorySlug: 'productivity' },
       { name: 'Manus', slug: 'manus', desc: '通用 AI 智能体，可自主完成深度研究、数据分析等复杂任务', url: 'https://manus.im', tag: '免费/付费', category: 'AI效率工具', categorySlug: 'productivity' },
       { name: 'Fireflies.ai', slug: 'fireflies', desc: 'AI 会议记录助手，自动转写、摘要、搜索会议内容', url: 'https://fireflies.ai', tag: '免费/付费', category: 'AI效率工具', categorySlug: 'productivity' },
-      { name: 'GoodBird', slug: 'goodbird', desc: 'AI 生产力平台，自动化工作流，深度集成 Slack/Asana/邮件', url: 'https://www.goodbird.ai', tag: '免费/付费', category: 'AI效率工具', categorySlug: 'productivity' },
-      { name: 'IndexFlow', slug: 'indexflow', desc: 'AI 文档索引与工作流自动化，智能分类海量非结构化数据', url: 'https://www.indexflow.ai', tag: '免费/付费', category: 'AI效率工具', categorySlug: 'productivity' },
     ],
   },
   {
