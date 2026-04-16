@@ -4,7 +4,7 @@ date: 2026-04-07
 tags: ["Free AI Tools", "Free AI", "AI Tools", "Chinese AI Tools", "DeepSeek"]
 difficulty: "Beginner"
 summary: "The most complete list of free AI tools accessible in mainland China in 2026 — 30 tools covering writing, image generation, video, coding, and productivity, all tested and organized by use case."
-cover: "/ai-blog/covers/2026-04-07-guonei-mianfei-ai.png"
+cover: "/ai-verse/covers/2026-04-07-guonei-mianfei-ai.png"
 ---
 
 Every time you want to use an AI tool, do you find yourself stuck: this one needs a VPN, that one only allows 10 free questions per day, and another turns out to require payment after you register?

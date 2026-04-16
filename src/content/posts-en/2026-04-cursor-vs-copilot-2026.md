@@ -4,7 +4,7 @@ date: 2026-04-10
 difficulty: "Intermediate"
 tags: ["Cursor", "GitHub Copilot", "coding", "productivity"]
 summary: "Two AI coding assistants battle for developer hearts. We tested both extensively to find the winner."
-cover: "/ai-blog/covers/cursor-copilot.jpg"
+cover: "/ai-verse/covers/cursor-copilot.jpg"
 ---
 
 Two AI coding assistants battle for developer hearts. We tested both extensively across real-world projects to find the winner.

@@ -4,7 +4,7 @@ date: 2026-04-08
 difficulty: "Intermediate"
 tags: ["Anthropic", "funding", "Claude", "AI safety"]
 summary: "The Claude maker secures massive funding as AI safety becomes a top priority for investors."
-cover: "/ai-blog/covers/anthropic-funding.jpg"
+cover: "/ai-verse/covers/anthropic-funding.jpg"
 ---
 
 Anthropic has secured $5 billion in Series D funding, pushing its valuation to $60 billion and cementing its position as one of the most valuable AI startups in history.
