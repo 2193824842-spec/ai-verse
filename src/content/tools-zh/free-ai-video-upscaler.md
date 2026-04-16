@@ -3,6 +3,7 @@ name: Free AI Video Upscaler
 url: https://www.upscayl.org
 tag: 免费
 category: AI视频工具
+faviconUrl: "https://upscayl.org/logo/64x64.png"
 longDesc: "Free AI Video Upscaler（Upscayl）是一款开源桌面应用程序，通过先进神经网络提升视频分辨率和画质。支持多种超分模型和批量处理，适合内容创作者、视频编辑师和档案管理员在不损失质量的前提下修复低分辨率视频。"
 features:
   - "多个 AI 超分模型（Real-ESRGAN、Anime4K、BSRGAN）"

@@ -3,6 +3,7 @@ name: Free AI Video Upscaler
 url: https://www.upscayl.org
 tag: Free
 category: AI Video Tools
+faviconUrl: "https://upscayl.org/logo/64x64.png"
 longDesc: "Free AI Video Upscaler (Upscayl) is an open-source desktop application that enhances video resolution and quality using advanced neural networks. It supports multiple upscaling models and batch processing, making it ideal for content creators, video editors, and archivists who need to restore low-resolution footage without quality loss."
 features:
   - "Multiple AI upscaling models (Real-ESRGAN, Anime4K, BSRGAN)"

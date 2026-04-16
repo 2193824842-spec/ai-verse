@@ -19,6 +19,7 @@ const toolSchema = z.object({
   tag: z.string(),
   category: z.string(),
   longDesc: z.string(),
+  faviconUrl: z.string().optional(),
   features: z.array(z.string()).default([]),
   pricing: z.string().default(''),
   pros: z.array(z.string()).default([]),

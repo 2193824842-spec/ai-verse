@@ -12,11 +12,12 @@ export async function getStaticPaths() {
 
 const { tool, allTools } = Astro.props;
 const { Content } = await tool.render();
-const { name, url, tag, category, longDesc, features, pricing, pros, cons } = tool.data;
+const { name, url, tag, category, longDesc, features, pricing, pros, cons, faviconUrl: customFavicon } = tool.data;
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 
 const hostname = new URL(url).hostname;
-const faviconUrl = `https://www.google.com/s2/favicons?domain=${hostname}&sz=64`;
+const faviconUrl = customFavicon ?? `https://www.google.com/s2/favicons?domain=${hostname}&sz=64`;
+const faviconInitial = name.charAt(0).toUpperCase();
 
 const similarTools = (allTools as typeof tool[])
   .filter((t) => t.data.category === category && t.slug !== tool.slug)
@@ -38,7 +39,11 @@ const startingPrice = tag.toLowerCase().includes('free') ? '$0' : tag;
         <!-- Hero card -->
         <div class="hero-card">
           <div class="hero-top">
-            <img src={faviconUrl} alt={name} class="hero-favicon" width="48" height="48" />
+            <div class="favicon-wrap">
+              <img src={faviconUrl} alt={name} class="hero-favicon" width="48" height="48"
+                onerror="this.style.display='none';this.nextElementSibling.style.display='flex'" />
+              <span class="favicon-fallback">{faviconInitial}</span>
+            </div>
             <div>
               <h1 class="hero-name">{name}</h1>
               <p class="hero-by">by {category}</p>
@@ -161,7 +166,9 @@ const startingPrice = tag.toLowerCase().includes('free') ? '$0' : tag;
 
         <!-- CTA card -->
         <div class="sidebar-card cta-card">
-          <img src={faviconUrl} alt={name} width="48" height="48" class="cta-favicon" />
+          <img src={faviconUrl} alt={name} width="48" height="48" class="cta-favicon"
+            onerror="this.style.display='none';this.nextElementSibling.style.display='flex'" />
+          <span class="favicon-fallback cta-fallback">{faviconInitial}</span>
           <p class="cta-name">Try {name}</p>
           <p class="cta-tag">{tag} · {category}</p>
           <a href={url} target="_blank" rel="noopener noreferrer" class="cta-btn">Visit Site →</a>
@@ -208,6 +215,27 @@ const startingPrice = tag.toLowerCase().includes('free') ? '$0' : tag;
     align-items: center;
     gap: 12px;
     margin-bottom: 10px;
+  }
+  .favicon-wrap {
+    flex-shrink: 0;
+    width: 48px; height: 48px;
+    position: relative;
+  }
+  .favicon-fallback {
+    display: none;
+    width: 48px; height: 48px;
+    border-radius: 10px;
+    background: linear-gradient(135deg, var(--accent), #7c5cbf);
+    color: #fff;
+    font-size: 1.3rem;
+    font-weight: 700;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+  .cta-fallback {
+    margin: 0 auto 10px;
+    border: none;
   }
   .hero-favicon {
     width: 48px; height: 48px;
