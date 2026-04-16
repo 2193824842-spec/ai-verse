@@ -95,7 +95,7 @@ const articlesHref = `${base}/${lang}/`;
             <svg width="18" height="18" viewBox="0 0 256 256" fill="currentColor"><path d="M221.86,114.72A8,8,0,0,0,216,112H168V88a8,8,0,0,0-4.42-7.14l-112-56A8,8,0,0,0,40,32V224a8,8,0,0,0,16,0V168h56v24a8,8,0,0,0,4.42,7.14l80,40A8,8,0,0,0,208,232V120A8,8,0,0,0,221.86,114.72ZM56,152V52.94l96,48V152Z"/></svg>
           </span>
           <span class="sidebar-label">{lang === 'en' ? 'Tools' : '工具'}</span>
-          <svg class="tools-chevron sidebar-label" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+          <svg class="tools-chevron" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
             <polyline points="6 9 12 15 18 9"/>
           </svg>
         </button>
@@ -217,9 +217,6 @@ const articlesHref = `${base}/${lang}/`;
       .sidebar[data-open] .sidebar-label {
         display: block;
       }
-      .sidebar[data-open] .tools-chevron {
-        display: block;
-      }
 
       @media (max-width: 640px) {
         .sidebar { display: none; }
@@ -290,8 +287,13 @@ const articlesHref = `${base}/${lang}/`;
       .tools-chevron {
         display: none;
         margin-left: auto;
-        transition: transform 0.2s;
         flex-shrink: 0;
+        transition: transform 0.2s;
+      }
+      .sidebar[data-open] .tools-chevron {
+        display: inline-flex;
+        align-items: center;
+        padding-right: 12px;
       }
       .sidebar-item--tools[data-open] .tools-chevron {
         transform: rotate(180deg);
