@@ -3,7 +3,7 @@ title: "Midjourney Tutorial 2026: Complete Beginner's Guide from Sign-Up to Firs
 date: 2026-03-31
 tags: ["Midjourney", "AI Art", "Image Generation", "AI Tools", "AI Tutorial"]
 summary: "The most up-to-date Midjourney beginner's guide for 2026 — from registration to your first image, covering V7 features, prompt techniques, and key parameters."
-cover: "/ai-verse/covers/2026-03-31-midjourney.png"
+cover: "/covers/2026-03-31-midjourney.png"
 difficulty: "Beginner"
 category: "tutorial"
 ---

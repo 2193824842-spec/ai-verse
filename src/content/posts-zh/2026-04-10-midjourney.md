@@ -5,7 +5,7 @@ summary: "2026最新Midjourney完整使用教程，手把手讲解从注册Disco
 tags: ["Midjourney怎么用", "Midjourney使用教程", "Midjourney完整教程", "AI绘画教程", "Midjourney新手入门"]
 difficulty: "入门"
 category: "tutorial"
-cover: "/ai-verse/covers/midjourney.png"
+cover: "/covers/midjourney.png"
 ---
 
 # Midjourney怎么用完整教程（2026）：10步从零出图，含常见报错解决
