@@ -3,7 +3,7 @@ name: Fetch News Daily
 on:
   schedule:
     - cron: '26 1 * * *'  # 测试用：UTC 01:26，验证后改回 09:15
-  workflow_dispatch:        # 允许手动触发
+  workflow_dispatch: # 允许手动触发
 
 permissions:
   contents: write
