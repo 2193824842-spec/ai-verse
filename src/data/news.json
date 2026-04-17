@@ -1,5 +1,5 @@
 {
-  "updated": "2026-04-17 05:50 UTC",
+  "updated": "2026-04-17 06:13 UTC",
   "items": [
     {
       "title": "通义千问关联公司增资至2亿元",
@@ -23,6 +23,18 @@
       "summary_zh": "36氪获悉，具身智能公司“加速进化”于近日完成近10亿元融资。本轮融资由北京高精尖产业基金、京国盛基金与华控基金联合领投，联想之星、国海创新资本、交银资本参与投资，深创投、源码资本、英诺基金、IDG等老股东持续加码。本轮融资将用于全球化交付网络建设、具身模型算法开发、机器人产品迭代升级。",
       "title_en": "\"Accelerate Evolution\" completed nearly 1 billion yuan in financing",
       "summary_en": "36Kr learned that the embodied intelligence company “Accelerated Evolution” recently completed nearly 1 billion yuan in financing. This round of financing was jointly led by Beijing Advanced Industrial Fund, Jingguosheng Fund and Huakong Fund. Legend Star, Guohai Innovation Capital, and Bank of Communications Capital participated in the investment. Old shareholders such as Shenzhen Venture Capital, Source Code Capital, Inno Fund, and IDG continued to increase their investment. This round of financing will be used for global delivery network construction, embodied model algorithm development, and iterative upgrade of robot products.",
+      "image": "https://img.36krcdn.com/20191024/v2_1571894049839_img_jpg"
+    },
+    {
+      "title": "特斯拉在台招聘工程师：要求具备先进制程芯片经验",
+      "url": "https://36kr.com/newsflashes/3770502592545285?f=rss",
+      "source": "36Kr",
+      "summary": "据特斯拉网站上的招聘信息显示，该公司正在中国台湾地区招聘一批半导体工程师，以参与其“Terafab”人工智能芯片项目。特斯拉在台发布的工程岗位涵盖了多个核心的前端制造步骤，包括光刻、蚀刻、薄膜制作和化学机械抛光，以及良率工程和工艺集成。在职位要求中显示，有几项职位要求应聘者需要具备“在7纳米以下先进芯片制造节点以及2纳米级技术方面的经验”。目前，马斯克正在快马加鞭筹备Terafab半导体项目。知情…",
+      "date": "2026-04-17",
+      "title_zh": "特斯拉在台招聘工程师：要求具备先进制程芯片经验",
+      "summary_zh": "据特斯拉网站上的招聘信息显示，该公司正在中国台湾地区招聘一批半导体工程师，以参与其“Terafab”人工智能芯片项目。特斯拉在台发布的工程岗位涵盖了多个核心的前端制造步骤，包括光刻、蚀刻、薄膜制作和化学机械抛光，以及良率工程和工艺集成。在职位要求中显示，有几项职位要求应聘者需要具备“在7纳米以下先进芯片制造节点以及2纳米级技术方面的经验”。目前，马斯克正在快马加鞭筹备Terafab半导体项目。知情…",
+      "title_en": "Tesla is recruiting engineers in Taiwan: experience in advanced process chips is required",
+      "summary_en": "According to recruitment information on Tesla's website, the company is recruiting a group of semiconductor engineers in Taiwan, China, to participate in its \"Terafab\" artificial intelligence chip project. The engineering positions posted by Tesla in Taiwan cover multiple core front-end manufacturing steps, including photolithography, etching, thin film fabrication and chemical mechanical polishing, as well as yield engineering and process integration. According to the job requirements, several positions require candidates to have \"experience in advanced chip manufacturing nodes below 7 nanometers and 2 nanometer technology.\" Currently, Musk is speeding up preparations for the Terafab semiconductor project. Informed…",
       "image": "https://img.36krcdn.com/20191024/v2_1571894049839_img_jpg"
     },
     {
@@ -110,6 +122,30 @@
       "image": "https://img.36krcdn.com/hsossms/20260417/v2_d0cb2352af194b7b81d49c1ac780873f@000000_oswg80692oswg893oswg380_img_000?x-oss-process=image/resize,m_mfit,w_600,h_400,limit_0/crop,w_600,h_400,g_center"
     },
     {
+      "title": "英伟达黄仁勋：AI 不是核武器，也不会抢走所有工作",
+      "url": "https://www.ithome.com/0/940/315.htm",
+      "source": "IT之家",
+      "summary": "IT之家 4 月 17 日消息，在做客 Dwarkesh Patel 播客节目时，英伟达首席执行官黄仁勋反驳 AI 威胁论，尖锐批评 AI 行业的过度炒作，认为 AI 并非“核弹”，也不会取代所有软件工程岗位。黄仁勋明确反对将 AI 比作核武器，认为这种恐吓式宣传只会让公众对 AI 产生敌意与恐惧，最终损害美国的科技竞争力。IT之家援引视频内容，黄仁勋强调如果社会因恐惧 AI 取代人类，而停止培养…",
+      "date": "2026-04-17",
+      "title_zh": "英伟达黄仁勋：AI 不是核武器，也不会抢走所有工作",
+      "summary_zh": "IT之家 4 月 17 日消息，在做客 Dwarkesh Patel 播客节目时，英伟达首席执行官黄仁勋反驳 AI 威胁论，尖锐批评 AI 行业的过度炒作，认为 AI 并非“核弹”，也不会取代所有软件工程岗位。黄仁勋明确反对将 AI 比作核武器，认为这种恐吓式宣传只会让公众对 AI 产生敌意与恐惧，最终损害美国的科技竞争力。IT之家援引视频内容，黄仁勋强调如果社会因恐惧 AI 取代人类，而停止培养…",
+      "title_en": "NVIDIA Jensen Huang: AI is not a nuclear weapon and will not take away all jobs",
+      "summary_en": "IT House reported on April 17 that while appearing on the Dwarkesh Patel podcast, Nvidia CEO Jen-Hsun Huang refuted the AI ​​threat theory and sharply criticized the excessive hype of the AI ​​industry. He believed that AI is not a \"nuclear bomb\" and will not replace all software engineering jobs. Huang Jen-Hsun clearly opposes comparing AI to nuclear weapons, believing that such scare propaganda will only make the public hostile and fearful of AI, and ultimately harm the United States’ technological competitiveness. Citing the content of the video, IT House emphasized that if society stops cultivating people because of fear that AI will replace humans...",
+      "image": ""
+    },
+    {
+      "title": "18家具身顶尖势力集结，RoboChallenge 打造全球最大具身模型竞技场",
+      "url": "https://www.qbitai.com/2026/04/402186.html",
+      "source": "量子位",
+      "summary": "RoboChallenge 正式完成第二批生态扩容，星动纪元、极佳视界、地平线、光轮智能、生数科技、中移杭研、长虹、算力自由8 家顶尖企业重磅入驻",
+      "date": "2026-04-17",
+      "title_zh": "18家具身顶尖势力集结，RoboChallenge 打造全球最大具身模型竞技场",
+      "summary_zh": "RoboChallenge 正式完成第二批生态扩容，星动纪元、极佳视界、地平线、光轮智能、生数科技、中移杭研、长虹、算力自由8 家顶尖企业重磅入驻",
+      "title_en": "18 top bodies gather together to create the world's largest embodied model arena in RoboChallenge",
+      "summary_en": "RoboChallenge has officially completed the second batch of ecological expansion. Eight top companies including Star Dynamic Era, Excellent Vision, Horizon, Light Wheel Intelligence, Shengshu Technology, China Mobile Hangyan, Changhong, and Computing Power Free have settled in",
+      "image": ""
+    },
+    {
       "title": "从越用越便宜到越用越贵，谁在为AI的“算力饥渴”买单？",
       "url": "https://www.tmtpost.com/7956464.html",
       "source": "钛媒体",
@@ -155,7 +191,7 @@
       "summary_zh": "最懂如何让agent跑起来的人。",
       "title_en": "Guo Daya made up for Byte’s last shortcoming",
       "summary_en": "The person who knows how to make the agent run best.",
-      "image": "https://images.tmtpost.com/uploads/images/zhaopian/nuxtpic/change_logo3/og_image.png"
+      "image": ""
     },
     {
       "title": "报告称半数美国员工已在工作中使用 AI，但每周为此浪费近 8 小时",
@@ -287,7 +323,7 @@
       "summary_zh": "OpenAI 升级 Codex 新增多项实用功能，大疆发布 Osmo Pocket 4 云台相机等。查看全文",
       "title_en": "Pai Zaobao: Canva AI 2.0 released, Anthropic released Claude Opus 4.7 model, etc.",
       "summary_en": "OpenAI upgrades Codex to add many practical features, DJI releases Osmo Pocket 4 gimbal camera, etc. View full text",
-      "image": "https://rssfile.sspai.com/4/17/2026/article/a487dd0d-626f-0b54-1b09-6f042ff5155c.png?imageMogr2/auto-orient/ignore-error/1"
+      "image": ""
     },
     {
       "title": "早报｜雷军:不能因为有黑稿就不说话/曝OLED版iPad Air明年到来/2999起，大疆发布Osmo Pocket 4",
@@ -734,18 +770,6 @@
       "image": ""
     },
     {
-      "title": "腾讯官宣升级AI小程序成长计划，所有小程序都能申请",
-      "url": "https://www.qbitai.com/2026/04/401710.html",
-      "source": "量子位",
-      "summary": "参与门槛全面放开",
-      "date": "2026-04-16",
-      "title_zh": "腾讯官宣升级AI小程序成长计划，所有小程序都能申请",
-      "summary_zh": "参与门槛全面放开",
-      "title_en": "Tencent officially announces upgrade of AI mini program growth plan, all mini programs can apply",
-      "summary_en": "The threshold for participation is fully relaxed",
-      "image": ""
-    },
-    {
       "title": "快倒闭的硅谷神鞋，转行 AI 股价暴涨 7 倍，龙虾之父都懵了",
       "url": "https://www.ifanr.com/1662327?utm_source=rss&utm_medium=rss&utm_campaign=",
       "source": "爱范儿",
@@ -818,6 +842,18 @@
       "image": "https://huggingface.co/blog/assets/train-sentence-transformers/st-hf-thumbnail.png"
     },
     {
+      "title": "腾讯官宣升级AI小程序成长计划，所有小程序都能申请",
+      "url": "https://www.qbitai.com/2026/04/401710.html",
+      "source": "量子位",
+      "summary": "参与门槛全面放开",
+      "date": "2026-04-16",
+      "title_zh": "腾讯官宣升级AI小程序成长计划，所有小程序都能申请",
+      "summary_zh": "参与门槛全面放开",
+      "title_en": "Tencent officially announces upgrade of AI mini program growth plan, all mini programs can apply",
+      "summary_en": "The threshold for participation is fully relaxed",
+      "image": ""
+    },
+    {
       "title": "瑞和数智战略投资盛合晶微，布局AI算力核心赛道",
       "url": "https://36kr.com/newsflashes/3769285996151559?f=rss",
       "source": "36Kr",
@@ -875,7 +911,7 @@
       "summary_zh": "今日热点导览 可能含有“永久性化学物”，Lululemon在美被调查 近一周“一口价”黄金产品最高下跌17% 中国将健全药品价格形成机制 离境退税2.0版措施预计4月底前推出 苹果加码iPhone Fold TOP3大新闻 恒大集团、恒大地产及许家印案一审开庭 2026年4月13日至14日，广东省深圳市中级人民法院对深圳市人民检察院提起公诉的被告单位恒大集团有限公司非法吸收公众存款、集资诈骗、违法…",
       "title_en": "8:01 Krypton丨Xu Jiayin pleaded guilty and repented in court in the first instance; the traffic control department responded that the new energy license plate turned green from white; the generated content was pornographic, LibuLibu AI responded",
       "summary_en": "Today’s Hot Topics Guide Lululemon is under investigation in the United States as it may contain “permanent chemicals”. “Fixed price” gold products have fallen by up to 17% in the past week. China will improve the drug price formation mechanism. Version 2.0 of the departure tax rebate measure is expected to be launched before the end of April. Apple increases iPhone Fold TOP3 news. The first instance of Evergrande Group, Evergrande Real Estate and Xu Jiayin cases begins. From April 13 to 14, 2026, the Shenzhen Intermediate People’s Court of Guangdong Province launched a public prosecution against the defendant unit Evergrande Group Co., Ltd., which was prosecuted by the Shenzhen People’s Procuratorate for illegally absorbing public deposits, fund-raising fraud, and illegal...",
-      "image": "https://img.36krcdn.com/hsossms/20260415/v2_fda36a18f5284aa1a6a77e8f5ff54452@5667365_oswg82810oswg1053oswg495_img_jpg?x-oss-process=image/resize,m_mfit,w_600,h_400,limit_0/crop,w_600,h_400,g_center"
+      "image": ""
     },
     {
       "title": "粗门完成数千万A+轮融资，在AI时代让更多人“出门”｜36氪首发",
@@ -993,7 +1029,7 @@
       "date": "2026-04-16",
       "title_zh": "现在游戏招聘市场哪有正职啊，全是外包的岗",
       "summary_zh": "AI之下，连外包岗都要没了？",
-      "title_en": "There are no real jobs in the game recruitment market these days. They are all outsourced positions.",
+      "title_en": "There are no real jobs in the game recruitment market these days. They are all outsourced jobs.",
       "summary_en": "Under AI, will even outsourcing jobs disappear?",
       "image": "https://images.tmtpost.com/uploads/images/zhaopian/nuxtpic/change_logo3/og_image.png"
     },
@@ -1246,7 +1282,7 @@
       "title_zh": "早报｜苹果：建议更新iOS保护iPhone数据安全/华为苹果一季度逆势领跑手机市场/比亚迪回应车库起火",
       "summary_zh": "· 曝大立光电拒绝苹果加单，iPhone 18 Pro 可变光圈主力供应商转向舜宇光学 · 曝高德首款四足具身机器人将亮相，首秀 2026 亦庄机器人半马赛事 · 软银、索尼、本田等九家日本企业联合成立 AI 公司#欢迎关注爱范儿官方微信公众号：爱范儿（微信号：ifanr），更多精彩内容第一时间为您奉上。",
       "title_en": "Morning Post | Apple: It is recommended to update iOS to protect iPhone data security/Huawei and Apple bucked the trend and led the mobile phone market in the first quarter/BYD responded to the garage fire",
-      "summary_en": "· It is revealed that Largan Optoelectronics refuses Apple to add orders, and the main supplier of iPhone 18 Pro variable aperture turns to Sunny Optical · It is revealed that AutoNavi’s first four-legged embodied robot will be unveiled, making its debut at the 2026 Yizhuang Robot Half Marathon · Nine Japanese companies including SoftBank, Sony, Honda, etc. jointly established an AI company # Welcome to follow the official WeChat account of Aifaner: Aifaner (WeChat ID: ifanr), and more exciting content will be provided to you as soon as possible.",
+      "summary_en": "· It is revealed that Largan Optoelectronics refuses Apple to add orders, and the main supplier of iPhone 18 Pro variable aperture turns to Sunny Optical · It is revealed that AutoNavi’s first four-legged embodied robot will be unveiled, making its debut at the 2026 Yizhuang Robot Half Marathon · Nine Japanese companies including SoftBank, Sony, Honda, etc. jointly established an AI company # Welcome to follow the official WeChat account of Aifaner: Aifaner (WeChat ID: ifanr), more exciting content will be provided to you as soon as possible.",
       "image": "https://s3.ifanr.com/images/ep/cover-images/heng_kua_jiao_shi_cover.jpg"
     },
     {
