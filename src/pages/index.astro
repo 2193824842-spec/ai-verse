@@ -9,6 +9,9 @@ const zhUrl = `${base}/zh/`;
     <meta charset="UTF-8" />
     <meta http-equiv="refresh" content={`0; url=${zhUrl}`} />
     <link rel="canonical" href={zhUrl} />
+    <script define:vars={{ zhUrl }}>
+      window.location.replace(zhUrl);
+    </script>
   </head>
   <body>
     <p>Redirecting... <a href={zhUrl}>Click here</a></p>
