@@ -3,8 +3,6 @@ name: Fetch News Daily
 on:
   schedule:
     - cron: '15 1 * * *'  # 每天北京时间 09:15（UTC 01:15）
-  push:
-    branches: [main]
   workflow_dispatch: # 允许手动触发
 
 permissions:
