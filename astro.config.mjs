@@ -1,8 +1,8 @@
 import { defineConfig } from 'astro/config';
 
 export default defineConfig({
-  site: 'https://2193824842-spec.github.io',
-  base: '/ai-verse',
+  site: 'https://find-aiverse.com',
+  base: '/',
   trailingSlash: 'always',
   integrations: [],
   markdown: {
