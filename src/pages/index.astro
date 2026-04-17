@@ -1,6 +1,7 @@
 ---
 // Redirect root to Chinese homepage
-const zhUrl = `${import.meta.env.BASE_URL}/zh/`;
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+const zhUrl = `${base}/zh/`;
 ---
 <!doctype html>
 <html>
