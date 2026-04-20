@@ -7,7 +7,7 @@ const allPosts = await getCollection('posts-zh');
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 
 const insightPosts = allPosts
-  .filter(p => (p.data as any).category === 'insight')
+  .filter(p => (p.data as any).category === 'industry-insights')
   .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
 
 const trendingPosts = allPosts
