@@ -4,7 +4,7 @@ date: 2026-04-16
 tags: ["AI productivity tools", "AI office tools", "best AI tools for work", "workplace AI 2026"]
 summary: "15 tested AI office tools for 2026, organized across five scenarios: document writing, presentations, meeting transcription, data analysis, and general assistants."
 difficulty: "Beginner"
-category: "review"
+category: "insight"
 cover: "/covers/google-gemini.png"
 ---
 
