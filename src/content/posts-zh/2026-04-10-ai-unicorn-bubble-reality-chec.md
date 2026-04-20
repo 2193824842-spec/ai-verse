@@ -1,14 +1,10 @@
 ---
 title: "2026年AI独角兽泡沫现实检验：创业公司能活下来吗？"
 date: 2026-04-10
-tags:
-  - "企业AI"
-  - "AI研究"
-  - "生成式AI"
-  - "AI工具"
-  - "AI基准测试测试"
+tags: ["AI独角兽", "AI创业公司", "AI投资", "创业失败"]
 summary: "2026年AI独角兽泡沫通过降价融资和关停悄然放气。308家独角兽中有一半将在2027年重组。"
 cover: "/covers/ai-unicorn-bubble-reality-check-2026-startup-failure.jpg"
+category: "trending"
 difficulty: "Intermediate"
 ---
 

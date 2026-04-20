@@ -1,14 +1,10 @@
 ---
 title: "2026年AI智能体市场整合：框架生存指南"
 date: 2026-04-10
-tags:
-  - "ai-agents"
-  - "enterprise-ai"
-  - "ai-tools"
-  - "llm"
-  - "generative-ai"
+tags: ["AI智能体", "AI框架", "LangChain", "AI投资"]
 summary: "真实的AI智能体市场仅有130家真正的玩家，却吸引了38亿美元融资。了解哪些框架能在整合浪潮中存活、市场趋势及如何选择技术栈。"
 cover: "/covers/ai-agent-market-consolidation-2026-frameworks.jpg"
+category: "industry-insights"
 difficulty: "Intermediate"
 ---
 

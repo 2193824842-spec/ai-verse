@@ -1,12 +1,10 @@
 ---
 title: "2026年AI合规趋势：投资人和企业必读指南"
 date: 2026-04-10
-tags:
-  - "企业AI"
-  - "AI工具"
-  - "AI研究"
+tags: ["AI监管", "EU AI法案", "AI合规", "企业AI", "AI投资"]
 summary: "2026年8月是欧盟AI法案高风险合规截止日期，违规处罚最高可达全球营收7%。投资人和企业应对AI监管要求的核心指南"
 cover: "/covers/ai-regulations-compliance-trends-2026.jpg"
+category: "industry-insights"
 difficulty: "Intermediate"
 ---
 

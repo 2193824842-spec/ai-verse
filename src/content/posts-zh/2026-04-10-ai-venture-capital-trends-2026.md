@@ -1,14 +1,10 @@
 ---
 title: "2026年AI风险投资全景：两个月融资1600亿美元"
 date: 2026-04-10
-tags:
-  - "企业AI"
-  - "生成式AI"
-  - "AI研究"
-  - "AI工具"
-  - "AI基准测试测试"
+tags: ["风险投资", "AI投资", "AI融资", "AI创业公司"]
 summary: "两个月融资1600亿美元。看AI资金流向哪里、哪些创业公司在赢、以及各估值区间的投资机会"
 cover: "/covers/ai-venture-capital-trends-2026.jpg"
+category: "industry-insights"
 difficulty: "Intermediate"
 ---
 
