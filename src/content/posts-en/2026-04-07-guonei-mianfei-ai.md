@@ -3,7 +3,7 @@ title: "30 Free AI Tools in China (2026): No VPN Required, Organized by Use Case
 date: 2026-04-07
 tags: ["Free AI Tools", "Free AI", "AI Tools", "Chinese AI Tools", "DeepSeek"]
 difficulty: "Beginner"
-category: "insight"
+category: "review"
 summary: "The most complete list of free AI tools accessible in mainland China in 2026 — 30 tools covering writing, image generation, video, coding, and productivity, all tested and organized by use case."
 cover: "/covers/2026-04-07-guonei-mianfei-ai.png"
 ---
