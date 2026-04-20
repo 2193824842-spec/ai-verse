@@ -178,13 +178,6 @@ Once you've mastered this evaluation framework, consider these advanced topics:
 
 The AI landscape will continue evolving rapidly. Companies that demonstrate sustainable unit economics, defensible competitive positions, and strong execution capabilities will separate themselves from the hype-driven crowd. Use this framework as your foundation, but remain adaptable as new business models and technologies emerge. For deeper technical understanding, explore best machine learning frameworks and how they power modern AI companies. Additionally, understanding how generative AI transforms industries provides context for evaluating sector-specific opportunities.
 
-## References
-
-- [How to Assess Artificial Intelligence (AI) Startups (Part I)](https://bluebullpartners.com/how-to-assess-artificial-intelligence-ai-startups-part-i-2/)
-- [How to Value an AI Business – Key Metrics and Factors](https://www.feinternational.com/blog/how-to-value-an-ai-business)
-- [M&A in AI: How to Value an AI company?](https://aventis-advisors.com/ma-in-ai-how-to-value-an-ai-company/)
-- [How to Evaluate Generative AI Opportunities – A Framework for VCs](https://www.tribe.ai/applied-ai/how-to-evaluate-generative-ai-opportunities-a-framework-for-vcs)
-- [Understanding AI Startup Valuations: Trends and Insights for Founders](https://www.dealmaker.tech/content/understanding-ai-startup-valuations-trends-and-insights-for-founders)
 
 <div class="faq-section">
 <h2 id="frequently-asked-questions">Frequently Asked Questions</h2>
@@ -215,3 +208,11 @@ The AI landscape will continue evolving rapidly. Companies that demonstrate sust
 </div>
 </div>
 </div>
+
+## References
+
+- [How to Assess Artificial Intelligence (AI) Startups (Part I)](https://bluebullpartners.com/how-to-assess-artificial-intelligence-ai-startups-part-i-2/)
+- [How to Value an AI Business – Key Metrics and Factors](https://www.feinternational.com/blog/how-to-value-an-ai-business)
+- [M&A in AI: How to Value an AI company?](https://aventis-advisors.com/ma-in-ai-how-to-value-an-ai-company/)
+- [How to Evaluate Generative AI Opportunities – A Framework for VCs](https://www.tribe.ai/applied-ai/how-to-evaluate-generative-ai-opportunities-a-framework-for-vcs)
+- [Understanding AI Startup Valuations: Trends and Insights for Founders](https://www.dealmaker.tech/content/understanding-ai-startup-valuations-trends-and-insights-for-founders)

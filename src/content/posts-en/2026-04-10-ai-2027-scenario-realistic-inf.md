@@ -78,17 +78,6 @@ But the economy where AI agents replace knowledge workers at scale, regulatory f
 
 **The competition ahead isn't whether AI transforms work — it's who learns to integrate it into actual operations first, while the market debates whether it's real.** That window is now through 2028. Infrastructure will be ready. The question is whether you will be.
 
-## References
-
-- Leopold Aschenbrenner, "Situational Awareness" (June 2024), [https://situational-awareness.ai](https://situational-awareness.ai)
-- EA Forum, ["How did Leopold do? An 18-month retrospective on Aschenbrenner's predictions"](https://forum.effectivealtruism.org/posts/RuwF8FCfpsLeZRgur/how-did-leopold-do-evaluating-situational-awareness-s) (March 2026)
-- David Shapiro, ["Why AI is slowing down in 2026: The physical bottlenecks ahead"](https://daveshap.substack.com/p/why-ai-is-slowing-down-in-2026) (2026)
-- McKinsey, ["The State of AI in 2025: Enterprise adoption reality check"](https://www.mckinsey.com/capabilities/quantumblack/our-insights/the-state-of-ai) (November 2025)
-- NC Tech, ["From Hype to Hard Reality: Enterprise AI Pilots in 2026"](https://www.nctech.org/resources/blog/2026/hype-to-hard.html) (2026)
-- Codebasics, ["Is the AI Bubble About to Burst? Capital efficiency and the Capex-Revenue gap"](https://codebasics.io/blog/is-the-ai-bubble-about-to-burst-separating-hype-from-reality-in-2026) (2026)
-- Harvard BiGS, ["Will AI improve or eliminate jobs? Competing expert views and emerging data"](https://www.hbs.edu/bigs/will-artificial-intelligence-improve-or-eliminate-jobs) (2026)
-- Stanford HAI, ["AI Predictions for 2026: What actually happened"](https://hai.stanford.edu/news/stanford-ai-experts-predict-what-will-happen-in-2026) (2026)
-
 <div class="faq-section">
 <h2 id="frequently-asked-questions">Frequently Asked Questions</h2>
 <div class="faq-grid">
@@ -106,3 +95,14 @@ But the economy where AI agents replace knowledge workers at scale, regulatory f
 </div>
 </div>
 </div>
+
+## References
+
+- Leopold Aschenbrenner, "Situational Awareness" (June 2024), [https://situational-awareness.ai](https://situational-awareness.ai)
+- EA Forum, ["How did Leopold do? An 18-month retrospective on Aschenbrenner's predictions"](https://forum.effectivealtruism.org/posts/RuwF8FCfpsLeZRgur/how-did-leopold-do-evaluating-situational-awareness-s) (March 2026)
+- David Shapiro, ["Why AI is slowing down in 2026: The physical bottlenecks ahead"](https://daveshap.substack.com/p/why-ai-is-slowing-down-in-2026) (2026)
+- McKinsey, ["The State of AI in 2025: Enterprise adoption reality check"](https://www.mckinsey.com/capabilities/quantumblack/our-insights/the-state-of-ai) (November 2025)
+- NC Tech, ["From Hype to Hard Reality: Enterprise AI Pilots in 2026"](https://www.nctech.org/resources/blog/2026/hype-to-hard.html) (2026)
+- Codebasics, ["Is the AI Bubble About to Burst? Capital efficiency and the Capex-Revenue gap"](https://codebasics.io/blog/is-the-ai-bubble-about-to-burst-separating-hype-from-reality-in-2026) (2026)
+- Harvard BiGS, ["Will AI improve or eliminate jobs? Competing expert views and emerging data"](https://www.hbs.edu/bigs/will-artificial-intelligence-improve-or-eliminate-jobs) (2026)
+- Stanford HAI, ["AI Predictions for 2026: What actually happened"](https://hai.stanford.edu/news/stanford-ai-experts-predict-what-will-happen-in-2026) (2026)

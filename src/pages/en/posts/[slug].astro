@@ -15,16 +15,25 @@ function formatDate(date: Date) {
 }
 
 const rawContent = post.body;
-const headingRegex = /^(#{2,3})\s+(.+)$/gm;
 const tocItems: { level: number; text: string; id: string }[] = [];
+
+const mdHeadingRegex = /^(#{2,3})\s+(.+)$/gm;
 let match;
-while ((match = headingRegex.exec(rawContent)) !== null) {
-  const level = match[1].length;
-  if (level !== 2) continue;
+while ((match = mdHeadingRegex.exec(rawContent)) !== null) {
+  if (match[1].length !== 2) continue;
   const text = match[2].trim();
-  const id = text.toLowerCase().replace(/[^\w\u4e00-\u9fff]+/g, '-').replace(/^-|-$/g, '');
-  tocItems.push({ level, text, id });
+  const id = text.toLowerCase().replace(/['''\u2018\u2019]/g, '').replace(/[^\w\u4e00-\u9fff]+/g, '-').replace(/^-|-$/g, '');
+  tocItems.push({ level: 2, text, id });
 }
+
+const htmlH2Regex = /<h2[^>]*>(.*?)<\/h2>/gi;
+while ((match = htmlH2Regex.exec(rawContent)) !== null) {
+  const text = match[1].replace(/<[^>]+>/g, '').trim();
+  const id = text.toLowerCase().replace(/['''\u2018\u2019]/g, '').replace(/[^\w\u4e00-\u9fff]+/g, '-').replace(/^-|-$/g, '');
+  if (!tocItems.find(t => t.id === id)) tocItems.push({ level: 2, text, id });
+}
+
+tocItems.sort((a, b) => rawContent.indexOf(a.text) - rawContent.indexOf(b.text));
 
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 
@@ -94,11 +103,16 @@ const jsonLd = {
 
     const domHeadings = Array.from(document.querySelectorAll<HTMLElement>('.prose h2'));
     const tocLinks = Array.from(document.querySelectorAll<HTMLAnchorElement>('.toc-link'));
-    domHeadings.forEach((h, i) => {
-      if (tocLinks[i] && h.id) tocLinks[i].href = '#' + h.id;
+    tocLinks.forEach(a => {
+      const id = a.getAttribute('href')?.slice(1);
+      if (!id) return;
+      if (!document.getElementById(id)) {
+        const text = a.textContent?.trim();
+        const h = domHeadings.find(h => h.textContent?.trim() === text);
+        if (h) h.id = id;
+      }
     });
 
-    // Use replaceState instead of default pushState to avoid stacking history entries
     tocLinks.forEach(a => {
       a.addEventListener('click', (e) => {
         e.preventDefault();
@@ -107,7 +121,6 @@ const jsonLd = {
         const target = document.getElementById(id);
         if (target) {
           target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-          history.replaceState(null, '', '#' + id);
         }
       });
     });

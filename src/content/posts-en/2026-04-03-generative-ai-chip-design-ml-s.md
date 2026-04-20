@@ -74,4 +74,5 @@ The companies succeeding in this space will need to solve hard problems around d
 
 ## References
 
-- [Cognichip wants AI to design the chips that power AI, and just raised $60M to try](https://techcrunch.com/2026/04/01/cognichip-wants-ai-to-design-the-chips-that-power-ai-and-just-raised-60m-to-try/)- [OpenAI, not yet public, raises $3B from retail investors in monster $122B fund raise](https://techcrunch.com/2026/03/31/openai-not-yet-public-raises-3b-from-retail-investors-in-monster-122b-fund-raise/)
+- [Cognichip wants AI to design the chips that power AI, and just raised $60M to try](https://techcrunch.com/2026/04/01/cognichip-wants-ai-to-design-the-chips-that-power-ai-and-just-raised-60m-to-try/)
+- [OpenAI, not yet public, raises $3B from retail investors in monster $122B fund raise](https://techcrunch.com/2026/03/31/openai-not-yet-public-raises-3b-from-retail-investors-in-monster-122b-fund-raise/)

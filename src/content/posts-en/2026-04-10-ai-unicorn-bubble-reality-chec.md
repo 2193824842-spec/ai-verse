@@ -40,7 +40,7 @@ This creates a survival dynamic: the top tier (foundation model companies, infra
 
 From what I've seen across developer communities and investor forums, the consensus is clear: if you're not in the top 20% by revenue or strategic positioning, 2026-2027 will be brutal. The bar for mega-rounds is sky-high, and the middle market is drying up.
 
-## But Wait — Isn't AI Different This Time?
+<h2 id="but-wait-isnt-ai-different-this-time">But Wait — Isn't AI Different This Time?</h2>
 
 The bull case is real, and ignoring it would be dishonest. Unlike the dot-com bubble, [AI leaders are profitable with real revenue and measurable output](https://www.fxempire.com/forecasts/article/ai-market-faces-2026-test-as-credit-stress-and-valuations-peak-1569164). Data center demand is projected to grow 19% annually through 2030. AI capex has become the largest driver of US GDP growth, adding +1% in 2025 alone, with [$350-500B poured into infrastructure](https://www.fxempire.com/forecasts/article/ai-market-faces-2026-test-as-credit-stress-and-valuations-peak-1569164) and $3T projected by 2028.
 
@@ -58,7 +58,7 @@ Focus on one metric above all others: revenue per employee. [VCs predict tiny te
 
 Watch vertical AI specialists in finance, healthcare operations, and enterprise automation. Evaluate by one signal: does the startup have revenue growing faster than burn rate, with a clear path to positive unit economics within 18 months? If not, pass. The mega-rounds will keep going to the top 10 players, but the real alpha in 2026-2027 is finding the vertical specialists that can reach profitability without needing a $100M Series C. Use a structured framework to assess core capabilities, team talent, technology stack, revenue models, and competitive positioning to identify winning AI startups.
 
-## The Bubble Isn't Popping — It's Restructuring
+<h2 id="the-bubble-isnt-popping-its-restructuring">The Bubble Isn't Popping — It's Restructuring</h2>
 
 The AI unicorn bubble reality check isn't a single dramatic crash. It's a slow, grinding restructuring where most startups either get absorbed, pivot to profitability, or quietly wind down. The top tier — foundation models, infrastructure, and a few vertical winners — will consolidate and dominate. The middle and bottom tiers will face the reality that private valuations were never sustainable.
 

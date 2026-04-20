@@ -574,6 +574,84 @@ main { padding: 56px 0 80px; overflow: visible; }
   font-size: 13px;
 }
 
+/* ── Callout Cards (pros/cons + faq) ── */
+.pros-cons-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  margin: 24px 0;
+  align-items: start;
+}
+@media (max-width: 768px) {
+  .pros-cons-grid { grid-template-columns: 1fr; }
+}
+
+.callout-card {
+  border-radius: 8px;
+  padding: 20px 24px;
+  margin: 0;
+  border: 1px solid var(--border);
+  background: var(--bg-card);
+  overflow-wrap: break-word;
+}
+.callout-card h3 {
+  font-size: 0.95rem;
+  font-weight: 700;
+  margin: 0 0 10px !important;
+  padding: 0 !important;
+  border: none !important;
+}
+.callout-card ul { padding-left: 1.2em; margin: 0; }
+.callout-card li { margin: 0.5em 0; font-size: 0.92rem; line-height: 1.6; }
+
+.callout-pro {
+  border-left: 3px solid var(--green);
+  background: color-mix(in srgb, var(--green) 8%, var(--bg-card));
+}
+.callout-con {
+  border-left: 3px solid var(--danger);
+  background: color-mix(in srgb, var(--danger) 8%, var(--bg-card));
+}
+.callout-pro h3 { color: var(--green); }
+.callout-con h3 { color: var(--danger); }
+
+.faq-section { margin: 48px 0 24px; }
+.faq-section > h2 {
+  font-size: 1.3rem;
+  font-weight: 700;
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--border);
+  margin-bottom: 0 !important;
+  border-top: none !important;
+}
+.faq-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0 32px;
+  align-items: start;
+}
+@media (max-width: 768px) {
+  .faq-grid { grid-template-columns: 1fr; }
+}
+.faq-item {
+  padding: 20px 0;
+  border-bottom: 1px dashed var(--border);
+}
+.faq-item h3 {
+  font-size: 0.95rem;
+  font-weight: 600;
+  margin: 0 0 8px !important;
+  padding: 0 !important;
+  border: none !important;
+  color: var(--text);
+}
+.faq-item p {
+  font-size: 0.9rem;
+  line-height: 1.65;
+  color: var(--text-dim);
+  margin: 0;
+}
+
 /* Shiki dual-theme: 默认深色，浅色模式切换 */
 .prose pre, .prose pre code, .prose pre span {
   color: var(--shiki-dark) !important;

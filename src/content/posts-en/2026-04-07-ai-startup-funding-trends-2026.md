@@ -24,39 +24,12 @@ Recent quarters have delivered some of the largest AI funding totals ever record
 
 
 
-| Region
-| Late-Stage Capital
-| Market Share
-| YoY Growth
-|
-
-
-| United States
-| $109.1B
-| 83%
-| +58%
-|
-
-
-| China
-| $9.3B
-| 7%
-| +12%
-|
-
-
-| United Kingdom
-| $4.5B
-| 3.4%
-| +34%
-|
-
-
-| Rest of World
-| $8.6B
-| 6.6%
-| +41%
-|
+| Region | Late-Stage Capital | Market Share | YoY Growth |
+| --- | --- | --- | --- |
+| United States | $109.1B | 83% | +58% |
+| China | $9.3B | 7% | +12% |
+| United Kingdom | $4.5B | 3.4% | +34% |
+| Rest of World | $8.6B | 6.6% | +41% |
 
 
 
@@ -74,76 +47,16 @@ The AI startup landscape has stratified into three distinct tiers: mega-cap comp
 
 
 
-| Company
-| Valuation
-| Latest Funding
-| Category
-| Key Metric
-|
-
-
-| OpenAI
-| $500B
-| $40B (March 2025)
-| Foundation Models
-| Industry leader
-|
-
-
-| xAI
-| $200B+
-| $20B (Jan 2026)
-| Foundation Models
-| Rapid scaling
-|
-
-
-| Anthropic
-| $183B
-| $30B Series G (2026)
-| Foundation Models
-| $380B implied valuation
-|
-
-
-| Databricks
-| $134B
-| Series I
-| Data Infrastructure
-| $4.8B ARR
-|
-
-
-| Anysphere (Cursor)
-| $29.3B
-| Series C
-| Developer Tools
-| $1B ARR
-|
-
-
-| SkildAI
-| $14B
-| $1.4B Series C (2026)
-| Robotics AI
-| Infrastructure focus
-|
-
-
-| ElevenLabs
-| $11B
-| $500M Series D (2026)
-| Voice AI
-| Consumer traction
-|
-
-
-| Runway
-| $5.3B
-| $315M Series E (2026)
-| Video Generation
-| Creative tools
-|
+| Company | Valuation | Latest Funding | Category | Key Metric |
+| --- | --- | --- | --- | --- |
+| OpenAI | $500B | $40B (March 2025) | Foundation Models | Industry leader |
+| xAI | $200B+ | $20B (Jan 2026) | Foundation Models | Rapid scaling |
+| Anthropic | $183B | $30B Series G (2026) | Foundation Models | $380B implied valuation |
+| Databricks | $134B | Series I | Data Infrastructure | $4.8B ARR |
+| Anysphere (Cursor) | $29.3B | Series C | Developer Tools | $1B ARR |
+| SkildAI | $14B | $1.4B Series C (2026) | Robotics AI | Infrastructure focus |
+| ElevenLabs | $11B | $500M Series D (2026) | Voice AI | Consumer traction |
+| Runway | $5.3B | $315M Series E (2026) | Video Generation | Creative tools |
 
 
 
@@ -238,12 +151,6 @@ The market is entering a maturation phase where revenue traction and unit econom
 For investors entering the AI startup space, the key is balancing exposure across the technology stack—foundation models provide potential for massive returns but carry execution risk, while infrastructure and vertical applications offer more predictable growth trajectories. The companies that successfully navigate the transition from AI research labs to sustainable businesses will define the next decade of technology innovation.
 
 
-## References
-
-
-- [Here are the 17 US-based AI companies that have raised $100M or more in 2026](https://techcrunch.com/2026/02/17/here-are-the-17-us-based-ai-companies-that-have-raised-100m-or-more-in-2026/)
-- [AI Startup Fundraising Trends 2026: What Founders Must Know](https://qubit.capital/blog/ai-startup-fundraising-trends)
-- [85 Hottest AI Startups to Watch in 2026 [By Valuation, Funding, & Growth]](https://wellows.com/blog/ai-startups/)
 
 <div class="faq-section">
 <h2 id="frequently-asked-questions">Frequently Asked Questions</h2>
@@ -266,3 +173,10 @@ For investors entering the AI startup space, the key is balancing exposure acros
 </div>
 </div>
 </div>
+
+## References
+
+
+- [Here are the 17 US-based AI companies that have raised $100M or more in 2026](https://techcrunch.com/2026/02/17/here-are-the-17-us-based-ai-companies-that-have-raised-100m-or-more-in-2026/)
+- [AI Startup Fundraising Trends 2026: What Founders Must Know](https://qubit.capital/blog/ai-startup-fundraising-trends)
+- [85 Hottest AI Startups to Watch in 2026 [By Valuation, Funding, & Growth]](https://wellows.com/blog/ai-startups/)

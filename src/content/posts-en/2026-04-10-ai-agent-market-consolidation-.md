@@ -21,11 +21,8 @@ The startup formation rate reflects this urgency. More than 500 agent AI startup
 | Metric | 2023 | 2024 | 2025 (Partial) |
 | --- | --- | --- | --- |
 | Agent AI startup funding | ~$1.3B | $3.8B | Consolidation exits |
-
 | Enterprise deployment intent | ~30% | ~55% | 75%+ (Gartner) |
-| --- | --- | --- | --- |
 | Agent AI startups founded | ~150 | 350+ | 500+ total |
-
 | CAGR (agent market) | — | 35% | Sustained 35% |
 
 This is a market growing at 35% CAGR with genuine structural demand. The challenge: inference costs are scaling faster than revenue for most vendors, creating pressure that will force consolidation.
@@ -37,11 +34,8 @@ The framework layer — where developers build agents — is where consequential
 | Framework | Backer | Key Differentiator | Best For |
 | --- | --- | --- | --- |
 | **LangGraph** | LangChain | Graph-based orchestration, conditional logic | Complex workflows, auditability |
-
 | **CrewAI** | Independent | Role-based crew definition, fast iteration | Rapid prototyping |
-| --- | --- | --- | --- |
 | **AutoGen** | Microsoft | Conversational multi-agent dialogue | Azure environments, dialogue-heavy tasks |
-
 | **Smolagents** | HuggingFace | Code-first, Python execution | Local models 32B+, code-centric work |
 
 **LangGraph** has surpassed CrewAI in GitHub stars during early 2026, driven by enterprise adoption. It models workflows as directed graphs, giving you surgical control over state management and failure modes — critical for regulated industries. The tradeoff: higher complexity upfront.
@@ -145,13 +139,6 @@ The **AI agent market consolidation 2026** cycle is compressing a decade of SaaS
 
 The application layer is where the next $100B will be made — and the window is still open.
 
-## References
-
-- IDC, [Agentic Automation Forecast 2027 — Agent Adoption: The IT Industry's Next Great Inflection Point](https://www.idc.com/resource-center/blog/agent-adoption-the-it-industrys-next-great-inflection-point/)
-- [AI Agents 2026: LangGraph vs CrewAI vs AutoGen vs Smolagents Benchmarks](https://pooya.blog/blog/ai-agents-frameworks-local-llm-2026)
-- [Top AI Agent Trends 2026 — Fintechnews](https://fintechnews.ch/aifintech/top-agent-ai-trends-shaping-2026/80424/)
-- [LangGraph vs CrewAI vs AutoGen with Real Benchmarks](https://propelius.tech/blogs/multi-agent-systems-langgraph-crewai-autogen-comparison/)
-- Anthropic, [2026 Agentic Coding Trends Report](https://resources.anthropic.com/2026-agentic-coding-trends-report)
 
 <div class="faq-section">
 <h2 id="frequently-asked-questions">Frequently Asked Questions</h2>
@@ -178,3 +165,11 @@ The application layer is where the next $100B will be made — and the window is
 </div>
 </div>
 </div>
+
+## References
+
+- IDC, [Agentic Automation Forecast 2027 — Agent Adoption: The IT Industry's Next Great Inflection Point](https://www.idc.com/resource-center/blog/agent-adoption-the-it-industrys-next-great-inflection-point/)
+- [AI Agents 2026: LangGraph vs CrewAI vs AutoGen vs Smolagents Benchmarks](https://pooya.blog/blog/ai-agents-frameworks-local-llm-2026)
+- [Top AI Agent Trends 2026 — Fintechnews](https://fintechnews.ch/aifintech/top-agent-ai-trends-shaping-2026/80424/)
+- [LangGraph vs CrewAI vs AutoGen with Real Benchmarks](https://propelius.tech/blogs/multi-agent-systems-langgraph-crewai-autogen-comparison/)
+- Anthropic, [2026 Agentic Coding Trends Report](https://resources.anthropic.com/2026-agentic-coding-trends-report)
