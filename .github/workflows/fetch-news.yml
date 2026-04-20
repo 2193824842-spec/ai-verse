@@ -2,7 +2,7 @@ name: Fetch News Daily
 
 on:
   schedule:
-    - cron: '32 2 20 4 *'  # 临时测试：UTC 02:32 Apr 20
+    - cron: '*/5 * * * *'  # 临时测试：每5分钟
   workflow_dispatch:
 
 permissions:
