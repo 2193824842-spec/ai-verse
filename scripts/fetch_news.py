@@ -234,7 +234,7 @@ def cluster_items(items: list[dict]) -> list[dict]:
 
     result = []
     for group in groups:
-        group.sort(key=lambda x: x["tier"])
+        group.sort(key=lambda x: x.get("tier", 99))
         rep = group[0]
         rep["duplicate_count"] = len(group) - 1
         rep["duplicate"] = False
