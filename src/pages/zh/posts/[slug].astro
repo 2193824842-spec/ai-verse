@@ -66,6 +66,7 @@ const jsonLd = {
           <div class="article-meta">
             <span>{formatDate(post.data.date)}</span>
             <span class="badge badge-difficulty">{post.data.difficulty}</span>
+            <span class="view-count">👁 <span id="waline-pv">--</span> 次阅读</span>
           </div>
         </header>
         {post.data.cover && (
@@ -73,6 +74,9 @@ const jsonLd = {
         )}
         <div class="prose"><Content /></div>
       </article>
+
+      <!-- 评论区 -->
+      <div id="waline-comment" class="waline-wrap"></div>
     </div>
 
     {tocItems.length > 0 && (
@@ -155,5 +159,18 @@ const jsonLd = {
       });
     }
     window.addEventListener('scroll', onScroll, { passive: true });
+  </script>
+
+  <link rel="stylesheet" href="https://unpkg.com/@waline/client@v3/dist/waline.css" />
+  <script type="module">
+    import { init, pageviewCount } from 'https://unpkg.com/@waline/client@v3/dist/waline.js';
+    init({
+      el: '#waline-comment',
+      serverURL: 'https://waline-bay-nu.vercel.app',
+      lang: 'zh-CN',
+      pageview: '#waline-pv',
+      comment: true,
+      dark: 'html[data-theme="dark"]',
+    });
   </script>
 </BaseLayout>
