@@ -1,0 +1,257 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import { getCollection } from 'astro:content';
+import { TOOLS } from '../../../data/tools';
+
+const allPosts = await getCollection('posts-zh');
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+
+const tutorialPosts = allPosts
+  .filter(p => (p.data as any).category === 'tutorial')
+  .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf())
+  .slice(0, 3);
+
+const reviewPosts = allPosts
+  .filter(p => (p.data as any).category === 'review')
+  .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf())
+  .slice(0, 3);
+
+const SCENES = [
+  { icon: '✍️', name: '内容创作',  desc: '写文章、做营销文案、润色改写，告别空白页',       tools: ['notion-ai', 'jasper'] },
+  { icon: '💻', name: '编程开发',  desc: '代码补全、Bug 修复、AI 结对编程，效率翻倍',      tools: ['cursor', 'github-copilot'] },
+  { icon: '🎨', name: '图像设计',  desc: '文字生图、海报设计、素材生成，无需设计基础',      tools: ['midjourney', 'jimeng'] },
+  { icon: '🎬', name: '视频制作',  desc: '文生视频、剪辑辅助、数字人配音，降低制作门槛',   tools: ['kling', 'runway'] },
+  { icon: '📊', name: '办公效率',  desc: '会议纪要、PPT 生成、表格分析，处理重复工作',     tools: ['copilot', 'doubao'] },
+  { icon: '🔍', name: '搜索研究',  desc: 'AI 搜索、文档问答、知识整理，快速获取有效信息',  tools: ['perplexity', 'notebooklm'] },
+];
+
+const allTools = TOOLS.flatMap(g => g.items);
+function getToolName(slug: string) {
+  return allTools.find(t => t.slug === slug)?.name ?? slug;
+}
+
+function formatDate(date: Date) {
+  return date.toLocaleDateString('zh-CN', { year: 'numeric', month: '2-digit', day: '2-digit' });
+}
+---
+
+<BaseLayout title="AI 提效 · AI Verse" description="按场景找到最适合你的 AI 工具，配套教程和横评帮你快速上手、做对选择。" lang="zh">
+
+  <!-- Hero -->
+  <section class="eff-hero">
+    <div class="eff-eyebrow">⚡ AI 效率工具导航</div>
+    <h1 class="eff-h1">用 AI 提升效率<br>从今天开始</h1>
+    <p class="eff-sub">按场景找到最适合你的 AI 工具，配套教程和横评帮你快速上手、做对选择。</p>
+  </section>
+
+  <!-- 按场景找工具 -->
+  <section class="eff-section">
+    <div class="eff-section-header">
+      <div class="eff-section-title">按场景找工具</div>
+      <a href={`${base}/zh/tools/`} class="eff-see-all">全部工具 →</a>
+    </div>
+    <div class="eff-scene-grid">
+      {SCENES.map(scene => (
+        <a href={`${base}/zh/tools/`} class="eff-scene-card">
+          <div class="eff-scene-icon">{scene.icon}</div>
+          <div class="eff-scene-name">{scene.name}</div>
+          <div class="eff-scene-desc">{scene.desc}</div>
+          <div class="eff-scene-tools">
+            {scene.tools.map(slug => (
+              <span class="eff-scene-tag">{getToolName(slug)}</span>
+            ))}
+          </div>
+        </a>
+      ))}
+    </div>
+  </section>
+
+  <!-- 新手教程 -->
+  <section class="eff-section">
+    <div class="eff-section-header">
+      <div class="eff-section-title">新手教程</div>
+      <a href={`${base}/zh/articles/?cat=tutorial`} class="eff-see-all">全部教程 →</a>
+    </div>
+    {tutorialPosts.length === 0 ? (
+      <div class="eff-empty">教程文章即将上线，敬请期待。</div>
+    ) : (
+      <div class="eff-articles-grid">
+        {tutorialPosts.map(p => (
+          <a href={`${base}/zh/posts/${p.slug}/`} class="eff-article-card">
+            {(p.data as any).cover
+              ? <img src={(p.data as any).cover} alt={p.data.title} class="eff-card-cover-img" />
+              : <div class="eff-card-cover">📖</div>
+            }
+            <div class="eff-card-body">
+              <div class="eff-card-meta">
+                <span class="eff-tag eff-tag--tutorial">深度教程</span>
+                <span class="eff-card-date">{formatDate(p.data.date)}</span>
+              </div>
+              <div class="eff-card-title">{p.data.title}</div>
+              {(p.data as any).summary && <div class="eff-card-summary">{(p.data as any).summary}</div>}
+            </div>
+          </a>
+        ))}
+      </div>
+    )}
+  </section>
+
+  <!-- 工具横评 -->
+  <section class="eff-section">
+    <div class="eff-section-header">
+      <div class="eff-section-title">工具横评</div>
+      <a href={`${base}/zh/articles/?cat=review`} class="eff-see-all">全部测评 →</a>
+    </div>
+    {reviewPosts.length === 0 ? (
+      <div class="eff-empty">测评文章即将上线，敬请期待。</div>
+    ) : (
+      <div class="eff-articles-grid">
+        {reviewPosts.map(p => (
+          <a href={`${base}/zh/posts/${p.slug}/`} class="eff-article-card">
+            {(p.data as any).cover
+              ? <img src={(p.data as any).cover} alt={p.data.title} class="eff-card-cover-img" />
+              : <div class="eff-card-cover">⚔️</div>
+            }
+            <div class="eff-card-body">
+              <div class="eff-card-meta">
+                <span class="eff-tag eff-tag--review">对比测评</span>
+                <span class="eff-card-date">{formatDate(p.data.date)}</span>
+              </div>
+              <div class="eff-card-title">{p.data.title}</div>
+              {(p.data as any).summary && <div class="eff-card-summary">{(p.data as any).summary}</div>}
+            </div>
+          </a>
+        ))}
+      </div>
+    )}
+  </section>
+
+  <!-- 资讯入口 -->
+  <section class="eff-section">
+    <a href={`${base}/zh/news/`} class="eff-news-banner">
+      <div>
+        <div class="eff-news-title">📰 每日 AI 资讯</div>
+        <div class="eff-news-desc">聚合 36氪、爱范儿、钛媒体等媒体的 AI 行业动态，每日更新</div>
+      </div>
+      <div class="eff-news-arrow">查看资讯 →</div>
+    </a>
+  </section>
+
+</BaseLayout>
+
+<style>
+  .eff-hero { padding: 40px 0 32px; text-align: center; }
+  .eff-eyebrow {
+    display: inline-flex; align-items: center; gap: 6px;
+    background: rgba(79,172,254,0.1); border: 1px solid rgba(79,172,254,0.25);
+    color: var(--accent); font-size: 13px; padding: 4px 14px;
+    border-radius: 20px; margin-bottom: 20px;
+  }
+  .eff-h1 {
+    font-size: 36px; font-weight: 800; line-height: 1.2; margin-bottom: 16px;
+    background: linear-gradient(135deg, #4FACFE 0%, #A855F7 100%);
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+  }
+  .eff-sub { color: var(--text-dim); font-size: 16px; max-width: 500px; margin: 0 auto; }
+
+  .eff-section { margin-bottom: 52px; }
+  .eff-section-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 20px; }
+  .eff-section-title { font-size: 18px; font-weight: 700; display: flex; align-items: center; gap: 8px; }
+  .eff-section-title::before {
+    content: ''; display: inline-block; width: 4px; height: 18px;
+    background: linear-gradient(135deg, #4FACFE 0%, #A855F7 100%); border-radius: 2px;
+  }
+  .eff-see-all {
+    font-size: 13px; color: var(--text-dim);
+    border: 1px solid var(--border); padding: 5px 14px; border-radius: 20px;
+    transition: border-color 0.15s, color 0.15s;
+  }
+  .eff-see-all:hover { color: var(--text); border-color: var(--accent); text-decoration: none; }
+
+  .eff-empty {
+    padding: 48px 0; text-align: center;
+    color: var(--text-dim); font-size: 14px;
+    border: 1px dashed var(--border); border-radius: 10px;
+  }
+
+  /* ── 场景卡 ── */
+  .eff-scene-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+  @media (max-width: 860px) { .eff-scene-grid { grid-template-columns: repeat(2, 1fr); } }
+  @media (max-width: 540px) { .eff-scene-grid { grid-template-columns: 1fr; } }
+
+  .eff-scene-card {
+    background: var(--bg-card); border: 1px solid var(--border); border-radius: 10px;
+    padding: 20px; display: flex; flex-direction: column; gap: 10px;
+    text-decoration: none; color: inherit;
+    transition: border-color 0.2s, transform 0.15s, box-shadow 0.2s;
+  }
+  .eff-scene-card:hover {
+    border-color: var(--accent); transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(79,172,254,0.12); text-decoration: none;
+  }
+  .eff-scene-icon { font-size: 28px; }
+  .eff-scene-name { font-size: 15px; font-weight: 700; color: var(--text); }
+  .eff-scene-card:hover .eff-scene-name { color: var(--accent); }
+  .eff-scene-desc { font-size: 13px; color: var(--text-dim); line-height: 1.5; }
+  .eff-scene-tools { display: flex; gap: 6px; flex-wrap: wrap; }
+  .eff-scene-tag {
+    font-size: 11px; padding: 2px 8px; border-radius: 10px;
+    background: rgba(79,172,254,0.08); color: var(--accent);
+    border: 1px solid rgba(79,172,254,0.2); font-family: var(--font-mono);
+  }
+
+  /* ── 文章卡 ── */
+  .eff-articles-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+  @media (max-width: 860px) { .eff-articles-grid { grid-template-columns: repeat(2, 1fr); } }
+  @media (max-width: 540px) { .eff-articles-grid { grid-template-columns: 1fr; } }
+
+  .eff-article-card {
+    background: var(--bg-card); border: 1px solid var(--border); border-radius: 10px;
+    overflow: hidden; display: block; color: inherit; text-decoration: none;
+    transition: border-color 0.2s, transform 0.15s, box-shadow 0.2s;
+  }
+  .eff-article-card:hover {
+    border-color: var(--accent); transform: translateY(-2px);
+    box-shadow: 0 8px 32px rgba(79,172,254,0.12); text-decoration: none;
+  }
+  .eff-article-card:hover .eff-card-title { color: var(--accent); }
+  .eff-card-cover {
+    height: 140px; background: linear-gradient(135deg, #0d1a2e, #1a0d2e);
+    display: flex; align-items: center; justify-content: center; font-size: 36px;
+  }
+  .eff-card-cover-img { width: 100%; height: 140px; object-fit: cover; display: block; }
+  .eff-card-body { padding: 14px 16px 16px; }
+  .eff-card-meta { display: flex; align-items: center; gap: 8px; margin-bottom: 8px; }
+  .eff-tag {
+    font-size: 11px; padding: 2px 8px; border-radius: 10px; font-weight: 600;
+    font-family: var(--font-mono);
+  }
+  .eff-tag--tutorial { background: rgba(79,172,254,0.12); color: var(--accent); border: 1px solid rgba(79,172,254,0.3); }
+  .eff-tag--review   { background: rgba(168,85,247,0.12); color: var(--accent-2); border: 1px solid rgba(168,85,247,0.3); }
+  .eff-card-date { font-size: 12px; color: var(--text-dim); font-family: var(--font-mono); }
+  .eff-card-title {
+    font-size: 14px; font-weight: 600; color: var(--text); line-height: 1.45; margin-bottom: 6px;
+    display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;
+    transition: color 0.15s;
+  }
+  .eff-card-summary {
+    font-size: 13px; color: var(--text-dim); line-height: 1.5;
+    display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;
+  }
+
+  /* ── 资讯横幅 ── */
+  .eff-news-banner {
+    display: flex; align-items: center; justify-content: space-between;
+    background: var(--bg-card); border: 1px solid rgba(79,172,254,0.3); border-radius: 10px;
+    padding: 20px 24px; text-decoration: none; color: inherit;
+    background-image: linear-gradient(135deg, rgba(79,172,254,0.05) 0%, transparent 60%);
+    transition: border-color 0.2s, box-shadow 0.2s, transform 0.15s;
+  }
+  .eff-news-banner:hover {
+    border-color: var(--accent); transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(79,172,254,0.12); text-decoration: none;
+  }
+  .eff-news-title { font-size: 16px; font-weight: 700; margin-bottom: 4px; }
+  .eff-news-desc { font-size: 13px; color: var(--text-dim); }
+  .eff-news-arrow { font-size: 14px; color: var(--accent); font-weight: 600; white-space: nowrap; margin-left: 24px; }
+</style>
