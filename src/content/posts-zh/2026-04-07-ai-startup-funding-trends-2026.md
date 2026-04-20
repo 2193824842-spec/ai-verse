@@ -1,7 +1,7 @@
 ---
 title: "2026 年 AI 初创企业融资趋势：全球投入 1315 亿美元"
 date: 2026-04-07
-tags:
+tags: []
 
 summary: "深度解析 2026 年 AI 初创企业融资趋势：全球投入 1315 亿美元，超大轮融资主导市场，自主智能体赛道爆发。涵盖顶级 AI 初创企业、风险投资分析与投资机会。"
 cover: "/covers/ai-startup-funding-trends-2026.jpg"

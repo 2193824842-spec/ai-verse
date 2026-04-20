@@ -1,8 +1,7 @@
 ---
 title: "生成式 AI 芯片设计:机器学习如何将成本降低 75%"
 date: 2026-04-03
-tags:
-
+tags: []
 summary: "深入了解生成式 AI 如何将芯片设计成本降低 75%、开发周期缩短一半,以及 AI 驱动的 EDA 工具如何变革半导体行业。"
 cover: "/covers/generative-ai-chip-design-ml-semiconductor.jpg"
 difficulty: "Intermediate"
