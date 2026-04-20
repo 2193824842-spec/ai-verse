@@ -59,33 +59,8 @@ AI独角兽泡沫现实检验不是一次戏剧性崩盘。这是一次缓慢、
 到2027年初，AI创业生态会看起来非常不同：独角兽更少，估值更现实，有真实营收的公司和那些一直只是在蹭炒作周期的公司之间会有清晰分界。AI繁荣是真的。估值泡沫也是真的。唯一的问题是你在为生存而建，还是仍在赌下一轮融资救你。
 
 ## 参考资料
-- [The Full 2026 VC AI Predictions: where Menlo, a16z, Bessemer, Khosla, A16Z see the opportunities in 2026](https://www.theaiopportunities.com/p/the-full-2026-vc-ai-predictions-where)- [Can the AI Bubble Survive 2026 Credit Tightening and Reality Checks?](https://www.fxempire.com/forecasts/article/ai-market-faces-2026-test-as-credit-stress-and-valuations-peak-1569164)- [AI Unicorn Stats 2026: Number & Trends](https://thunderbit.com/blog/ai-unicorn-stats-2025)- [AI replaces me: The Private AI Bubble Meets the Public Digital Health Reality Check](https://thehealthcareblog.com/blog/2026/02/16/ai-replaces-me-the-private-ai-bubble-meets-the-public-digital-health-reality-check/)
-      </div>
 
-      <div class="author-box">
-        <div class="author-box-inner">
-          <div class="author-box-icon">AT</div>
-          <div class="author-box-content">
-            **[Avery Tong](/ai-pulse/zh/about.html)**
-            产品与市场策略背景，长期关注 AI 领域。用这些工具做自己的项目，分享真实的使用体验和判断。
-
-          </div>
-        </div>
-      </div>
-
-
-
-        ### 相关文章
-        <div class="related-grid" id="related-grid"></div>
-        <div style="text-align:center;margin-top:1rem">
-          换一换 ↻
-        </div>
-
-
-
-
-      目录
-
-
-
-    </div>
+- [The Full 2026 VC AI Predictions: where Menlo, a16z, Bessemer, Khosla, A16Z see the opportunities in 2026](https://www.theaiopportunities.com/p/the-full-2026-vc-ai-predictions-where)
+- [Can the AI Bubble Survive 2026 Credit Tightening and Reality Checks?](https://www.fxempire.com/forecasts/article/ai-market-faces-2026-test-as-credit-stress-and-valuations-peak-1569164)
+- [AI Unicorn Stats 2026: Number & Trends](https://thunderbit.com/blog/ai-unicorn-stats-2025)
+- [AI replaces me: The Private AI Bubble Meets the Public Digital Health Reality Check](https://thehealthcareblog.com/blog/2026/02/16/ai-replaces-me-the-private-ai-bubble-meets-the-public-digital-health-reality-check/)

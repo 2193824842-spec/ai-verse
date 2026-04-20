@@ -157,41 +157,35 @@ difficulty: "Intermediate"
         **对学习者**：专注于智能体编排和治理——而不是模型微调，不是提示词工程。能够在生产环境中设计、部署和监控多智能体系统的团队，是当前企业AI领域最稀缺的资源。
 
         应用层是下一个1000亿美元将被创造的地方——而窗口仍然开着。
+<div class="faq-section">
+<h2 id="frequently-asked-questions">常见问题</h2>
+<div class="faq-grid">
+<div class="faq-item">
+<h3>2026年AI智能体市场是好的投资机会吗？</h3>
+<p>是的，但需要注意。结构性需求是真实的——75%的企业部署意向和35%的复合增长率并非炒作。但市场正在分化：聚焦于130家具有可验证ROI指标、可防御数据位置和治理能力的真正智能体厂商。</p>
+</div>
+<div class="faq-item">
+<h3>2026年AI智能体市场规模有多大？</h3>
+<p>以35%复合增长率增长，2024年初创融资38亿美元。IDC预测到2027年40%的企业应用将通过智能体自动化得到增强。</p>
+</div>
+<div class="faq-item">
+<h3>AI智能体框架市场的主要玩家是谁？</h3>
+<p>LangGraph（LangChain）、CrewAI、AutoGen（微软）和Smolagents（HuggingFace）主导开源领域。在垂直应用方面，近期的退出案例——Moveworks以29亿美元和Weights &amp; Biases以17亿美元——揭示了收购方认为具有持久价值的方向。</p>
+</div>
+<div class="faq-item">
+<h3>企业规模部署AI智能体的最大风险是什么？</h3>
+<p>治理失败。IDC预测到2027年40%的智能体项目将失败，原因是成本失控、ROI不明确和违反政策。</p>
+</div>
+<div class="faq-item">
+<h3>如何将AI智能体开发作为职业技能？</h3>
+<p>最有价值的技能组合是多智能体工作流设计加上垂直领域专业知识。理解LangGraph的图式编排，学习如何检测和监控智能体工作流，并将其与金融、法律或医疗领域的专业知识相结合。</p>
+</div>
+</div>
+</div>
 
-        ## 参考资料
-
-          - IDC，[2027年智能体自动化预测 — AI智能体采用：IT行业下一个重大拐点](https://www.idc.com/resource-center/blog/agent-adoption-the-it-industrys-next-great-inflection-point/)
-          - [2026年AI智能体：LangGraph vs CrewAI vs AutoGen vs Smolagents基准测试对比](https://pooya.blog/blog/ai-agents-frameworks-local-llm-2026)
-          - [2026年顶级AI智能体趋势 — Fintechnews](https://fintechnews.ch/aifintech/top-agent-ai-trends-shaping-2026/80424/)
-          - [LangGraph vs CrewAI vs AutoGen真实基准测试对比](https://propelius.tech/blogs/multi-agent-systems-langgraph-crewai-autogen-comparison/)
-          - Anthropic，[2026年智能体编程趋势报告](https://resources.anthropic.com/2026-agentic-coding-trends-report)
-
-      </div>
-
-      <div class="author-box">
-        <div class="author-box-inner">
-          <div class="author-box-icon">AT</div>
-          <div class="author-box-content">
-            **[Avery Tong](/ai-pulse/zh/about.html)**
-            产品与市场策略背景，长期关注 AI 领域。用这些工具做自己的项目，分享真实的使用体验和判断。
-
-          </div>
-        </div>
-      </div>
-
-
-
-        ### 相关文章
-        <div class="related-grid" id="related-grid"></div>
-        <div style="text-align:center;margin-top:1rem">
-          换一换 ↻
-        </div>
-
-
-
-
-      目录
-
-
-
-    </div>
+## 参考资料
+- IDC，[2027年智能体自动化预测 — AI智能体采用：IT行业下一个重大拐点](https://www.idc.com/resource-center/blog/agent-adoption-the-it-industrys-next-great-inflection-point/)
+- [2026年AI智能体：LangGraph vs CrewAI vs AutoGen vs Smolagents基准测试对比](https://pooya.blog/blog/ai-agents-frameworks-local-llm-2026)
+- [2026年顶级AI智能体趋势 — Fintechnews](https://fintechnews.ch/aifintech/top-agent-ai-trends-shaping-2026/80424/)
+- [LangGraph vs CrewAI vs AutoGen真实基准测试对比](https://propelius.tech/blogs/multi-agent-systems-langgraph-crewai-autogen-comparison/)
+- Anthropic，[2026年智能体编程趋势报告](https://resources.anthropic.com/2026-agentic-coding-trends-report)
