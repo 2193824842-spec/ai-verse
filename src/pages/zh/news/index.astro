@@ -241,7 +241,16 @@ import BaseLayout from '../../../layouts/BaseLayout.astro';
   }
 
   function renderSidebar(items) {
-    const picks = [...items].sort((a, b) => (b.image ? 1 : 0) - (a.image ? 1 : 0)).slice(0, 10);
+    const today = new Date().toISOString().slice(0, 10);
+const picks = [...items]
+  .filter(i => !i.duplicate)
+  .sort((a, b) => {
+    const aToday = a.date?.slice(0, 10) === today ? 1 : 0;
+    const bToday = b.date?.slice(0, 10) === today ? 1 : 0;
+    if (bToday !== aToday) return bToday - aToday;
+    return (b.score ?? 0) - (a.score ?? 0);
+  })
+  .slice(0, 10);
     document.getElementById('sidebar-picks').innerHTML = picks.map((item, idx) => {
       const color = SOURCE_COLORS[item.source] ?? '#64748b';
       const title = esc(item.title_zh || item.title || '');
@@ -251,6 +260,8 @@ import BaseLayout from '../../../layouts/BaseLayout.astro';
           <span class="sb-num">${String(idx + 1).padStart(2, '0')}</span>
           <div class="sb-content">
             <span class="sb-title">${title}</span>
+            ${item.score ? `<span class="sb-score">${item.score}</span>` : ''}
+            ${item.duplicate_count > 0 ? `<span class="sb-hot">${item.duplicate_count + 1}家报道</span>` : ''}
             <span class="sb-source">${esc(item.source)}</span>
           </div>
           ${thumb}
@@ -754,5 +765,18 @@ import BaseLayout from '../../../layouts/BaseLayout.astro';
   padding: 4rem 2rem;
   color: var(--text-dim);
   font-size: 0.9rem;
+}
+.sb-score {
+  font-size: 0.68rem;
+  font-weight: 700;
+  color: var(--accent);
+  font-family: var(--font-mono);
+}
+.sb-hot {
+  font-size: 0.68rem;
+  color: #f59e0b;
+  background: rgba(245,158,11,0.1);
+  border-radius: 3px;
+  padding: 0.05rem 0.35rem;
 }
 </style>
