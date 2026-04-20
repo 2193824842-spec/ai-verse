@@ -88,15 +88,16 @@ NS = {
 
 
 def fetch_og_image(url: str) -> str:
-    """抓取文章页，提取 og:image 或 twitter:image URL"""
+    """抓取文章页，提取封面图 URL（优先 og/twitter meta，fallback 正文第一张大图）"""
     try:
         req = Request(url, headers={
             "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36",
             "Accept": "text/html,application/xhtml+xml",
         })
-        with urlopen(req, timeout=6) as resp:
-            chunk = resp.read(16384).decode("utf-8", errors="ignore")
-        # og:image（两种属性顺序）
+        with urlopen(req, timeout=8) as resp:
+            chunk = resp.read(32768).decode("utf-8", errors="ignore")
+
+        # 1. og:image / twitter:image meta 标签
         for pat in [
             r'<meta[^>]+property=["\']og:image["\'][^>]+content=["\']([^"\'>\s]+)',
             r'<meta[^>]+content=["\']([^"\'>\s]+)["\'][^>]+property=["\']og:image["\']',
@@ -108,6 +109,29 @@ def fetch_og_image(url: str) -> str:
                 img = m.group(1).strip()
                 if img.startswith("http"):
                     return img
+
+        # 2. 正文第一张有意义的 <img>（跳过小图标/base64）
+        base_url = re.match(r'(https?://[^/]+)', url)
+        base = base_url.group(1) if base_url else ''
+        skip_keywords = ['logo', 'icon', 'avatar', 'placeholder', 'ad', 'banner', 'gif', 'sprite']
+        for m in re.finditer(r'<img[^>]+src=["\']([^"\'>\s]+)["\']', chunk, re.I):
+            src = m.group(1).strip()
+            if src.startswith('data:'):
+                continue
+            if any(kw in src.lower() for kw in skip_keywords):
+                continue
+            if not src.startswith('http'):
+                src = base + ('/' if not src.startswith('/') else '') + src.lstrip('/')
+            # 检查 width/height 属性，过滤小图
+            tag = chunk[max(0, m.start()-5):m.end()+5]
+            w = re.search(r'width=["\']?(\d+)', tag, re.I)
+            h = re.search(r'height=["\']?(\d+)', tag, re.I)
+            if w and int(w.group(1)) < 100:
+                continue
+            if h and int(h.group(1)) < 60:
+                continue
+            if src.startswith('http'):
+                return src
     except Exception:
         pass
     return ""
