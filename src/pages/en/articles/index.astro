@@ -75,7 +75,7 @@ const postMeta = Object.fromEntries(
   </div>
 
   <nav class="cat-tabs" id="cat-tabs">
-    {CATEGORIES.filter(c => c.slug === 'all' || grouped[c.slug].length > 0).map((cat) => (
+    {CATEGORIES.map((cat) => (
       <button class="cat-tab" data-cat={cat.slug}>
         {cat.name}
         <span class="tab-count">{grouped[cat.slug].length}</span>
