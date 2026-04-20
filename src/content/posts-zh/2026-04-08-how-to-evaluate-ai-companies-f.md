@@ -1,14 +1,10 @@
 ---
 title: "如何评估 AI 公司：投资者完整框架"
 date: 2026-04-08
-tags:
-  - "ai-tools"
-  - "ai-research"
-  - "enterprise-ai"
-  - "generative-ai"
-  - "ai-benchmarks"
+tags: ["AI投资", "AI估值", "企业AI", "AI创业公司"]
 summary: "掌握 AI 公司评估方法，涵盖核心能力、团队人才、技术栈、收入模式与竞争定位，帮助你识别优质 AI 初创企业。"
 cover: "/covers/how-to-evaluate-ai-companies-framework.jpg"
+category: "industry-insights"
 difficulty: "Intermediate"
 ---
 

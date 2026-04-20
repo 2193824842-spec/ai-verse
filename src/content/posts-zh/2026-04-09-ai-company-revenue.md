@@ -1,14 +1,10 @@
 ---
 title: "2026年AI公司收入对比：OpenAI、Anthropic与初创企业收益对标"
 date: 2026-04-09
-tags:
-  - "ai-revenue"
-  - "ai-startups"
-  - "ai-valuations"
-  - "venture-capital"
-  - "enterprise-ai"
+tags: ["AI营收", "OpenAI", "Anthropic", "AI投资", "企业AI"]
 summary: "OpenAI 2026年收入突破200亿美元。Anthropic实现90亿美元增长。AI公司收益、盈利能力和市场动态全面分析。"
 cover: "/covers/ai-company-revenue-comparison-2026.jpg"
+category: "industry-insights"
 difficulty: "Intermediate"
 ---
 

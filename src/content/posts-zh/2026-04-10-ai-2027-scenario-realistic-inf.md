@@ -1,14 +1,10 @@
 ---
 title: "AI 2027场景预测：基础设施会到位，但实际影响不会"
 date: 2026-04-10
-tags:
-  - "生成式AI"
-  - "AI研究"
-  - "企业AI"
-  - "AI基准测试测试"
-  - "大语言模型"
+tags: ["AI 2027", "AI基础设施", "AI行业", "AI投资"]
 summary: "万亿美元算力基础设施会在2027年到位，但对工作和商业的影响不会"
 cover: "/covers/ai-2027-scenario-realistic-infrastructure-impact.jpg"
+category: "industry-insights"
 difficulty: "Intermediate"
 ---
 

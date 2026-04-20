@@ -1,14 +1,10 @@
 ---
 title: "OpenAI 1220 亿美元融资：智能体工作流与企业 AI 2026"
 date: 2026-03-31
-tags:
-  - "openai-funding"
-  - "agentic-workflows"
-  - "gpt-5-4"
-  - "enterprise-ai"
-  - "ai-strategy"
+tags: ["OpenAI", "AI融资", "智能体AI", "企业AI"]
 summary: "OpenAI 1220 亿美元融资推动 GPT-5.4 驱动的智能体工作流。深度解析企业 AI 采用、IPO 战略与传统软件的终结。"
 cover: "/covers/openai-122b-agentic-workflows-gpt54.jpg"
+category: "trending"
 difficulty: "Advanced"
 ---
 
