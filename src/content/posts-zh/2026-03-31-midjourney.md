@@ -1,4 +1,4 @@
----
+﻿---
 title: "Midjourney使用教程（2026最新版）：从注册到出图的完整入门指南"
 date: 2026-03-31
 tags: ["Midjourney", "AI绘画", "图像生成", "AI工具", "AI教程"]
