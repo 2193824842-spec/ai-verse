@@ -1,10 +1,11 @@
 import { defineConfig } from 'astro/config';
+import sitemap from '@astrojs/sitemap';
 
 export default defineConfig({
   site: 'https://find-aiverse.com',
   base: '/',
   trailingSlash: 'always',
-  integrations: [],
+  integrations: [sitemap()],
   markdown: {
     shikiConfig: {
       themes: {
