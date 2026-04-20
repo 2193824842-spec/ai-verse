@@ -691,13 +691,7 @@ main { padding: 56px 0 80px; overflow: visible; }
 
 /* ── Footer ─────────────────────────────────────────── */
 footer {
-  border-top: 1px solid transparent;
-  border-image: linear-gradient(135deg, #4FACFE, #A855F7) 1;
-  padding: 24px 0;
-  text-align: center;
-  font-size: 13px;
   color: var(--text-dim);
-  font-family: var(--font-mono);
 }
 
 /* ── Cover Images ───────────────────────────────────── */
