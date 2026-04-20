@@ -14,7 +14,7 @@ from urllib.request import urlopen, Request
 from urllib.parse import quote
 import xml.etree.ElementTree as ET
 
-OUTPUT = Path(__file__).parent.parent / "src" / "data" / "news.json"
+OUTPUT = Path(__file__).parent.parent / "public" / "data" / "news.json"
 MAX_PER_FEED = 30
 MAX_TOTAL = 500   # 累积上限
 

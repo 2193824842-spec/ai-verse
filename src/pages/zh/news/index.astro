@@ -1,111 +1,5 @@
 ---
 import BaseLayout from '../../../layouts/BaseLayout.astro';
-import newsData from '../../../data/news.json';
-
-const base = import.meta.env.BASE_URL.replace(/\/$/, '');
-
-const SOURCE_COLORS: Record<string, string> = {
-  '量子位':         '#3b82f6',
-  '机器之心':       '#8b5cf6',
-  '少数派':         '#10b981',
-  '36Kr':          '#f59e0b',
-  '爱范儿':         '#ef4444',
-  '极客公园':       '#06b6d4',
-  '新智元':         '#6366f1',
-  '虎嗅':          '#f97316',
-  '钛媒体':         '#84cc16',
-  'IT之家':         '#ec4899',
-  'TechCrunch AI':  '#7c3aed',
-  'The Verge AI':   '#0ea5e9',
-  'VentureBeat AI': '#d97706',
-  'MIT Tech Review': '#059669',
-  'Google AI':      '#4285f4',
-  'Hugging Face':   '#ff9d00',
-};
-
-const SOURCE_DOMAINS: Record<string, string> = {
-  '量子位':         'qbitai.com',
-  '机器之心':       'jiqizhixin.com',
-  '少数派':         'sspai.com',
-  '36Kr':          '36kr.com',
-  '爱范儿':         'ifanr.com',
-  '极客公园':       'geekpark.net',
-  '新智元':         'aizhuanzhu.com',
-  '虎嗅':          'huxiu.com',
-  '钛媒体':         'tmtpost.com',
-  'IT之家':         'ithome.com',
-  'TechCrunch AI':  'techcrunch.com',
-  'The Verge AI':   'theverge.com',
-  'VentureBeat AI': 'venturebeat.com',
-  'MIT Tech Review': 'technologyreview.com',
-  'Google AI':      'blog.google',
-  'Hugging Face':   'huggingface.co',
-};
-
-const items = newsData.items as {
-  title: string; title_zh: string; title_en: string;
-  url: string; source: string;
-  summary: string; summary_zh: string; summary_en: string;
-  date: string;
-  image?: string;
-}[];
-
-const CAT_KEYWORDS: Record<string, string[]> = {
-  '大模型': ['模型', 'gpt', 'claude', 'gemini', 'llm', '语言模型', 'llama', 'deepseek', 'qwen', 'grok', 'mistral', 'o1', 'o3', 'phi'],
-  '图像视频': ['图像', '视频', 'sora', '文生图', '生图', 'dall', 'stable diffusion', 'midjourney', '文生视频', '图生视频', 'kling', 'runway', 'imagen'],
-  '行业动态': ['融资', '收购', '估值', '上市', '投资', '亿美元', '裁员', '合并'],
-  '工具产品': ['发布', '推出', '上线', '更新', '版本', '功能', '新功能', '升级'],
-};
-
-function getCat(item: { title_zh?: string; title?: string }): string {
-  const text = ((item.title_zh || item.title) ?? '').toLowerCase();
-  for (const [cat, kws] of Object.entries(CAT_KEYWORDS)) {
-    if (kws.some(kw => text.includes(kw))) return cat;
-  }
-  return '其他';
-}
-
-function getReadTime(item: { summary_zh?: string; summary?: string }): number {
-  return Math.max(1, Math.ceil(((item.summary_zh || item.summary) ?? '').length / 400));
-}
-
-function getTimeLabel(dateStr: string): string {
-  const t = dateStr?.slice(11, 16);
-  return t && t !== '00:00' ? t : dateStr?.slice(5, 10) ?? '';
-}
-
-const sources = [...new Set(items.map(i => i.source))];
-
-// 按日期分组
-const grouped: Record<string, typeof items> = {};
-for (const item of items) {
-  const day = item.date?.slice(0, 10) ?? 'unknown';
-  if (!grouped[day]) grouped[day] = [];
-  grouped[day].push(item);
-}
-const days = Object.keys(grouped).sort((a, b) => b.localeCompare(a));
-
-function dayLabel(d: string) {
-  const today = new Date().toISOString().slice(0, 10);
-  const yesterday = new Date(Date.now() - 86400000).toISOString().slice(0, 10);
-  if (d === today) return '今日';
-  if (d === yesterday) return '昨日';
-  return d.slice(5).replace('-', '/');
-}
-
-// 右侧精选：有图的优先，取前 10 条
-const sidebarItems = [...items]
-  .sort((a, b) => (b.image ? 1 : 0) - (a.image ? 1 : 0))
-  .slice(0, 10);
-
-const allCats = ['全部', '大模型', '图像视频', '行业动态', '工具产品', '其他'];
-const CAT_COLORS: Record<string, string> = {
-  '大模型':  '#8b5cf6',
-  '图像视频': '#ec4899',
-  '行业动态': '#f59e0b',
-  '工具产品': '#10b981',
-  '其他':    '#64748b',
-};
 ---
 
 <BaseLayout
@@ -125,49 +19,33 @@ const CAT_COLORS: Record<string, string> = {
     <div class="hero-right">
       <div class="hero-stats">
         <div class="hstat-item">
-          <strong>{items.length}</strong>
+          <strong id="stat-count">—</strong>
           <span>条资讯</span>
         </div>
         <div class="hstat-divider"></div>
         <div class="hstat-item">
-          <strong>{sources.length}</strong>
+          <strong id="stat-sources">—</strong>
           <span>个来源</span>
         </div>
         <div class="hstat-divider"></div>
         <div class="hstat-item">
           <span class="hstat-dot"></span>
-          <span>更新于 {newsData.updated?.slice(0, 10)}</span>
+          <span>更新于 <span id="stat-updated">—</span></span>
         </div>
       </div>
     </div>
   </div>
 
   <!-- ── 分类筛选 ── -->
-  <div class="cat-bar">
-    {allCats.map(cat => (
-      <button
-        class={`cpill${cat === '全部' ? ' active' : ''}`}
-        data-cat={cat}
-        style={cat !== '全部' ? `--cc:${CAT_COLORS[cat] ?? '#64748b'}` : ''}
-      >
-        {cat !== '全部' && <span class="cpill-dot" style={`background:${CAT_COLORS[cat]}`}></span>}
-        {cat}
-      </button>
-    ))}
+  <div class="cat-bar" id="cat-bar">
+    <button class="cpill active" data-cat="全部">全部</button>
+    <button class="cpill" data-cat="大模型" style="--cc:#8b5cf6"><span class="cpill-dot" style="background:#8b5cf6"></span>大模型</button>
+    <button class="cpill" data-cat="图像视频" style="--cc:#ec4899"><span class="cpill-dot" style="background:#ec4899"></span>图像视频</button>
+    <button class="cpill" data-cat="行业动态" style="--cc:#f59e0b"><span class="cpill-dot" style="background:#f59e0b"></span>行业动态</button>
+    <button class="cpill" data-cat="工具产品" style="--cc:#10b981"><span class="cpill-dot" style="background:#10b981"></span>工具产品</button>
+    <button class="cpill" data-cat="其他" style="--cc:#64748b"><span class="cpill-dot" style="background:#64748b"></span>其他</button>
     <div class="cat-bar-sep"></div>
-    <!-- 来源筛选 -->
-    {sources.slice(0, 8).map(src => {
-      const color = SOURCE_COLORS[src] ?? '#64748b';
-      return (
-        <button class="fpill" data-source={src} style={`--sc:${color}`}>
-          <img
-            src={`https://www.google.com/s2/favicons?domain=${SOURCE_DOMAINS[src] ?? 'example.com'}&sz=32`}
-            width="12" height="12" class="fpill-favicon" alt=""
-          />
-          {src}
-        </button>
-      );
-    })}
+    <div id="source-pills" style="display:contents"></div>
     <button class="fpill active" data-source="all" style="--sc:var(--accent)">全部来源</button>
   </div>
 
@@ -176,68 +54,10 @@ const CAT_COLORS: Record<string, string> = {
 
     <!-- ── 左侧：资讯 Feed ── -->
     <div class="news-main" id="news-feed">
-      {days.map(day => (
-        <div class="day-group" data-day={day}>
-          <div class="day-label">
-            <span class="day-dot"></span>
-            <span class="day-text">{dayLabel(day)}</span>
-            <span class="day-date">{day.slice(5).replace('-', '/')}</span>
-            <span class="day-count">{grouped[day].length} 条</span>
-          </div>
-
-          {grouped[day].map((item, idx) => {
-            const color = SOURCE_COLORS[item.source] ?? '#64748b';
-            const domain = (() => { try { return new URL(item.url).hostname; } catch { return 'example.com'; } })();
-            const cat = getCat(item);
-            const readTime = getReadTime(item);
-            return (
-              <a
-                href={item.url}
-                target="_blank"
-                rel="noopener noreferrer"
-                class="news-item"
-                data-source={item.source}
-                data-cat={cat}
-                style={`--ic:${color}`}
-              >
-                {/* 左侧时间 */}
-                <div class="ni-time">{getTimeLabel(item.date)}</div>
-
-                {/* 中间内容 */}
-                <div class="ni-body">
-                  <div class="ni-meta">
-                    <img
-                      src={`https://www.google.com/s2/favicons?domain=${domain}&sz=32`}
-                      width="13" height="13" class="ni-favicon" loading="lazy" alt=""
-                    />
-                    <span class="ni-source">{item.source}</span>
-                    <span class="ni-cat-tag" style={`--ct:${CAT_COLORS[cat] ?? '#64748b'}`}>{cat}</span>
-                    <span class="ni-readtime">约{readTime}分钟</span>
-                  </div>
-                  <h2 class="ni-title">{item.title_zh || item.title}</h2>
-                  {(item.summary_zh || item.summary) && (
-                    <p class="ni-summary">{item.summary_zh || item.summary}</p>
-                  )}
-                </div>
-
-                {/* 右侧缩略图 */}
-                <div class="ni-thumb">
-                  {item.image
-                    ? <img src={item.image} alt="" class="ni-img" loading="lazy" />
-                    : <div class="ni-placeholder"></div>
-                  }
-                </div>
-              </a>
-            );
-          })}
-        </div>
-      ))}
-
-      {items.length === 0 && (
-        <div class="feed-empty">
-          <p>暂无资讯，今日资讯将在北京时间 08:00 自动更新</p>
-        </div>
-      )}
+      <div class="feed-loading">
+        <div class="loading-spinner"></div>
+        <p>加载资讯中…</p>
+      </div>
     </div>
 
     <!-- ── 右侧：精选侧边栏 ── -->
@@ -247,46 +67,13 @@ const CAT_COLORS: Record<string, string> = {
           <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" class="sb-icon"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
           今日精选
         </div>
-        <ul class="sb-list">
-          {sidebarItems.map((item, idx) => {
-            const color = SOURCE_COLORS[item.source] ?? '#64748b';
-            return (
-              <li class="sb-item">
-                <a href={item.url} target="_blank" rel="noopener noreferrer" class="sb-link" style={`--ic:${color}`}>
-                  <span class="sb-num">{String(idx + 1).padStart(2, '0')}</span>
-                  <div class="sb-content">
-                    <span class="sb-title">{item.title_zh || item.title}</span>
-                    <span class="sb-source">{item.source}</span>
-                  </div>
-                  {item.image && (
-                    <img src={item.image} alt="" class="sb-thumb" loading="lazy" />
-                  )}
-                </a>
-              </li>
-            );
-          })}
-        </ul>
+        <ul class="sb-list" id="sidebar-picks"></ul>
       </div>
 
       <!-- 来源统计 -->
       <div class="sb-card sb-sources-card">
         <div class="sb-header">来源分布</div>
-        <div class="sb-sources">
-          {sources.map(src => {
-            const color = SOURCE_COLORS[src] ?? '#64748b';
-            const count = items.filter(i => i.source === src).length;
-            const pct = Math.round(count / items.length * 100);
-            return (
-              <div class="sb-src-row">
-                <span class="sb-src-name" style={`color:${color}`}>{src}</span>
-                <div class="sb-src-bar-wrap">
-                  <div class="sb-src-bar" style={`width:${pct}%;background:${color}`}></div>
-                </div>
-                <span class="sb-src-count">{count}</span>
-              </div>
-            );
-          })}
-        </div>
+        <div class="sb-sources" id="source-dist"></div>
       </div>
     </aside>
   </div>
@@ -296,49 +83,253 @@ const CAT_COLORS: Record<string, string> = {
 </BaseLayout>
 
 <script>
-  const catBtns = Array.from(document.querySelectorAll<HTMLButtonElement>('.cpill'));
-  const srcBtns = Array.from(document.querySelectorAll<HTMLButtonElement>('.fpill'));
-  const feed = document.getElementById('news-feed')!;
-  const allItems = Array.from(feed.querySelectorAll<HTMLElement>('.news-item'));
-  const dayGroups = Array.from(feed.querySelectorAll<HTMLElement>('.day-group'));
+  const NEWS_URL = 'https://raw.githubusercontent.com/2193824842-spec/ai-verse/main/public/data/news.json';
+
+  const SOURCE_COLORS = {
+    '量子位':         '#3b82f6',
+    '机器之心':       '#8b5cf6',
+    '少数派':         '#10b981',
+    '36Kr':          '#f59e0b',
+    '爱范儿':         '#ef4444',
+    '极客公园':       '#06b6d4',
+    '新智元':         '#6366f1',
+    '虎嗅':          '#f97316',
+    '钛媒体':         '#84cc16',
+    'IT之家':         '#ec4899',
+    'TechCrunch AI':  '#7c3aed',
+    'The Verge AI':   '#0ea5e9',
+    'VentureBeat AI': '#d97706',
+    'MIT Tech Review': '#059669',
+    'Google AI':      '#4285f4',
+    'Hugging Face':   '#ff9d00',
+  };
+  const SOURCE_DOMAINS = {
+    '量子位':         'qbitai.com',
+    '机器之心':       'jiqizhixin.com',
+    '少数派':         'sspai.com',
+    '36Kr':          '36kr.com',
+    '爱范儿':         'ifanr.com',
+    '极客公园':       'geekpark.net',
+    '新智元':         'aizhuanzhu.com',
+    '虎嗅':          'huxiu.com',
+    '钛媒体':         'tmtpost.com',
+    'IT之家':         'ithome.com',
+    'TechCrunch AI':  'techcrunch.com',
+    'The Verge AI':   'theverge.com',
+    'VentureBeat AI': 'venturebeat.com',
+    'MIT Tech Review': 'technologyreview.com',
+    'Google AI':      'blog.google',
+    'Hugging Face':   'huggingface.co',
+  };
+  const CAT_KEYWORDS = {
+    '大模型':  ['模型', 'gpt', 'claude', 'gemini', 'llm', '语言模型', 'llama', 'deepseek', 'qwen', 'grok', 'mistral', 'o1', 'o3', 'phi'],
+    '图像视频': ['图像', '视频', 'sora', '文生图', '生图', 'dall', 'stable diffusion', 'midjourney', '文生视频', '图生视频', 'kling', 'runway', 'imagen'],
+    '行业动态': ['融资', '收购', '估值', '上市', '投资', '亿美元', '裁员', '合并'],
+    '工具产品': ['发布', '推出', '上线', '更新', '版本', '功能', '新功能', '升级'],
+  };
+  const CAT_COLORS = {
+    '大模型':  '#8b5cf6',
+    '图像视频': '#ec4899',
+    '行业动态': '#f59e0b',
+    '工具产品': '#10b981',
+    '其他':    '#64748b',
+  };
+
+  function esc(str) {
+    return String(str ?? '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+  }
+
+  function getCat(item) {
+    const text = ((item.title_zh || item.title) ?? '').toLowerCase();
+    for (const [cat, kws] of Object.entries(CAT_KEYWORDS)) {
+      if (kws.some(kw => text.includes(kw))) return cat;
+    }
+    return '其他';
+  }
+
+  function getReadTime(item) {
+    return Math.max(1, Math.ceil(((item.summary_zh || item.summary) ?? '').length / 400));
+  }
+
+  function getTimeLabel(dateStr) {
+    const t = dateStr?.slice(11, 16);
+    return t && t !== '00:00' ? t : dateStr?.slice(5, 10) ?? '';
+  }
+
+  function dayLabel(d) {
+    const today = new Date().toISOString().slice(0, 10);
+    const yesterday = new Date(Date.now() - 86400000).toISOString().slice(0, 10);
+    if (d === today) return '今日';
+    if (d === yesterday) return '昨日';
+    return d.slice(5).replace('-', '/');
+  }
+
+  function getDomain(url) {
+    try { return new URL(url).hostname; } catch { return 'example.com'; }
+  }
 
   let activeCat = '全部';
   let activeSrc = 'all';
 
   function applyFilters() {
-    allItems.forEach(item => {
+    const feed = document.getElementById('news-feed');
+    feed.querySelectorAll('.news-item').forEach(item => {
       const matchCat = activeCat === '全部' || item.dataset.cat === activeCat;
       const matchSrc = activeSrc === 'all' || item.dataset.source === activeSrc;
       item.style.display = (matchCat && matchSrc) ? '' : 'none';
     });
-    dayGroups.forEach(g => {
-      const visible = Array.from(g.querySelectorAll<HTMLElement>('.news-item')).some(el => el.style.display !== 'none');
-      (g as HTMLElement).style.display = visible ? '' : 'none';
+    feed.querySelectorAll('.day-group').forEach(g => {
+      const visible = Array.from(g.querySelectorAll('.news-item')).some(el => el.style.display !== 'none');
+      g.style.display = visible ? '' : 'none';
     });
   }
 
-  catBtns.forEach(btn => {
-    btn.addEventListener('click', () => {
-      catBtns.forEach(b => b.classList.remove('active'));
-      btn.classList.add('active');
-      activeCat = btn.dataset.cat ?? '全部';
-      applyFilters();
-    });
-  });
+  function renderFeed(items) {
+    const feed = document.getElementById('news-feed');
+    const grouped = {};
+    for (const item of items) {
+      const day = item.date?.slice(0, 10) ?? 'unknown';
+      if (!grouped[day]) grouped[day] = [];
+      grouped[day].push(item);
+    }
+    const days = Object.keys(grouped).sort((a, b) => b.localeCompare(a));
 
-  srcBtns.forEach(btn => {
-    btn.addEventListener('click', () => {
-      srcBtns.forEach(b => b.classList.remove('active'));
-      btn.classList.add('active');
-      activeSrc = btn.dataset.source ?? 'all';
-      applyFilters();
+    let html = '';
+    for (const day of days) {
+      const dayItems = grouped[day];
+      html += `<div class="day-group" data-day="${esc(day)}">
+        <div class="day-label">
+          <span class="day-dot"></span>
+          <span class="day-text">${esc(dayLabel(day))}</span>
+          <span class="day-date">${esc(day.slice(5).replace('-', '/'))}</span>
+          <span class="day-count">${dayItems.length} 条</span>
+        </div>`;
+      for (const item of dayItems) {
+        const color = SOURCE_COLORS[item.source] ?? '#64748b';
+        const domain = getDomain(item.url);
+        const cat = getCat(item);
+        const readTime = getReadTime(item);
+        const catColor = CAT_COLORS[cat] ?? '#64748b';
+        const title = esc(item.title_zh || item.title || '');
+        const summary = esc(item.summary_zh || item.summary || '');
+        const thumb = item.image
+          ? `<img src="${esc(item.image)}" alt="" class="ni-img" loading="lazy" />`
+          : `<div class="ni-placeholder"></div>`;
+        html += `<a href="${esc(item.url)}" target="_blank" rel="noopener noreferrer"
+          class="news-item" data-source="${esc(item.source)}" data-cat="${esc(cat)}" style="--ic:${color}">
+          <div class="ni-time">${esc(getTimeLabel(item.date))}</div>
+          <div class="ni-body">
+            <div class="ni-meta">
+              <img src="https://www.google.com/s2/favicons?domain=${esc(domain)}&sz=32" width="13" height="13" class="ni-favicon" loading="lazy" alt="" />
+              <span class="ni-source">${esc(item.source)}</span>
+              <span class="ni-cat-tag" style="--ct:${catColor}">${esc(cat)}</span>
+              <span class="ni-readtime">约${readTime}分钟</span>
+            </div>
+            <h2 class="ni-title">${title}</h2>
+            ${summary ? `<p class="ni-summary">${summary}</p>` : ''}
+          </div>
+          <div class="ni-thumb">${thumb}</div>
+        </a>`;
+      }
+      html += '</div>';
+    }
+
+    if (!html) {
+      html = '<div class="feed-empty"><p>暂无资讯，今日资讯将在北京时间 09:30 自动更新</p></div>';
+    }
+    feed.innerHTML = html;
+  }
+
+  function renderSidebar(items) {
+    const picks = [...items].sort((a, b) => (b.image ? 1 : 0) - (a.image ? 1 : 0)).slice(0, 10);
+    document.getElementById('sidebar-picks').innerHTML = picks.map((item, idx) => {
+      const color = SOURCE_COLORS[item.source] ?? '#64748b';
+      const title = esc(item.title_zh || item.title || '');
+      const thumb = item.image ? `<img src="${esc(item.image)}" alt="" class="sb-thumb" loading="lazy" />` : '';
+      return `<li class="sb-item">
+        <a href="${esc(item.url)}" target="_blank" rel="noopener noreferrer" class="sb-link" style="--ic:${color}">
+          <span class="sb-num">${String(idx + 1).padStart(2, '0')}</span>
+          <div class="sb-content">
+            <span class="sb-title">${title}</span>
+            <span class="sb-source">${esc(item.source)}</span>
+          </div>
+          ${thumb}
+        </a>
+      </li>`;
+    }).join('');
+  }
+
+  function renderSourceDist(items) {
+    const sources = [...new Set(items.map(i => i.source))];
+    document.getElementById('source-dist').innerHTML = sources.map(src => {
+      const color = SOURCE_COLORS[src] ?? '#64748b';
+      const count = items.filter(i => i.source === src).length;
+      const pct = Math.round(count / items.length * 100);
+      return `<div class="sb-src-row">
+        <span class="sb-src-name" style="color:${color}">${esc(src)}</span>
+        <div class="sb-src-bar-wrap"><div class="sb-src-bar" style="width:${pct}%;background:${color}"></div></div>
+        <span class="sb-src-count">${count}</span>
+      </div>`;
+    }).join('');
+  }
+
+  function renderSourcePills(items) {
+    const sources = [...new Set(items.map(i => i.source))].slice(0, 8);
+    document.getElementById('source-pills').innerHTML = sources.map(src => {
+      const color = SOURCE_COLORS[src] ?? '#64748b';
+      const domain = SOURCE_DOMAINS[src] ?? 'example.com';
+      return `<button class="fpill" data-source="${esc(src)}" style="--sc:${color}">
+        <img src="https://www.google.com/s2/favicons?domain=${domain}&sz=32" width="12" height="12" class="fpill-favicon" alt="" />
+        ${esc(src)}
+      </button>`;
+    }).join('');
+
+    document.querySelectorAll('.fpill').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('.fpill').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        activeSrc = btn.dataset.source ?? 'all';
+        applyFilters();
+      });
     });
-  });
+  }
+
+  async function loadNews() {
+    try {
+      const res = await fetch(NEWS_URL);
+      if (!res.ok) throw new Error(`HTTP ${res.status}`);
+      const data = await res.json();
+      const items = data.items ?? [];
+
+      const sources = [...new Set(items.map(i => i.source))];
+      document.getElementById('stat-count').textContent = items.length;
+      document.getElementById('stat-sources').textContent = sources.length;
+      document.getElementById('stat-updated').textContent = (data.updated ?? '').slice(0, 10);
+
+      renderFeed(items);
+      renderSidebar(items);
+      renderSourceDist(items);
+      renderSourcePills(items);
+
+      document.querySelectorAll('.cpill').forEach(btn => {
+        btn.addEventListener('click', () => {
+          document.querySelectorAll('.cpill').forEach(b => b.classList.remove('active'));
+          btn.classList.add('active');
+          activeCat = btn.dataset.cat ?? '全部';
+          applyFilters();
+        });
+      });
+    } catch (e) {
+      document.getElementById('news-feed').innerHTML =
+        '<div class="feed-empty"><p>资讯加载失败，请刷新页面重试</p></div>';
+    }
+  }
+
+  loadNews();
 </script>
 
 <style>
 .news-page {
-  /* 大幅突破 container 限制 */
   margin-left: -24px;
   margin-right: -24px;
   width: calc(100% + 48px);
@@ -736,6 +727,26 @@ const CAT_COLORS: Record<string, string> = {
   text-align: right;
   flex-shrink: 0;
 }
+
+/* ── Loading ── */
+.feed-loading {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 4rem 2rem;
+  color: var(--text-dim);
+  font-size: 0.9rem;
+  gap: 1rem;
+}
+.loading-spinner {
+  width: 28px; height: 28px;
+  border: 3px solid var(--border);
+  border-top-color: var(--accent);
+  border-radius: 50%;
+  animation: spin 0.7s linear infinite;
+}
+@keyframes spin { to { transform: rotate(360deg); } }
 
 /* ── Empty ── */
 .feed-empty {
