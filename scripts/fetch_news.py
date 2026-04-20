@@ -18,7 +18,7 @@ import xml.etree.ElementTree as ET
 OUTPUT        = Path(__file__).parent.parent / "src" / "data" / "news.json"
 MAX_TOTAL     = 350
 TOP_TRANSLATE = 25
-TIER_LIMITS   = {1: 5, 2: 10, 3: 5, 4: 3}
+TIER_LIMITS   = {1: 3, 2: 5, 3: 3, 4: 2}
 
 FEEDS = [
     # Tier 1 — 官方实验室
