@@ -195,19 +195,22 @@ const jsonLd = {
       if (prev === type) {
         setVoted('');
       } else {
-        try {
-          await fetch(`${WALINE}/api/article`, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ url: articlePath, type }),
-          });
-        } catch(e) { console.error('reaction failed', e); return; }
         setVoted(type);
+        // 立即更新 UI
+        const likeEl = document.getElementById('count-like');
+        const disEl = document.getElementById('count-dislike');
+        if (type === 'reaction0') likeEl.textContent = +likeEl.textContent + 1;
+        else disEl.textContent = +disEl.textContent + 1;
+        // 后台发送请求
+        fetch(`${WALINE}/api/article`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ url: articlePath, type }),
+        }).then(() => fetchReactions()).catch(e => console.error('reaction failed', e));
       }
       const v = getVoted();
       document.getElementById('btn-like').classList.toggle('reaction-btn--active', v === 'reaction0');
       document.getElementById('btn-dislike').classList.toggle('reaction-btn--active', v === 'reaction1');
-      fetchReactions();
     }
 
     const voted = getVoted();
