@@ -15,6 +15,7 @@ import xml.etree.ElementTree as ET
 
 OUTPUT        = Path(__file__).parent.parent / "public" / "data" / "news.json"
 MAX_PER_DAY   = 20
+MIN_SCORE     = 4.0
 TOP_TRANSLATE = 25
 HISTORY_DAYS  = 7
 TIER_LIMITS   = {1: 10, 2: 10, 3: 8, 4: 5}
@@ -477,7 +478,7 @@ def main():
         score_items(unique, api_key, base_url)
         translate_items(unique, api_key, base_url)
         top_reps = sorted(
-            [i for i in unique if not i.get("duplicate")],
+            [i for i in unique if not i.get("duplicate") and i.get("score", 0) >= MIN_SCORE],
             key=lambda x: x.get("score", 0), reverse=True
         )[:MAX_PER_DAY]
         fetch_images_concurrent(top_reps)
