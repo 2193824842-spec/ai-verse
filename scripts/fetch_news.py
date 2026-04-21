@@ -18,7 +18,7 @@ import xml.etree.ElementTree as ET
 OUTPUT        = Path(__file__).parent.parent / "public" / "data" / "news.json"
 MAX_TOTAL     = 350
 TOP_TRANSLATE = 25
-TIER_LIMITS   = {1: 3, 2: 5, 3: 3, 4: 2}
+TIER_LIMITS   = {1: 10, 2: 10, 3: 8, 4: 5}
 
 FEEDS = [
     # Tier 1 — 官方实验室
@@ -409,9 +409,12 @@ def score_and_translate(items: list[dict], api_key: str, base_url: str) -> None:
 # ── 主流程 ────────────────────────────────────────────────────────────────────
 
 def main():
+    cutoff_ts = (datetime.now(timezone.utc).timestamp()) - 86400  # 过去24小时
+
     all_items: list[dict] = []
     for feed in FEEDS:
         raw = fetch_feed(feed)
+        raw = [i for i in raw if i.get("_ts", 0) >= cutoff_ts]
         if feed.get("ai_only"):
             before = len(raw)
             raw = [i for i in raw if is_ai_related(i["title"], i["summary"])]
@@ -424,17 +427,6 @@ def main():
         if item["url"] not in seen:
             seen.add(item["url"])
             unique.append(item)
-
-    if OUTPUT.exists():
-        try:
-            old = json.loads(OUTPUT.read_text(encoding="utf-8"))
-            for item in old.get("items", []):
-                if item.get("url") and item["url"] not in seen:
-                    seen.add(item["url"])
-                    item["_ts"] = parse_date(item.get("date", "")).timestamp()
-                    unique.append(item)
-        except Exception:
-            pass
 
     unique.sort(key=lambda x: x.get("_ts", 0), reverse=True)
     unique = unique[:MAX_TOTAL]
