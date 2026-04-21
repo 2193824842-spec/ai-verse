@@ -196,18 +196,20 @@ const jsonLd = {
 
     function sendReaction(type) {
       const prev = getVoted();
-      if (prev === type) {
+      const action = prev === type ? 'desc' : 'inc';
+      if (action === 'desc') {
         setVoted('');
+        if (type === 'reaction0') localCounts.reaction0 = Math.max(0, localCounts.reaction0 - 1);
       } else {
         setVoted(type);
         if (type === 'reaction0') localCounts.reaction0++;
-        document.getElementById('count-like').textContent = localCounts.reaction0;
-        fetch(`${WALINE}/api/article`, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ path: articlePath, type, action: 'inc' }),
-        }).catch(e => console.error('reaction failed', e));
       }
+      document.getElementById('count-like').textContent = localCounts.reaction0;
+      fetch(`${WALINE}/api/article`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ path: articlePath, type, action }),
+      }).catch(e => console.error('reaction failed', e));
       const v = getVoted();
       document.getElementById('btn-like').classList.toggle('reaction-btn--active', v === 'reaction0');
     }
