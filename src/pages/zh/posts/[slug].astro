@@ -177,7 +177,7 @@ const jsonLd = {
 
     async function fetchReactions() {
       try {
-        const res = await fetch(`${WALINE}/api/article?path=${encodeURIComponent(articlePath)}`);
+        const res = await fetch(`${WALINE}/api/article?path=${encodeURIComponent(articlePath)}&type=reaction0`);
         const json = await res.json();
         const d = json.data?.[0];
         localCounts.reaction0 = d?.reaction0 ?? 0;
