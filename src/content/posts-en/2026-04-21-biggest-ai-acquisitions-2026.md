@@ -2,7 +2,7 @@
 title: "Biggest AI Acquisitions 2026: The $1.2T Land Grab"
 date: 2026-04-21
 difficulty: Intermediate
-category: "Industry Insights"
+category: "industry-insights"
 summary: "Q1 2026 saw $1.22T in AI-driven M&A — the biggest AI acquisitions 2026 are locking up compute, data, and energy. Here's who's winning and what it means."
 cover: "/covers/biggest-ai-acquisitions-2026.png"
 tags: ["enterprise-ai", "ai-research", "generative-ai", "ai-tools"]
