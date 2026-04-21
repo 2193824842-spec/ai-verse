@@ -1,34 +1,32 @@
 #!/usr/bin/env python3
 """
-每日 AI 资讯抓取脚本
-从多个 RSS 源抓取最新 AI 资讯，输出到 src/data/news.json
+每日 AI 资讯抓取脚本 v2
+抓取过去24h → 聚类去重（保留权威来源）→ Claude评分 → Top30 → 合并7天历史
 """
 import json
 import os
 import re
 import sys
-import time
 from concurrent.futures import ThreadPoolExecutor, as_completed
 from datetime import datetime, timezone
 from pathlib import Path
 from urllib.request import urlopen, Request
-from urllib.parse import quote
 import xml.etree.ElementTree as ET
 
 OUTPUT        = Path(__file__).parent.parent / "public" / "data" / "news.json"
-MAX_TOTAL     = 350
+MAX_PER_DAY   = 30
 TOP_TRANSLATE = 25
+HISTORY_DAYS  = 7
 TIER_LIMITS   = {1: 10, 2: 10, 3: 8, 4: 5}
+TIER_BONUS    = {1: 1.5, 2: 1.0, 3: 0.5, 4: 0.0}
 
 FEEDS = [
-    # Tier 1 — 官方实验室
     {"name": "OpenAI",          "url": "https://openai.com/news/rss.xml",                                     "tier": 1},
     {"name": "Anthropic",       "url": "https://www.anthropic.com/rss.xml",                                   "tier": 1},
     {"name": "Google DeepMind", "url": "https://deepmind.google/blog/rss.xml",                                "tier": 1},
     {"name": "Meta AI",         "url": "https://ai.meta.com/blog/feed/",                                      "tier": 1},
     {"name": "Microsoft AI",    "url": "https://blogs.microsoft.com/ai/feed/",                                "tier": 1},
     {"name": "Google Research", "url": "https://research.google/blog/rss/",                                   "tier": 1},
-    # Tier 2 — 专注 AI 媒体
     {"name": "量子位",           "url": "https://www.qbitai.com/feed",                                         "tier": 2},
     {"name": "机器之心",         "url": "https://www.jiqizhixin.com/rss",                                      "tier": 2},
     {"name": "极客公园",         "url": "https://www.geekpark.net/rss",                                        "tier": 2},
@@ -39,7 +37,6 @@ FEEDS = [
     {"name": "VentureBeat AI",  "url": "https://venturebeat.com/category/ai/feed/",                           "tier": 2},
     {"name": "MIT Tech Review", "url": "https://www.technologyreview.com/topic/artificial-intelligence/feed", "tier": 2},
     {"name": "Wired AI",        "url": "https://www.wired.com/feed/tag/artificial-intelligence/rss",          "tier": 2},
-    # Tier 3 — 综合科技媒体
     {"name": "36Kr",   "url": "https://36kr.com/feed",            "tier": 3, "ai_only": True},
     {"name": "虎嗅",   "url": "https://www.huxiu.com/rss/0.xml",  "tier": 3, "ai_only": True},
     {"name": "钛媒体", "url": "https://www.tmtpost.com/rss.xml",  "tier": 3, "ai_only": True},
@@ -48,7 +45,6 @@ FEEDS = [
     {"name": "IT之家", "url": "https://www.ithome.com/rss/",      "tier": 3, "ai_only": True},
     {"name": "雷锋网", "url": "https://www.leiphone.com/feed",    "tier": 3, "ai_only": True},
     {"name": "InfoQ",  "url": "https://www.infoq.cn/feed",        "tier": 3, "ai_only": True},
-    # Tier 4 — 学术 / 云厂商
     {"name": "arXiv cs.AI", "url": "https://arxiv.org/rss/cs.AI",                        "tier": 4},
     {"name": "arXiv cs.LG", "url": "https://arxiv.org/rss/cs.LG",                        "tier": 4},
     {"name": "AWS ML Blog", "url": "https://aws.amazon.com/blogs/machine-learning/feed/", "tier": 4},
@@ -149,14 +145,24 @@ def fetch_og_image(url: str) -> str:
     return ""
 
 
-def title_keywords(title: str) -> set[str]:
+def title_keywords(title: str) -> set:
     words = re.findall(r"[a-zA-Z0-9]+|[\u4e00-\u9fff]", title.lower())
     return {w for w in words if w not in STOPWORDS and len(w) > 1}
 
 
+def extract_json_array(text: str):
+    m = re.search(r"```(?:json)?\s*(\[.*?\])\s*```", text, re.DOTALL)
+    if m:
+        return json.loads(m.group(1))
+    m = re.search(r"\[.*\]", text, re.DOTALL)
+    if m:
+        return json.loads(m.group())
+    return []
+
+
 # ── RSS 抓取 ──────────────────────────────────────────────────────────────────
 
-def fetch_feed(feed: dict) -> list[dict]:
+def fetch_feed(feed: dict) -> list:
     name  = feed["name"]
     limit = TIER_LIMITS[feed["tier"]]
     try:
@@ -212,10 +218,10 @@ def fetch_feed(feed: dict) -> list[dict]:
     return items
 
 
-# ── 聚类去重 ──────────────────────────────────────────────────────────────────
+# ── 聚类去重（保留最权威来源）────────────────────────────────────────────────────
 
-def cluster_items(items: list[dict]) -> list[dict]:
-    groups: list[list[dict]] = []
+def cluster_items(items: list) -> list:
+    groups = []
     for item in items:
         kws = title_keywords(item["title"])
         matched = None
@@ -234,7 +240,7 @@ def cluster_items(items: list[dict]) -> list[dict]:
 
     result = []
     for group in groups:
-        group.sort(key=lambda x: x.get("tier", 99))
+        group.sort(key=lambda x: x.get("tier", 99))  # tier1 最权威
         rep = group[0]
         rep["duplicate_count"] = len(group) - 1
         rep["duplicate"] = False
@@ -247,9 +253,9 @@ def cluster_items(items: list[dict]) -> list[dict]:
     return result
 
 
-# ── Claude 评分 + 翻译 + 抓图 ─────────────────────────────────────────────────
-def claude_filter(items: list[dict], api_key: str, base_url: str) -> list[dict]:
-    """用 Claude 过滤所有来源中非 AI 主题的条目"""
+# ── Claude 过滤 + 评分 + 翻译 ─────────────────────────────────────────────────
+
+def claude_filter(items: list, api_key: str, base_url: str) -> list:
     try:
         from anthropic import Anthropic
     except ImportError:
@@ -260,11 +266,8 @@ def claude_filter(items: list[dict], api_key: str, base_url: str) -> list[dict]:
     if not candidates:
         return items
 
-    print(f"\n-> Claude 过滤全部条目 {len(candidates)} 条...")
-    lines = "\n".join(
-        f'[{j+1}] {i["title"]}'
-        for j, i in enumerate(candidates)
-    )
+    print(f"\n-> Claude 过滤 {len(candidates)} 条...")
+    lines = "\n".join(f'[{j+1}] {i["title"]}' for j, i in enumerate(candidates))
     prompt = f"""以下是从科技媒体抓取的文章标题，判断每条是否与 AI/人工智能直接相关。
 只保留主题是 AI 的文章，排除消费电子、耳机、手机、汽车、游戏、娱乐、纯商业财经等与 AI 无关的内容。
 返回 JSON 数组，只包含需要保留的序号：[1, 3, 5]
@@ -276,11 +279,10 @@ def claude_filter(items: list[dict], api_key: str, base_url: str) -> list[dict]:
             max_tokens=500,
             messages=[{"role": "user", "content": prompt}],
         )
-        raw = resp.content[0].text.strip()
-        keep_indices = set(extract_json_array(raw))
+        keep_indices = set(extract_json_array(resp.content[0].text.strip()))
         print(f"  → 保留 {len(keep_indices)}/{len(candidates)} 条")
     except Exception as e:
-        print(f"  [WARN] Claude 过滤失败: {e}，保留全部")
+        print(f"  [WARN] 过滤失败: {e}")
         return items
 
     for j, item in enumerate(candidates):
@@ -288,130 +290,164 @@ def claude_filter(items: list[dict], api_key: str, base_url: str) -> list[dict]:
             item["duplicate"] = True
 
     return items
-    
-def extract_json_array(text: str):
-    # 优先提取 ```json ... ``` 代码块
-    m = re.search(r"```(?:json)?\s*(\[.*?\])\s*```", text, re.DOTALL)
-    if m:
-        return json.loads(m.group(1))
-    # fallback：找第一个完整 JSON 数组
-    m = re.search(r"\[.*\]", text, re.DOTALL)
-    if m:
-        return json.loads(m.group())
-    return []
 
 
-def score_and_translate(items: list[dict], api_key: str, base_url: str) -> None:
+def score_items(items: list, api_key: str, base_url: str) -> None:
     try:
         from anthropic import Anthropic
     except ImportError:
-        print("  [WARN] anthropic 未安装，跳过评分和翻译")
         return
 
     client = Anthropic(api_key=api_key, base_url=base_url)
-    today  = datetime.now(timezone.utc).strftime("%Y-%m-%d")
+    reps = [i for i in items if not i.get("duplicate")]
+    if not reps:
+        return
 
-    # Step 1: 评分
-    today_reps = [i for i in items if i.get("date", "")[:10] == today and not i.get("duplicate")]
-    if today_reps:
-        print(f"\n-> 评分今日代表条目 {len(today_reps)} 条...")
-        lines = "\n".join(
-            f'[{j+1}] tier{i["tier"]} | 来源:{i["source"]} | 重复报道:{i["duplicate_count"]}家 | {i["title"]}'
-            for j, i in enumerate(today_reps)
-        )
-        prompt = f"""对以下 AI 资讯打重要性分（1-10），返回 JSON 数组。
-每条格式：{{"index":1,"score":8}}
+    print(f"\n-> 评分 {len(reps)} 条...")
+    lines = "\n".join(
+        f'[{j+1}] tier{i["tier"]} | {i["source"]} | 重复:{i["duplicate_count"]}家 | {i["title"]}'
+        for j, i in enumerate(reps)
+    )
+    prompt = f"""对以下 AI 资讯打重要性分（1-10），返回 JSON 数组。
+每条格式：{{"index":1,"score":8,"tag":"model"}}
+tag 从 model/product/research/industry 选一个。
 
 评分标准：
-- 主流模型发布/重大更新：8-10
-- 重要产品上线/大功能更新：6-8
-- 融资/并购/监管大事件：5-7
-- 学术突破：4-6
-- 一般资讯/工具更新：1-4
+- 新模型/算法发布（GPT/Claude/Gemini/Llama等）：+4
+- 重要产品上线或重大功能更新：+3
+- 顶会/顶刊学术突破：+3
+- 行业大事件（监管、大额融资、并购）：+2
+- 知名机构官方发布：+1
 
-加权规则：
-- tier1 来源同等内容 +1 分
-- 重复报道每多1家 +0.5 分（上限 +2）
+排除规则（直接给1分）：
+- 纯营销软文、产品推广
+- 与AI无直接关联的科技新闻
+- arXiv纯理论/综述论文
 
 {lines}"""
-        try:
-            resp = client.messages.create(
-                model="claude-haiku-4-5-20251001",
-                max_tokens=800,
-                messages=[{"role": "user", "content": prompt}],
-            )
-            raw = resp.content[0].text.strip()
-            for s in extract_json_array(raw):
-                idx = s.get("index", 0) - 1
-                if 0 <= idx < len(today_reps):
-                    today_reps[idx]["score"] = round(s.get("score", 5), 1)
-            print("  评分完成")
-        except Exception as e:
-            print(f"  [WARN] 评分失败: {e}")
+    try:
+        resp = client.messages.create(
+            model="claude-haiku-4-5-20251001",
+            max_tokens=1000,
+            messages=[{"role": "user", "content": prompt}],
+        )
+        results = extract_json_array(resp.content[0].text.strip())
+        for s in results:
+            idx = s.get("index", 0) - 1
+            if 0 <= idx < len(reps):
+                base = float(s.get("score", 5))
+                tier = reps[idx].get("tier", 4)
+                dup  = reps[idx].get("duplicate_count", 0)
+                reps[idx]["score"] = round(base + TIER_BONUS.get(tier, 0) + min(dup * 0.5, 2), 1)
+                reps[idx]["tag"]   = s.get("tag", "industry")
+        print("  评分完成")
+    except Exception as e:
+        print(f"  [WARN] 评分失败: {e}")
 
-    # Step 2: 翻译 Top 25
+
+def translate_items(items: list, api_key: str, base_url: str) -> None:
+    try:
+        from anthropic import Anthropic
+    except ImportError:
+        return
+
+    client = Anthropic(api_key=api_key, base_url=base_url)
     to_translate = [i for i in items if not i.get("title_zh") and not i.get("duplicate")]
     to_translate.sort(key=lambda x: x.get("score", 0), reverse=True)
     to_translate = to_translate[:TOP_TRANSLATE]
 
-    if to_translate:
-        print(f"\n-> 翻译 Top {len(to_translate)} 条...")
-        lines = "\n".join(
-            f'[{j+1}] {"EN" if is_english(i["title"]) else "ZH"} | {i["title"]} | {i["summary"]}'
-            for j, i in enumerate(to_translate)
-        )
-        prompt = f"""将以下资讯标题和摘要互译（EN→ZH 或 ZH→EN），返回 JSON 数组，顺序与输入一致。
+    if not to_translate:
+        return
+
+    print(f"\n-> 翻译 {len(to_translate)} 条...")
+    lines = "\n".join(
+        f'[{j+1}] {"EN" if is_english(i["title"]) else "ZH"} | {i["title"]} | {i["summary"]}'
+        for j, i in enumerate(to_translate)
+    )
+    prompt = f"""将以下资讯标题和摘要互译（EN→ZH 或 ZH→EN），返回 JSON 数组，顺序与输入一致。
 每条格式：{{"title_zh":"...","summary_zh":"...","title_en":"...","summary_en":"..."}}
 标题不超过30字，摘要不超过80字。
 
 {lines}"""
+    try:
+        resp = client.messages.create(
+            model="claude-haiku-4-5-20251001",
+            max_tokens=4000,
+            messages=[{"role": "user", "content": prompt}],
+        )
+        results = extract_json_array(resp.content[0].text.strip())
+    except Exception as e:
+        print(f"  [WARN] 翻译失败: {e}")
+        results = []
+
+    for j, item in enumerate(to_translate):
+        w = results[j] if j < len(results) else {}
+        if is_english(item["title"]):
+            item["title_en"]   = item["title"]
+            item["summary_en"] = item["summary"]
+            item["title_zh"]   = w.get("title_zh") or item["title"]
+            item["summary_zh"] = w.get("summary_zh") or item["summary"]
+        else:
+            item["title_zh"]   = item["title"]
+            item["summary_zh"] = item["summary"]
+            item["title_en"]   = w.get("title_en") or item["title"]
+            item["summary_en"] = w.get("summary_en") or item["summary"]
+        item["title"]   = item["title_zh"]
+        item["summary"] = item["summary_zh"]
+    print("  翻译完成")
+
+
+def fetch_images_concurrent(items: list) -> None:
+    need = [i for i in items if not i.get("image")]
+    if not need:
+        return
+    print(f"\n-> 抓取封面图 {len(need)} 条...")
+    with ThreadPoolExecutor(max_workers=8) as executor:
+        futures = {executor.submit(fetch_og_image, i["url"]): i for i in need}
+        for future in as_completed(futures):
+            img = future.result()
+            if img:
+                futures[future]["image"] = img
+    print("  封面图完成")
+
+
+# ── 历史合并 ──────────────────────────────────────────────────────────────────
+
+def merge_and_save(today_items: list, today_str: str) -> None:
+    existing = []
+    if OUTPUT.exists():
         try:
-            resp = client.messages.create(
-                model="claude-haiku-4-5-20251001",
-                max_tokens=4000,
-                messages=[{"role": "user", "content": prompt}],
-            )
-            raw = resp.content[0].text.strip()
-            results = extract_json_array(raw)
-        except Exception as e:
-            print(f"  [WARN] 翻译失败: {e}")
-            results = []
+            data = json.loads(OUTPUT.read_text(encoding="utf-8"))
+            existing = data.get("items", [])
+        except Exception:
+            pass
 
-        for j, item in enumerate(to_translate):
-            w = results[j] if j < len(results) else {}
-            if is_english(item["title"]):
-                item["title_en"]   = item["title"]
-                item["summary_en"] = item["summary"]
-                item["title_zh"]   = w.get("title_zh") or item["title"]
-                item["summary_zh"] = w.get("summary_zh") or item["summary"]
-            else:
-                item["title_zh"]   = item["title"]
-                item["summary_zh"] = item["summary"]
-                item["title_en"]   = w.get("title_en") or item["title"]
-                item["summary_en"] = w.get("summary_en") or item["summary"]
-            item["title"]   = item["title_zh"]
-            item["summary"] = item["summary_zh"]
-        print("  翻译完成")
+    cutoff = (datetime.now(timezone.utc).timestamp() - HISTORY_DAYS * 86400)
+    cutoff_str = datetime.fromtimestamp(cutoff, tz=timezone.utc).strftime("%Y-%m-%d")
 
-    # Step 3: 并发抓取 Top 25 的 og:image
-    need_image = [i for i in to_translate if not i.get("image")]
-    if need_image:
-        print(f"\n-> 抓取封面图 {len(need_image)} 条（并发）...")
-        with ThreadPoolExecutor(max_workers=8) as executor:
-            futures = {executor.submit(fetch_og_image, i["url"]): i for i in need_image}
-            for future in as_completed(futures):
-                img = future.result()
-                if img:
-                    futures[future]["image"] = img
-        print("  封面图抓取完成")
+    # Remove today's entries and entries older than HISTORY_DAYS
+    kept_history = [
+        i for i in existing
+        if i.get("date", "") != today_str and i.get("date", "") >= cutoff_str
+    ]
+
+    all_items = today_items + kept_history
+
+    OUTPUT.parent.mkdir(parents=True, exist_ok=True)
+    OUTPUT.write_text(json.dumps({
+        "updated": datetime.now(timezone.utc).strftime("%Y-%m-%d %H:%M UTC"),
+        "items":   all_items,
+    }, ensure_ascii=False, indent=2), encoding="utf-8")
+    print(f"\nDone: {len(today_items)} today + {len(kept_history)} history = {len(all_items)} total → {OUTPUT}")
 
 
 # ── 主流程 ────────────────────────────────────────────────────────────────────
 
 def main():
-    cutoff_ts = (datetime.now(timezone.utc).timestamp()) - 86400  # 过去24小时
+    cutoff_ts = datetime.now(timezone.utc).timestamp() - 86400
+    today_str = datetime.now(timezone.utc).strftime("%Y-%m-%d")
 
-    all_items: list[dict] = []
+    all_items: list = []
     for feed in FEEDS:
         raw = fetch_feed(feed)
         raw = [i for i in raw if i.get("_ts", 0) >= cutoff_ts]
@@ -421,38 +457,42 @@ def main():
             print(f"       → AI过滤后: {len(raw)}/{before}")
         all_items.extend(raw)
 
-    seen: set[str] = set()
+    seen: set = set()
     unique = []
     for item in all_items:
         if item["url"] not in seen:
             seen.add(item["url"])
             unique.append(item)
 
-    unique.sort(key=lambda x: x.get("_ts", 0), reverse=True)
-    unique = unique[:MAX_TOTAL]
-
     print(f"\n-> 聚类去重（共 {len(unique)} 条）...")
     unique = cluster_items(unique)
-    reps = sum(1 for i in unique if not i.get("duplicate"))
-    print(f"  → {reps} 个独立事件，{len(unique) - reps} 条重复")
+    reps = [i for i in unique if not i.get("duplicate")]
+    print(f"  → {len(reps)} 个独立事件，{len(unique) - len(reps)} 条重复")
 
     api_key  = os.environ.get("ANTHROPIC_API_KEY", "")
     base_url = os.environ.get("ANTHROPIC_BASE_URL", "https://aiapi.tnt-pub.com/")
+
     if api_key:
         unique = claude_filter(unique, api_key, base_url)
-        score_and_translate(unique, api_key, base_url)
+        score_items(unique, api_key, base_url)
+        translate_items(unique, api_key, base_url)
+        top_reps = sorted(
+            [i for i in unique if not i.get("duplicate")],
+            key=lambda x: x.get("score", 0), reverse=True
+        )[:MAX_PER_DAY]
+        fetch_images_concurrent(top_reps)
     else:
         print("\n  [WARN] 未设置 ANTHROPIC_API_KEY，跳过评分和翻译")
+        top_reps = sorted(
+            [i for i in unique if not i.get("duplicate")],
+            key=lambda x: x.get("_ts", 0), reverse=True
+        )[:MAX_PER_DAY]
 
-    for item in unique:
+    for item in top_reps:
         item.pop("_ts", None)
+        item["date"] = today_str
 
-    OUTPUT.parent.mkdir(parents=True, exist_ok=True)
-    OUTPUT.write_text(json.dumps({
-        "updated": datetime.now(timezone.utc).strftime("%Y-%m-%d %H:%M UTC"),
-        "items":   unique,
-    }, ensure_ascii=False, indent=2), encoding="utf-8")
-    print(f"\nDone: {len(unique)} items → {OUTPUT}")
+    merge_and_save(top_reps, today_str)
 
 
 if __name__ == "__main__":
