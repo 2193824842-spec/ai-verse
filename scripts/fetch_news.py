@@ -15,7 +15,7 @@ from urllib.request import urlopen, Request
 from urllib.parse import quote
 import xml.etree.ElementTree as ET
 
-OUTPUT        = Path(__file__).parent.parent / "src" / "data" / "news.json"
+OUTPUT        = Path(__file__).parent.parent / "public" / "data" / "news.json"
 MAX_TOTAL     = 350
 TOP_TRANSLATE = 25
 TIER_LIMITS   = {1: 3, 2: 5, 3: 3, 4: 2}
