@@ -176,34 +176,38 @@ const jsonLd = {
     const articlePath = window.location.pathname;
     const storageKey = 'reaction:' + articlePath;
 
+    const localCounts = { reaction0: 0, reaction1: 0 };
+
     async function fetchReactions() {
       try {
         const res = await fetch(`${WALINE}/api/article?path=${encodeURIComponent(articlePath)}`);
         const json = await res.json();
         const d = json.data?.[0];
-        document.getElementById('count-like').textContent = d?.reaction0 ?? 0;
-        document.getElementById('count-dislike').textContent = d?.reaction1 ?? 0;
+        localCounts.reaction0 = d?.reaction0 ?? 0;
+        localCounts.reaction1 = d?.reaction1 ?? 0;
+        document.getElementById('count-like').textContent = localCounts.reaction0;
+        document.getElementById('count-dislike').textContent = localCounts.reaction1;
       } catch {}
     }
 
     function getVoted() { try { return localStorage.getItem(storageKey); } catch { return null; } }
     function setVoted(v) { try { localStorage.setItem(storageKey, v); } catch {} }
 
-    async function sendReaction(type) {
+    function sendReaction(type) {
       const prev = getVoted();
       if (prev === type) {
         setVoted('');
       } else {
         setVoted(type);
-        const likeEl = document.getElementById('count-like');
-        const disEl = document.getElementById('count-dislike');
-        if (type === 'reaction0') likeEl.textContent = +likeEl.textContent + 1;
-        else disEl.textContent = +disEl.textContent + 1;
+        if (type === 'reaction0') localCounts.reaction0++;
+        else localCounts.reaction1++;
+        document.getElementById('count-like').textContent = localCounts.reaction0;
+        document.getElementById('count-dislike').textContent = localCounts.reaction1;
         fetch(`${WALINE}/api/article`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ url: articlePath, type }),
-        }).then(() => fetchReactions()).catch(e => console.error('reaction failed', e));
+        }).catch(e => console.error('reaction failed', e));
       }
       const v = getVoted();
       document.getElementById('btn-like').classList.toggle('reaction-btn--active', v === 'reaction0');
