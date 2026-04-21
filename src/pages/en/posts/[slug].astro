@@ -190,18 +190,23 @@ const jsonLd = {
     function setVoted(v) { try { localStorage.setItem(storageKey, v); } catch {} }
 
     async function sendReaction(type) {
-      if (getVoted() === type) return;
-      try {
-        await fetch(`${WALINE}/api/article`, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ url: articlePath, type }),
-        });
+      const prev = getVoted();
+      if (prev === type) {
+        setVoted('');
+      } else {
+        try {
+          await fetch(`${WALINE}/api/article`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ url: articlePath, type }),
+          });
+        } catch(e) { console.error('reaction failed', e); return; }
         setVoted(type);
-        document.getElementById('btn-like').classList.toggle('reaction-btn--active', type === 'reaction0');
-        document.getElementById('btn-dislike').classList.toggle('reaction-btn--active', type === 'reaction1');
-        fetchReactions();
-      } catch(e) { console.error('reaction failed', e); }
+      }
+      const v = getVoted();
+      document.getElementById('btn-like').classList.toggle('reaction-btn--active', v === 'reaction0');
+      document.getElementById('btn-dislike').classList.toggle('reaction-btn--active', v === 'reaction1');
+      fetchReactions();
     }
 
     const voted = getVoted();
