@@ -206,7 +206,7 @@ const jsonLd = {
         fetch(`${WALINE}/api/article`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ url: articlePath, type }),
+          body: JSON.stringify({ path: articlePath, type, action: 'inc' }),
         }).catch(e => console.error('reaction failed', e));
       }
       const v = getVoted();
