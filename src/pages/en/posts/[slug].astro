@@ -186,23 +186,25 @@ const jsonLd = {
       } catch {}
     }
 
+    function getVoted() { try { return localStorage.getItem(storageKey); } catch { return null; } }
+    function setVoted(v) { try { localStorage.setItem(storageKey, v); } catch {} }
+
     async function sendReaction(type) {
-      const voted = localStorage.getItem(storageKey);
-      if (voted === type) return;
+      if (getVoted() === type) return;
       try {
         await fetch(`${WALINE}/api/article`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ url: articlePath, type }),
         });
-        localStorage.setItem(storageKey, type);
+        setVoted(type);
         document.getElementById('btn-like').classList.toggle('reaction-btn--active', type === 'reaction0');
         document.getElementById('btn-dislike').classList.toggle('reaction-btn--active', type === 'reaction1');
         fetchReactions();
-      } catch {}
+      } catch(e) { console.error('reaction failed', e); }
     }
 
-    const voted = localStorage.getItem(storageKey);
+    const voted = getVoted();
     if (voted === 'reaction0') document.getElementById('btn-like').classList.add('reaction-btn--active');
     if (voted === 'reaction1') document.getElementById('btn-dislike').classList.add('reaction-btn--active');
 
