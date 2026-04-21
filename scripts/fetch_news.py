@@ -277,8 +277,7 @@ def claude_filter(items: list[dict], api_key: str, base_url: str) -> list[dict]:
             messages=[{"role": "user", "content": prompt}],
         )
         raw = resp.content[0].text.strip()
-        m = re.search(r"\[.*\]", raw, re.DOTALL)
-        keep_indices = set(json.loads(m.group()) if m else [])
+        keep_indices = set(extract_json_array(raw))
         print(f"  → 保留 {len(keep_indices)}/{len(tier3)} 条")
     except Exception as e:
         print(f"  [WARN] Claude 过滤失败: {e}，保留全部")
@@ -291,6 +290,18 @@ def claude_filter(items: list[dict], api_key: str, base_url: str) -> list[dict]:
 
     return items
     
+def extract_json_array(text: str):
+    # 优先提取 ```json ... ``` 代码块
+    m = re.search(r"```(?:json)?\s*(\[.*?\])\s*```", text, re.DOTALL)
+    if m:
+        return json.loads(m.group(1))
+    # fallback：找第一个完整 JSON 数组
+    m = re.search(r"\[.*\]", text, re.DOTALL)
+    if m:
+        return json.loads(m.group())
+    return []
+
+
 def score_and_translate(items: list[dict], api_key: str, base_url: str) -> None:
     try:
         from anthropic import Anthropic
@@ -331,8 +342,7 @@ def score_and_translate(items: list[dict], api_key: str, base_url: str) -> None:
                 messages=[{"role": "user", "content": prompt}],
             )
             raw = resp.content[0].text.strip()
-            m = re.search(r"\[.*\]", raw, re.DOTALL)
-            for s in (json.loads(m.group()) if m else []):
+            for s in extract_json_array(raw):
                 idx = s.get("index", 0) - 1
                 if 0 <= idx < len(today_reps):
                     today_reps[idx]["score"] = round(s.get("score", 5), 1)
@@ -363,8 +373,7 @@ def score_and_translate(items: list[dict], api_key: str, base_url: str) -> None:
                 messages=[{"role": "user", "content": prompt}],
             )
             raw = resp.content[0].text.strip()
-            m = re.search(r"\[.*\]", raw, re.DOTALL)
-            results = json.loads(m.group()) if m else []
+            results = extract_json_array(raw)
         except Exception as e:
             print(f"  [WARN] 翻译失败: {e}")
             results = []
