@@ -176,7 +176,7 @@ Once you've mastered this evaluation framework, consider these advanced topics:
 - **Sector-specific AI evaluation:** Healthcare AI, financial services AI, and industrial AI each have unique regulatory requirements, data considerations, and competitive dynamics.
 - **Portfolio construction for AI investments:** Balancing exposure across Model Builders, Model Consumers, and Vertical Model Players to manage risk while capturing upside.
 
-The AI landscape will continue evolving rapidly. Companies that demonstrate sustainable unit economics, defensible competitive positions, and strong execution capabilities will separate themselves from the hype-driven crowd. Use this framework as your foundation, but remain adaptable as new business models and technologies emerge. For deeper technical understanding, explore best machine learning frameworks and how they power modern AI companies. Additionally, understanding how generative AI transforms industries provides context for evaluating sector-specific opportunities.
+The AI landscape will continue evolving rapidly. Companies that demonstrate sustainable unit economics, defensible competitive positions, and strong execution capabilities will separate themselves from the hype-driven crowd. Use this framework as your foundation, but remain adaptable as new business models and technologies emerge. For deeper technical understanding, explore best machine learning frameworks and how they power modern AI companies. Additionally, understanding [how generative AI transforms industries](/en/posts/2026-04-03-generative-ai-chip-design-ml-s/) provides context for evaluating sector-specific opportunities.
 
 
 <div class="faq-section">

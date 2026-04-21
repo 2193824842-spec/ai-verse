@@ -84,7 +84,7 @@ Harvey is the clearest case study — backed by both a16z and Sequoia, the legal
 
 Seed-stage AI companies now command a **42% valuation premium** over non-AI peers, with median pre-money valuations reaching **$17.9 million**. LMArena reached a **$1.7 billion valuation in under four months** of operation — a signal of how compressed the timeline from seed to unicorn has become.
 
-This valuation expansion has real consequences. When assessing which startups merit investment, how to evaluate AI companies requires a framework that distinguishes between momentum-driven paper gains and sustainable competitive moats.
+This valuation expansion has real consequences. When assessing which startups merit investment, [how to evaluate AI companies](/en/posts/2026-04-08-how-to-evaluate-ai-companies-f/) requires a framework that distinguishes between momentum-driven paper gains and sustainable competitive moats.
 
 **Implication for investors:** The 42% seed premium is rational if the underlying companies convert at higher rates — but the data on that conversion is still thin. Distinguish between paper IRR and realized returns.
 
@@ -140,7 +140,7 @@ US private AI investment at **$109.1 billion** is nearly 12x China's $9.3 billio
 
 The next 12 months will be defined by two inflection points: IPO readiness and the application layer shakeout. If even one of OpenAI, Anthropic, or xAI files in 2026, it will be the most consequential tech IPO since Meta — and it will reset how the entire AI sector is valued.
 
-The application layer shakeout is the less-discussed but more structurally important story. As foundation model capabilities commoditize and open-source alternatives mature, the companies that built their moats on "we use GPT-4" will face compression. The winners will be companies with proprietary data, deep workflow integration, and genuine switching costs. For broader context on how the AI sector's financial health is evolving, AI company revenue comparison 2026 provides essential benchmarking data for investors.
+The application layer shakeout is the less-discussed but more structurally important story. As foundation model capabilities commoditize and open-source alternatives mature, the companies that built their moats on "we use GPT-4" will face compression. The winners will be companies with proprietary data, deep workflow integration, and genuine switching costs. For broader context on how the AI sector's financial health is evolving, [AI company revenue comparison 2026](/en/posts/2026-04-09-ai-company-revenue/) provides essential benchmarking data for investors.
 
 **For investors**: the most important metric to monitor in the next 90 days is the OpenAI S-1 filing or any formal IPO communication.
 

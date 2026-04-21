@@ -58,7 +58,7 @@ What's driving this compression? Three forces:
 
 **Third, the "agent washing" problem is becoming visible.** Of 2,000+ companies claiming agent AI, only ~130 are genuinely agentic. As buyers become sophisticated, this gap becomes a liability.
 
-The most underfunded layer is governance and observability. Every enterprise deploying agents needs cost monitoring, audit trails, and policy enforcement — and current tooling is nascent. For broader context on where AI investment is flowing, see our analysis of AI Startup Funding Trends 2026: $131.5B Invested in AI.
+The most underfunded layer is governance and observability. Every enterprise deploying agents needs cost monitoring, audit trails, and policy enforcement — and current tooling is nascent. For broader context on where AI investment is flowing, see our analysis of [AI Startup Funding Trends 2026: $131.5B Invested in AI](/en/posts/2026-04-07-ai-startup-funding-trends-2026/).
 
 ## Use Case Winners: Where Agents Deliver Measurable ROI
 
@@ -68,7 +68,7 @@ The most underfunded layer is governance and observability. Every enterprise dep
 
 **Sales and Marketing**: Pipeline velocity improvements of 2–3x are being reported. Agents handle lead qualification, outreach sequencing, and CRM hygiene.
 
-**Coding and Development**: Anthropic's 2026 Agentic Coding Trends Report documents the shift to multi-agent coding workflows, with autonomous code review and tiered model strategies becoming standard. See also: OpenAI's $122B Funding: Agentic Workflows &amp; Enterprise AI 2026.
+**Coding and Development**: Anthropic's 2026 Agentic Coding Trends Report documents the shift to multi-agent coding workflows, with autonomous code review and tiered model strategies becoming standard. See also: [OpenAI's $122B Funding: Agentic Workflows &amp; Enterprise AI 2026](/en/posts/2026-03-31-openai-122b-agentic-workflows-/).
 
 ## Economic Reality: The 40% Failure Rate Nobody Discusses
 
@@ -115,7 +115,7 @@ If you're just getting started with AI agents, our How to Build AI Agents for Be
 </div>
 </div>
 
-For a systematic approach to evaluating which AI companies will survive this consolidation, see our How to Evaluate AI Companies: Complete Framework for Investors.
+For a systematic approach to evaluating which AI companies will survive this consolidation, see our [How to Evaluate AI Companies: Complete Framework for Investors](/en/posts/2026-04-08-how-to-evaluate-ai-companies-f/).
 
 ### Trends Shaping the Next 18 Months
 

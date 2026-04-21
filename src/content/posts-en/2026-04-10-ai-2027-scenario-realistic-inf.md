@@ -72,9 +72,9 @@ Watch Enterprise AI adoption rates in high-constraint domains like healthcare, f
 
 ## The Bottom Line: Infrastructure Yes, Impact Timeline No
 
-Aschenbrenner got *what will be built* mostly right and *when it will matter* mostly wrong. The trillion-dollar compute infrastructure will arrive. Software advances will continue. Benchmarks will improve. Similar to how cloud computing reshaped enterprise infrastructure, AI infrastructure transformation is underway.
+Aschenbrenner got *what will be built* mostly right and *when it will matter* mostly wrong. The trillion-dollar compute infrastructure will arrive. Software advances will continue. Benchmarks will improve. Similar to [how cloud computing reshaped enterprise infrastructure](/en/posts/2026-04-09-ai-company-revenue/), AI infrastructure transformation is underway.
 
-But the economy where AI agents replace knowledge workers at scale, regulatory frameworks clearing bottlenecks, organizational cultures embracing this with real urgency — those don't arrive in 2027. They arrive in 2030 at earliest, more likely 2032-2033. For those building AI-powered solutions, understanding how to evaluate the real ROI of AI agents before deploying them is now critical. The same applies to understanding which AI agents are actually being adopted at enterprise scale.
+But the economy where AI agents replace knowledge workers at scale, regulatory frameworks clearing bottlenecks, organizational cultures embracing this with real urgency — those don't arrive in 2027. They arrive in 2030 at earliest, more likely 2032-2033. For those building AI-powered solutions, understanding [how to evaluate the real ROI of AI agents before deploying them](/en/posts/2026-04-08-how-to-evaluate-ai-companies-f/) is now critical. The same applies to understanding which AI agents are actually being adopted at enterprise scale.
 
 **The competition ahead isn't whether AI transforms work — it's who learns to integrate it into actual operations first, while the market debates whether it's real.** That window is now through 2028. Infrastructure will be ready. The question is whether you will be.
 
