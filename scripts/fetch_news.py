@@ -249,42 +249,41 @@ def cluster_items(items: list[dict]) -> list[dict]:
 
 # ── Claude 评分 + 翻译 + 抓图 ─────────────────────────────────────────────────
 def claude_filter(items: list[dict], api_key: str, base_url: str) -> list[dict]:
-    """用 Claude 过滤 Tier 3 来源中非 AI 主题的条目"""
+    """用 Claude 过滤所有来源中非 AI 主题的条目"""
     try:
         from anthropic import Anthropic
     except ImportError:
         return items
 
     client = Anthropic(api_key=api_key, base_url=base_url)
-    tier3 = [i for i in items if i.get("tier") == 3 and not i.get("duplicate")]
-    if not tier3:
+    candidates = [i for i in items if not i.get("duplicate")]
+    if not candidates:
         return items
 
-    print(f"\n-> Claude 过滤 Tier 3 条目 {len(tier3)} 条...")
+    print(f"\n-> Claude 过滤全部条目 {len(candidates)} 条...")
     lines = "\n".join(
         f'[{j+1}] {i["title"]}'
-        for j, i in enumerate(tier3)
+        for j, i in enumerate(candidates)
     )
-    prompt = f"""以下是从综合科技媒体抓取的文章标题，判断每条的主要内容是否关于 AI/人工智能。
-只保留主要内容是 AI 的，排除主题是其他科技、商业、娱乐的文章。
+    prompt = f"""以下是从科技媒体抓取的文章标题，判断每条是否与 AI/人工智能直接相关。
+只保留主题是 AI 的文章，排除消费电子、耳机、手机、汽车、游戏、娱乐、纯商业财经等与 AI 无关的内容。
 返回 JSON 数组，只包含需要保留的序号：[1, 3, 5]
 
 {lines}"""
     try:
         resp = client.messages.create(
             model="claude-haiku-4-5-20251001",
-            max_tokens=200,
+            max_tokens=500,
             messages=[{"role": "user", "content": prompt}],
         )
         raw = resp.content[0].text.strip()
         keep_indices = set(extract_json_array(raw))
-        print(f"  → 保留 {len(keep_indices)}/{len(tier3)} 条")
+        print(f"  → 保留 {len(keep_indices)}/{len(candidates)} 条")
     except Exception as e:
         print(f"  [WARN] Claude 过滤失败: {e}，保留全部")
         return items
 
-    # 标记不保留的 tier3 条目为 duplicate，使其不进入精选和翻译
-    for j, item in enumerate(tier3):
+    for j, item in enumerate(candidates):
         if (j + 1) not in keep_indices:
             item["duplicate"] = True
 
