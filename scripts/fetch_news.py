@@ -14,7 +14,7 @@ from urllib.request import urlopen, Request
 import xml.etree.ElementTree as ET
 
 OUTPUT        = Path(__file__).parent.parent / "public" / "data" / "news.json"
-MAX_PER_DAY   = 30
+MAX_PER_DAY   = 20
 TOP_TRANSLATE = 25
 HISTORY_DAYS  = 7
 TIER_LIMITS   = {1: 10, 2: 10, 3: 8, 4: 5}
