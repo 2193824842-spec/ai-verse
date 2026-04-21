@@ -181,9 +181,7 @@ const jsonLd = {
         const json = await res.json();
         const d = json.data?.[0];
         localCounts.reaction0 = d?.reaction0 ?? 0;
-        localCounts.reaction1 = d?.reaction1 ?? 0;
         document.getElementById('count-like').textContent = localCounts.reaction0;
-        document.getElementById('count-dislike').textContent = localCounts.reaction1;
       } catch {}
     }
 
@@ -204,9 +202,7 @@ const jsonLd = {
       } else {
         setVoted(type);
         if (type === 'reaction0') localCounts.reaction0++;
-        else localCounts.reaction1++;
         document.getElementById('count-like').textContent = localCounts.reaction0;
-        document.getElementById('count-dislike').textContent = localCounts.reaction1;
         fetch(`${WALINE}/api/article`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
@@ -215,15 +211,12 @@ const jsonLd = {
       }
       const v = getVoted();
       document.getElementById('btn-like').classList.toggle('reaction-btn--active', v === 'reaction0');
-      document.getElementById('btn-dislike').classList.toggle('reaction-btn--active', v === 'reaction1');
     }
 
     const voted = getVoted();
     if (voted === 'reaction0') document.getElementById('btn-like').classList.add('reaction-btn--active');
-    if (voted === 'reaction1') document.getElementById('btn-dislike').classList.add('reaction-btn--active');
 
     document.getElementById('btn-like').addEventListener('click', () => sendReaction('reaction0'));
-    document.getElementById('btn-dislike').addEventListener('click', () => sendReaction('reaction1'));
     fetchReactions();
   </script>
 
