@@ -190,8 +190,15 @@ const jsonLd = {
       } catch {}
     }
 
-    function getVoted() { try { return localStorage.getItem(storageKey); } catch { return null; } }
-    function setVoted(v) { try { localStorage.setItem(storageKey, v); } catch {} }
+    let sessionVoted = null;
+    function getVoted() {
+      if (sessionVoted !== null) return sessionVoted;
+      try { return localStorage.getItem(storageKey); } catch { return null; }
+    }
+    function setVoted(v) {
+      sessionVoted = v;
+      try { localStorage.setItem(storageKey, v); } catch {}
+    }
 
     function sendReaction(type) {
       const prev = getVoted();
