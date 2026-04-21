@@ -75,6 +75,18 @@ const jsonLd = {
         <div class="prose"><Content /></div>
       </article>
 
+      <!-- Like / Dislike -->
+      <div class="article-reactions">
+        <button class="reaction-btn" id="btn-like">
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="currentColor"><path d="M14 9V5a3 3 0 0 0-3-3l-4 9v11h11.28a2 2 0 0 0 2-1.7l1.38-9a2 2 0 0 0-2-2.3H14z"/><path d="M7 22H4a2 2 0 0 1-2-2v-7a2 2 0 0 1 2-2h3"/></svg>
+          <span class="reaction-count" id="count-like">--</span>
+        </button>
+        <button class="reaction-btn reaction-btn--down" id="btn-dislike">
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="currentColor"><path d="M10 15v4a3 3 0 0 0 3 3l4-9V2H5.72a2 2 0 0 0-2 1.7l-1.38 9a2 2 0 0 0 2 2.3H10z"/><path d="M17 2h2.67A2.31 2.31 0 0 1 22 4v7a2.31 2.31 0 0 1-2.33 2H17"/></svg>
+          <span class="reaction-count" id="count-dislike">--</span>
+        </button>
+      </div>
+
       <!-- Comment section -->
       <div id="waline-comment" class="waline-wrap"></div>
     </div>
@@ -158,9 +170,76 @@ const jsonLd = {
       });
     }
     window.addEventListener('scroll', onScroll, { passive: true });
+
+    // Like / Dislike
+    const WALINE = 'https://waline-bay-nu.vercel.app';
+    const articlePath = window.location.pathname;
+    const storageKey = 'reaction:' + articlePath;
+
+    async function fetchReactions() {
+      try {
+        const res = await fetch(`${WALINE}/api/article?path=${encodeURIComponent(articlePath)}`);
+        const json = await res.json();
+        const d = json.data?.[0];
+        document.getElementById('count-like').textContent = d?.reaction0 ?? 0;
+        document.getElementById('count-dislike').textContent = d?.reaction1 ?? 0;
+      } catch {}
+    }
+
+    async function sendReaction(type) {
+      const voted = localStorage.getItem(storageKey);
+      if (voted === type) return;
+      try {
+        await fetch(`${WALINE}/api/article`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ url: articlePath, type }),
+        });
+        localStorage.setItem(storageKey, type);
+        document.getElementById('btn-like').classList.toggle('reaction-btn--active', type === 'reaction0');
+        document.getElementById('btn-dislike').classList.toggle('reaction-btn--active', type === 'reaction1');
+        fetchReactions();
+      } catch {}
+    }
+
+    const voted = localStorage.getItem(storageKey);
+    if (voted === 'reaction0') document.getElementById('btn-like').classList.add('reaction-btn--active');
+    if (voted === 'reaction1') document.getElementById('btn-dislike').classList.add('reaction-btn--active');
+
+    document.getElementById('btn-like').addEventListener('click', () => sendReaction('reaction0'));
+    document.getElementById('btn-dislike').addEventListener('click', () => sendReaction('reaction1'));
+    fetchReactions();
   </script>
 
   <link rel="stylesheet" href="https://unpkg.com/@waline/client@v3/dist/waline.css" />
+  <style>
+    .article-reactions {
+      display: flex;
+      gap: 12px;
+      justify-content: center;
+      margin: 40px 0 8px;
+    }
+    .reaction-btn {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 6px;
+      padding: 14px 32px;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.1);
+      cursor: pointer;
+      color: var(--text-dim);
+      transition: all 0.2s;
+      min-width: 80px;
+    }
+    .reaction-btn:hover { border-color: var(--accent); color: var(--accent); transform: translateY(-2px); box-shadow: 0 8px 24px rgba(79,172,254,0.2); }
+    .reaction-btn--down:hover { border-color: var(--danger); color: var(--danger); box-shadow: 0 8px 24px rgba(248,81,73,0.2); }
+    .reaction-btn--active { border-color: var(--accent) !important; color: var(--accent) !important; background: rgba(79,172,254,0.08); }
+    .reaction-btn--down.reaction-btn--active { border-color: var(--danger) !important; color: var(--danger) !important; background: rgba(248,81,73,0.08); }
+    .reaction-count { font-size: 18px; font-weight: 700; font-family: var(--font-mono); line-height: 1; }
+  </style>
   <script type="module">
     import { init, pageviewCount } from 'https://unpkg.com/@waline/client@v3/dist/waline.js';
     init({
