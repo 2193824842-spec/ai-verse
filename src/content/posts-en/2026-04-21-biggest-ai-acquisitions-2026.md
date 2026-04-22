@@ -108,11 +108,7 @@ The infrastructure layer is largely locked up. The next $100B will be made in th
 - [The $1.2 Trillion AI Land Grab: Q1 2026 M&A Smashes Records](https://www.financialcontent.com/article/marketminute-2026-4-3-the-12-trillion-ai-land-grab-q1-2026-m-and-a-smashes-records-as-corporate-giants-pivot-to-aggressive-expansion) — financialcontent.com, April 2026
 - [Global M&A Surges to $1.2 Trillion in Q1 2026](https://www.financialcontent.com/article/marketminute-2026-4-2-global-m-and-a-surges-to-12-trillion-in-q1-2026-as-ai-consolidation-and-strategic-resilience-defy-high-rates) — financialcontent.com, April 2026
 - [How 2025 Deals Shape 2026 Market](https://www.index.dev/blog/top-ai-company-acquisitions) — index.dev, January 2026
-- [Anthropic is having a moment in the private markets](https://techcrunch.com/2026/04/03/anthropic-is-having-a-moment-in-the-private-markets-spacex-could-spoil-the-party/) — TechCrunch, April 2026
-
----
-SEO_METADATA:
-title: "Biggest AI Acquisitions 2026: The $1.2T Land Grab"
+- [Anthropic is having a moment in the private markets](https://techcrunch.com/2026/04/03/anthropic-is-having-a-moment-in-the-private-markets-spacex-could-spoil-the-party/) — TechCrunch, April 2026title: "Biggest AI Acquisitions 2026: The $1.2T Land Grab"
 slug: biggest-ai-acquisitions-2026
 metaDescription: "Q1 2026 saw $1.22T in AI-driven M&A — the biggest AI acquisitions 2026 are locking up compute, data, and energy. Here's who's winning and what it means."
 article_type: Industry Insights
