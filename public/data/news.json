@@ -15,8 +15,8 @@
       "tag": "product",
       "title_en": "Scaling Codex to enterprises worldwide",
       "summary_en": "OpenAI launches Codex Labs, partners with with Accenture, PwC, Infosys, and others to help enterprises deploy and scale Codex across the software development lifecycle, and hits 4M Codex WAU.",
-      "title_zh": "Scaling Codex to enterprises worldwide",
-      "summary_zh": "OpenAI launches Codex Labs, partners with with Accenture, PwC, Infosys, and others to help enterprises deploy and scale Codex across the software development lifecycle, and hits 4M Codex WAU."
+      "title_zh": "OpenAI将Codex扩展至全球企业",
+      "summary_zh": "OpenAI推出Codex Labs，与埃森哲、普华永道、Infosys等合作，帮助企业采用AI编程工具。"
     },
     {
       "title": "物理优先+VLA闭环进化：高德ABot-World世界模型，破解具身智能零样本泛化难题",
@@ -32,8 +32,8 @@
       "tag": "research",
       "title_zh": "物理优先+VLA闭环进化：高德ABot-World世界模型，破解具身智能零样本泛化难题",
       "summary_zh": "高精渲染引擎，解决\"数据稀缺\"",
-      "title_en": "物理优先+VLA闭环进化：高德ABot-World世界模型，破解具身智能零样本泛化难题",
-      "summary_en": "高精渲染引擎，解决\"数据稀缺\""
+      "title_en": "Amap Releases ABot-World Model: Physics-First + VLA Enables Zero-Shot Embodied AI Generalization",
+      "summary_en": "Amap unveils ABot-World with physics-first approach and VLA closed-loop evolution. High-fidelity rendering engine addresses data scarcity, solving zero-shot generalization challenges in embodied AI."
     },
     {
       "title": "技术深度揭秘｜云知声U1-OCR架构升级 + API 开放，重构 OCR 3.0 时代",
@@ -49,8 +49,8 @@
       "tag": "product",
       "title_zh": "技术深度揭秘｜云知声U1-OCR架构升级 + API 开放，重构 OCR 3.0 时代",
       "summary_zh": "采用Token 计费模式",
-      "title_en": "技术深度揭秘｜云知声U1-OCR架构升级 + API 开放，重构 OCR 3.0 时代",
-      "summary_en": "采用Token 计费模式"
+      "title_en": "Tech Deep Dive: Unisound U1-OCR Architecture Upgrade + API Launch, Reshaping OCR 3.0 Era",
+      "summary_en": "Adopts token-based billing model"
     },
     {
       "title": "Anthropic takes $5B from Amazon and pledges $100B in cloud spending in return",
@@ -66,8 +66,8 @@
       "tag": "industry",
       "title_en": "Anthropic takes $5B from Amazon and pledges $100B in cloud spending in return",
       "summary_en": "Amazon has made another circular AI deal: It's investing another $5 billion in Anthropic. Anthropic has agreed to spend $100 billion on AWS in return.",
-      "title_zh": "Anthropic takes $5B from Amazon and pledges $100B in cloud spending in return",
-      "summary_zh": "Amazon has made another circular AI deal: It's investing another $5 billion in Anthropic. Anthropic has agreed to spend $100 billion on AWS in return."
+      "title_zh": "Anthropic获亚马逊50亿美元投资 承诺云服务支出达1000亿",
+      "summary_zh": "亚马逊再次向Anthropic投资50亿美元。作为回报,Anthropic承诺在AWS上支出1000亿美元。"
     },
     {
       "title": "具身智能公司自变量发布了机器人模型 WALL-B，35 天后进入真实家庭",
@@ -83,8 +83,8 @@
       "tag": "product",
       "title_zh": "具身智能公司自变量发布了机器人模型 WALL-B，35 天后进入真实家庭",
       "summary_zh": "具身智能迈出了进入家庭的第一步#欢迎关注爱范儿官方微信公众号：爱范儿（微信号：ifanr），更多精彩内容第一时间为您奉上。",
-      "title_en": "具身智能公司自变量发布了机器人模型 WALL-B，35 天后进入真实家庭",
-      "summary_en": "具身智能迈出了进入家庭的第一步#欢迎关注爱范儿官方微信公众号：爱范儿（微信号：ifanr），更多精彩内容第一时间为您奉上。"
+      "title_en": "Embodied AI Company Variants Launches Robot Model WALL-B, Enters Real Homes in 35 Days",
+      "summary_en": "Embodied AI takes first step into homes. Follow iFanr official WeChat for more updates."
     },
     {
       "title": "Google rolls out Gemini in Chrome in APAC countries",
@@ -100,8 +100,8 @@
       "tag": "product",
       "title_en": "Google rolls out Gemini in Chrome in APAC countries",
       "summary_en": "Google is rolling out Gemini in Chrome in Australia, Indonesia, Japan, the Philippines, Singapore, South Korea, and Vietnam. The company is rolling this feature out to both desktop and iOS in all of t…",
-      "title_zh": "Google rolls out Gemini in Chrome in APAC countries",
-      "summary_zh": "Google is rolling out Gemini in Chrome in Australia, Indonesia, Japan, the Philippines, Singapore, South Korea, and Vietnam. The company is rolling this feature out to both desktop and iOS in all of t…"
+      "title_zh": "谷歌在亚太地区Chrome浏览器推出Gemini",
+      "summary_zh": "谷歌正在澳大利亚、印度尼西亚、日本、菲律宾、新加坡、韩国和越南的Chrome浏览器中推出Gemini。"
     },
     {
       "title": "5月20日，马上AI起来！中国AIGC产业峰会报名已启动｜首波嘉宾官宣",
@@ -117,8 +117,8 @@
       "tag": "industry",
       "title_zh": "5月20日，马上AI起来！中国AIGC产业峰会报名已启动｜首波嘉宾官宣",
       "summary_zh": "欢迎报名，北京线下见！",
-      "title_en": "5月20日，马上AI起来！中国AIGC产业峰会报名已启动｜首波嘉宾官宣",
-      "summary_en": "欢迎报名，北京线下见！"
+      "title_en": "May 20th, Get AI Going Now! China AIGC Industry Summit Registration Open | First Wave of Guests Announced",
+      "summary_en": "Welcome to register! See you offline in Beijing!"
     },
     {
       "title": "QIMMA قِمّة ⛰: A Quality-First Arabic LLM Leaderboard",
@@ -134,8 +134,8 @@
       "tag": "research",
       "title_en": "QIMMA قِمّة ⛰: A Quality-First Arabic LLM Leaderboard",
       "summary_en": "",
-      "title_zh": "QIMMA قِمّة ⛰: A Quality-First Arabic LLM Leaderboard",
-      "summary_zh": ""
+      "title_zh": "QIMMA قِمّة ⛰：首个阿拉伯语大语言模型质量排行榜",
+      "summary_zh": "介绍了首个以质量为优先的阿拉伯语大语言模型评估排行榜,旨在提升阿拉伯NLP领域的发展。"
     },
     {
       "title": "YouTube expands its AI likeness detection technology to celebrities",
@@ -151,8 +151,8 @@
       "tag": "product",
       "title_en": "YouTube expands its AI likeness detection technology to celebrities",
       "summary_en": "YouTube is expanding its AI likeness detection tool to celebrities, giving talent and their reps a way to find and remove deepfakes.",
-      "title_zh": "YouTube expands its AI likeness detection technology to celebrities",
-      "summary_zh": "YouTube is expanding its AI likeness detection tool to celebrities, giving talent and their reps a way to find and remove deepfakes."
+      "title_zh": "YouTube扩展AI面孔识别技术至名人范围",
+      "summary_zh": "YouTube正扩展其AI面孔识别工具到名人范围,为艺人及其代理商提供查找和删除深度伪造视频的方式。"
     },
     {
       "title": "Yelp is making its AI chatbot way more useful",
@@ -168,8 +168,8 @@
       "tag": "product",
       "title_en": "Yelp is making its AI chatbot way more useful",
       "summary_en": "Yelp is giving its chatbot assistant a major upgrade, turning the platform into something closer to a digital concierge with a suite of new features designed for \"getting things done.\" The move, one o…",
-      "title_zh": "Yelp is making its AI chatbot way more useful",
-      "summary_zh": "Yelp is giving its chatbot assistant a major upgrade, turning the platform into something closer to a digital concierge with a suite of new features designed for \"getting things done.\" The move, one o…"
+      "title_zh": "Yelp提升AI聊天机器人功能",
+      "summary_zh": "Yelp正在大幅升级聊天机器人助手，将该平台转变为更接近数字礼宾服务的工具，推出一系列新功能"
     },
     {
       "title": "ISC.AI 2026创新独角兽沙盒大赛在京启动 聚焦智能体 共筑AI创新生态",
@@ -185,8 +185,8 @@
       "tag": "industry",
       "title_zh": "ISC.AI 2026创新独角兽沙盒大赛在京启动 聚焦智能体 共筑AI创新生态",
       "summary_zh": "深挖人工智能与数字安全领域创新成果",
-      "title_en": "ISC.AI 2026创新独角兽沙盒大赛在京启动 聚焦智能体 共筑AI创新生态",
-      "summary_en": "深挖人工智能与数字安全领域创新成果"
+      "title_en": "ISC.AI 2026 Innovation Unicorn Sandbox Competition Launches in Beijing",
+      "summary_en": "Exploring innovative achievements in artificial intelligence and digital security"
     },
     {
       "title": "自主还是兼容：DeepSeek V4延期背后的中国AI生态选择题",
@@ -202,8 +202,8 @@
       "tag": "industry",
       "title_zh": "自主还是兼容：DeepSeek V4延期背后的中国AI生态选择题",
       "summary_zh": "进入到2026年，DeepSeek V4的发布窗口一再推迟，却意外点燃了全球AI圈对“去CUDA化”的讨论。而对于中国AI产业，未来风险与机遇并存，兼容与自立之间的平衡，甚至取舍，将决定中国AI能否真正走出属于自己的发展之路。",
-      "title_en": "自主还是兼容：DeepSeek V4延期背后的中国AI生态选择题",
-      "summary_en": "进入到2026年，DeepSeek V4的发布窗口一再推迟，却意外点燃了全球AI圈对“去CUDA化”的讨论。而对于中国AI产业，未来风险与机遇并存，兼容与自立之间的平衡，甚至取舍，将决定中国AI能否真正走出属于自己的发展之路。"
+      "title_en": "Independence or Compatibility: The Chinese AI Ecosystem's Choice Behind DeepSeek V4's Delay",
+      "summary_en": "DeepSeek V4's delayed release has sparked global discussions on \"de-CUDAization.\" China's AI industry faces a balance between compatibility and independence that will determine its future development."
     },
     {
       "title": "How to Ground a Korean AI Agent in Real Demographics with Synthetic Personas",
@@ -219,8 +219,8 @@
       "tag": "research",
       "title_en": "How to Ground a Korean AI Agent in Real Demographics with Synthetic Personas",
       "summary_en": "",
-      "title_zh": "How to Ground a Korean AI Agent in Real Demographics with Synthetic Personas",
-      "summary_zh": ""
+      "title_zh": "如何利用合成人物为韩国AI代理提供真实人口统计学基础",
+      "summary_zh": "探讨如何通过创建合成人物来帮助韩国AI代理更好地理解和适应实际的人口统计数据和用户特征。"
     },
     {
       "title": "AI and the Future of Cybersecurity: Why Openness Matters",
@@ -236,8 +236,8 @@
       "tag": "industry",
       "title_en": "AI and the Future of Cybersecurity: Why Openness Matters",
       "summary_en": "",
-      "title_zh": "AI and the Future of Cybersecurity: Why Openness Matters",
-      "summary_zh": ""
+      "title_zh": "人工智能与网络安全的未来：为什么开放很重要",
+      "summary_zh": "探讨人工智能在网络安全领域的应用前景，以及开放透明的方法如何能帮助建立更安全、更可信的数字环境。"
     },
     {
       "title": "Fortnite developers can make AI characters now — just don&#8217;t try to date them",
@@ -253,8 +253,8 @@
       "tag": "product",
       "title_en": "Fortnite developers can make AI characters now — just don&#8217;t try to date them",
       "summary_en": "Following last year's AI-powered Darth Vader in Fortnite that swore in a re-creation of James Earl Jones' voice, Epic Games is now letting Fortnite creators experiment with a new \"conversations\" tool …",
-      "title_zh": "Fortnite developers can make AI characters now — just don&#8217;t try to date them",
-      "summary_zh": "Following last year's AI-powered Darth Vader in Fortnite that swore in a re-creation of James Earl Jones' voice, Epic Games is now letting Fortnite creators experiment with a new \"conversations\" tool …"
+      "title_zh": "堡垒之夜开发者现可创建AI角色——但禁止与其约会",
+      "summary_zh": "继去年AI配音的达斯·维达在堡垒之夜中使用詹姆斯·厄尔·琼斯声音重现后,Epic Games现允许堡垒之夜创作者"
     },
     {
       "title": "MiniMax不需要讨好开源",
@@ -270,8 +270,8 @@
       "tag": "industry",
       "title_zh": "MiniMax不需要讨好开源",
       "summary_zh": "不是谁都能当DeepSeek。",
-      "title_en": "MiniMax不需要讨好开源",
-      "summary_en": "不是谁都能当DeepSeek。"
+      "title_en": "MiniMax Doesn't Need to Please Open Source",
+      "summary_en": "Not everyone can be DeepSeek."
     },
     {
       "title": "Accelerate Generative AI Inference on Amazon SageMaker AI with G7e Instances",
@@ -287,8 +287,8 @@
       "tag": "product",
       "title_en": "Accelerate Generative AI Inference on Amazon SageMaker AI with G7e Instances",
       "summary_en": "Today, we are thrilled to announce the availability of G7e instances powered by NVIDIA RTX PRO 6000 Blackwell Server Edition GPUs on Amazon SageMaker AI. You can provision nodes with 1, 2, 4, and 8 RT…",
-      "title_zh": "Accelerate Generative AI Inference on Amazon SageMaker AI with G7e Instances",
-      "summary_zh": "Today, we are thrilled to announce the availability of G7e instances powered by NVIDIA RTX PRO 6000 Blackwell Server Edition GPUs on Amazon SageMaker AI. You can provision nodes with 1, 2, 4, and 8 RT…"
+      "title_zh": "在Amazon SageMaker AI上用G7e实例加速生成式AI推理",
+      "summary_zh": "我们荣幸宣布,搭载NVIDIA RTX PRO 6000 Blackwell服务器版GPU的G7e实例现已在Amazon SageMaker上提供"
     },
     {
       "title": "ToolSimulator: scalable tool testing for AI agents",
@@ -304,8 +304,8 @@
       "tag": "product",
       "title_en": "ToolSimulator: scalable tool testing for AI agents",
       "summary_en": "You can use ToolSimulator, an&nbsp;LLM-powered tool simulation framework within Strands Evals, to thoroughly and safely test AI agents that rely on external tools, at scale. Instead of risking live AP…",
-      "title_zh": "ToolSimulator: scalable tool testing for AI agents",
-      "summary_zh": "You can use ToolSimulator, an&nbsp;LLM-powered tool simulation framework within Strands Evals, to thoroughly and safely test AI agents that rely on external tools, at scale. Instead of risking live AP…"
+      "title_zh": "ToolSimulator：AI代理的可扩展工具测试",
+      "summary_zh": "您可以使用ToolSimulator（Strands Evals中由LLM驱动的工具模拟框架）来全面、安全地测试依赖外部工具的AI代理"
     },
     {
       "title": "等等，这些图是GPT-Image-2出的？！",
@@ -321,8 +321,8 @@
       "tag": "product",
       "title_zh": "等等，这些图是GPT-Image-2出的？！",
       "summary_zh": "有图也没真相了#欢迎关注爱范儿官方微信公众号：爱范儿（微信号：ifanr），更多精彩内容第一时间为您奉上。",
-      "title_en": "等等，这些图是GPT-Image-2出的？！",
-      "summary_en": "有图也没真相了#欢迎关注爱范儿官方微信公众号：爱范儿（微信号：ifanr），更多精彩内容第一时间为您奉上。"
+      "title_en": "Wait, These Images Are from GPT-Image-2?!",
+      "summary_en": "Images can't be trusted anymore #Follow iFanr's official WeChat: ifanr for more content updates."
     },
     {
       "title": "Governing the Agentic Enterprise: A Governance Maturity Model for Managing AI Agent Sprawl in Business Operations",
@@ -338,8 +338,8 @@
       "tag": "research",
       "title_en": "Governing the Agentic Enterprise: A Governance Maturity Model for Managing AI Agent Sprawl in Business Operations",
       "summary_en": "arXiv:2604.16338v1 Announce Type: new Abstract: The rapid adoption of agentic AI in enterprise business operations--autonomous systems capable of planning, reasoning, and executing multi-step workflow…",
-      "title_zh": "Governing the Agentic Enterprise: A Governance Maturity Model for Managing AI Agent Sprawl in Business Operations",
-      "summary_zh": "arXiv:2604.16338v1 Announce Type: new Abstract: The rapid adoption of agentic AI in enterprise business operations--autonomous systems capable of planning, reasoning, and executing multi-step workflow…"
+      "title_zh": "管理智能体企业：应对商业运营中AI代理扩散的治理成熟度模型",
+      "summary_zh": "摘要：智能体人工智能在企业业务运营中的快速采用——能够进行自主规划的自治系统在商业应用中的快速发展带来了新的治理挑战。"
     },
     {
       "title": "国内三大头部AI 工具平台上架支付宝支付集成Skill，助“好想法”轻松“收到钱”",
@@ -353,8 +353,8 @@
       "duplicate": false,
       "title_zh": "国内三大头部AI 工具平台上架支付宝支付集成Skill，助“好想法”轻松“收到钱”",
       "summary_zh": "“小白”开发者也能快速接入支付",
-      "title_en": "China's Top 3 AI Tool Platforms Integrate Alipay Payment Skill",
-      "summary_en": "Enables novice developers to quickly integrate payments and monetize their ideas"
+      "title_en": "Top 3 Domestic AI Tool Platforms Launch Alipay Payment Integration Skill",
+      "summary_en": "Novice developers can quickly integrate payment capabilities"
     },
     {
       "title": "Anthropic获亚马逊50亿美元投资，承诺AWS上支出1000亿美元",
@@ -395,7 +395,11 @@
       "date": "2026-04-20",
       "image": "",
       "duplicate_count": 0,
-      "duplicate": true
+      "duplicate": true,
+      "title_en": "Silicon Valley has forgotten what normal people want",
+      "summary_en": "The long-term risks of the All-In Podcast, illustrated. | Image: Cath Virginia / The Verge, Turbosquid, Getty Images One of the most mortifying things about knowing a lot of techies is listening to th…",
+      "title_zh": "硅谷忘记了普通人想要什么",
+      "summary_zh": "通过All-In播客展现科技长期风险的分析。"
     },
     {
       "title": "亚马逊SageMaker AI推出G7e实例加速生成AI推理",
@@ -421,7 +425,11 @@
       "date": "2026-04-20",
       "image": "",
       "duplicate_count": 0,
-      "duplicate": true
+      "duplicate": true,
+      "title_en": "It’s not just one thing — it’s another thing",
+      "summary_en": "This sentence construction (\"It's not just this — it's that\") has become so common in AI-generated writing that it's no longer just a clue that a piece of writing may be synthetic — it's almost a guar…",
+      "title_zh": "不仅如此——而是另外一回事",
+      "summary_zh": "这种句式结构在AI生成的文本中变得极为常见，已成为明显的语言特征和创作套路。"
     },
     {
       "title": "ToolSimulator：AI代理的可扩展工具测试框架",
@@ -447,7 +455,11 @@
       "date": "2026-04-20",
       "image": "",
       "duplicate_count": 0,
-      "duplicate": true
+      "duplicate": true,
+      "title_en": "Fortnite developers can make AI characters now — just don&#8217;t try to date them",
+      "summary_en": "Following last year's AI-powered Darth Vader in Fortnite that swore in a re-creation of James Earl Jones' voice, Epic Games is now letting Fortnite creators experiment with a new \"conversations\" tool …",
+      "title_zh": "堡垒之夜开发者现可创建AI角色——但别想和它们约会",
+      "summary_zh": "继去年AI驱动的堡垒之夜黑武士在詹姆斯·厄尔·琼斯声音复制中发誓后，Epic Games现允许堡垒之夜创作者"
     },
     {
       "title": "美国国家安全局被曝使用Anthropic的Mythos模型",
@@ -473,7 +485,11 @@
       "date": "2026-04-20",
       "image": "https://static.leiphone.com/uploads/new/images/20260420/69e64950e9895.png?imageView2/2/w/740",
       "duplicate_count": 0,
-      "duplicate": true
+      "duplicate": true,
+      "title_zh": "华为Pura系列及全场景新品发布会举行，重磅新品悉数亮相",
+      "summary_zh": "2026年4月20日，华为Pura系列及全场景新品发布会在广州举行，HUAWEI Pura 90系列、HUAWEI Pura X Max、HUAWEI Pura X型格紫/型格橙、HUAWEI WATCH ULTIMATE DESIGN 非凡大师 星钻绽放、HUAWEI WATCH FIT 5系列、HUAWEI WATCH Buds 2、华为 AI 眼镜、HUAWEI MateBook 14 鸿蒙…",
+      "title_en": "Huawei Pura Series and All-Scenario Products Launch Event Held",
+      "summary_en": "On April 20, 2026, Huawei held its Pura Series and all-scenario products launch in Guangzhou, featuring Pura 90 series, Pura X Max, Pura X in new colors, and new smartwatch models."
     },
     {
       "title": "AI核能初创Fermi CEO和CFO突然离职",
@@ -485,8 +501,8 @@
       "image": "https://techcrunch.com/wp-content/uploads/2026/04/fermi-Getty.jpg?resize=1200,800",
       "duplicate_count": 0,
       "duplicate": false,
-      "title_en": "CEO and CFO suddenly depart AI nuclear power upstart Fermi",
-      "summary_en": "The startup, co-founded by former U.S. Energy Secretary Rick Perry, has faced headwinds with its AI campus in Texas.",
+      "title_en": "Fermi AI Nuclear Startup's CEO and CFO Resign Abruptly",
+      "summary_en": "The startup co-founded by former US Energy Secretary Rick Perry faces setbacks in its Texas AI campus project.",
       "title_zh": "AI核能初创Fermi CEO和CFO突然离职",
       "summary_zh": "这家由美国前能源部长Rick Perry共同创办的初创公司在德州AI园区项目中遭遇挫折"
     },
@@ -544,7 +560,11 @@
       "date": "2026-04-20",
       "image": "",
       "duplicate_count": 0,
-      "duplicate": true
+      "duplicate": true,
+      "title_zh": "英特尔：CPU的痛就像送外卖",
+      "summary_zh": "发布AI高静本Plus",
+      "title_en": "Intel: CPU Pain Like Food Delivery",
+      "summary_en": "Launches AI High-Performance Plus"
     },
     {
       "title": "谁能通过真实世界考验？ATEC2026发起具身智能“图灵测试”",
