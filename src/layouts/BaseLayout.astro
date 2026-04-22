@@ -66,6 +66,7 @@ const siteDesc = lang === 'en'
             <a href={`${base}/${lang}/articles/`} class="nav-primary">{lang === 'en' ? 'Articles' : '文章'}</a>
             <a href={`${base}/${lang}/tools/`} class="nav-primary">{lang === 'en' ? 'Tools' : '工具'}</a>
             <a href={`${base}/${lang}/news/`} class="nav-primary">{lang === 'en' ? 'News' : '资讯'}</a>
+            <a href={`${base}/${lang}/prompts/`} class="nav-primary">{lang === 'en' ? 'Prompts' : '提示词'}</a>
             <a href={`${base}/${lang}/about/`}>{lang === 'en' ? 'About' : '关于'}</a>
           </div>
           <div class="nav-actions">
@@ -123,6 +124,12 @@ const siteDesc = lang === 'en'
             <svg width="18" height="18" viewBox="0 0 256 256" fill="currentColor"><path d="M216,40H40A16,16,0,0,0,24,56V200a16,16,0,0,0,16,16H216a16,16,0,0,0,16-16V56A16,16,0,0,0,216,40Zm0,160H40V56H216V200ZM184,96a8,8,0,0,1-8,8H80a8,8,0,0,1,0-16h96A8,8,0,0,1,184,96Zm0,32a8,8,0,0,1-8,8H80a8,8,0,0,1,0-16h96A8,8,0,0,1,184,128Zm0,32a8,8,0,0,1-8,8H80a8,8,0,0,1,0-16h96A8,8,0,0,1,184,160Z"/></svg>
           </span>
           <span class="sidebar-label">{lang === 'en' ? 'Daily News' : '每日资讯'}</span>
+        </a>
+        <a href={`${base}/${lang}/prompts/`} class="sidebar-item">
+          <span class="sidebar-icon">
+            <svg width="18" height="18" viewBox="0 0 256 256" fill="currentColor"><path d="M208,144a15.78,15.78,0,0,1-10.42,14.94L146,178.74l-19.29,51.62a16,16,0,0,1-29.88.35L39.06,64.29A16,16,0,0,1,64.29,39.06l166.42,57.77A16,16,0,0,1,224,112a15.78,15.78,0,0,1-14.94,10.42L160,104.94V144ZM224,56a8,8,0,0,0-8-8H208V40a8,8,0,0,0-16,0v8H184a8,8,0,0,0,0,16h8v8a8,8,0,0,0,16,0V64h8A8,8,0,0,0,224,56ZM144,24a8,8,0,0,0,8-8V8a8,8,0,0,0-16,0v8A8,8,0,0,0,144,24Zm72,144a8,8,0,0,0-8,8v8h-8a8,8,0,0,0,0,16h8v8a8,8,0,0,0,16,0v-8h8a8,8,0,0,0,0-16h-8v-8A8,8,0,0,0,216,168Z"/></svg>
+          </span>
+          <span class="sidebar-label">{lang === 'en' ? 'Prompts' : '提示词'}</span>
         </a>
         <a href={`${base}/${lang}/about/`} class="sidebar-item">
           <span class="sidebar-icon">

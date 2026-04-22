@@ -1,0 +1,443 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import { PROMPTS, PROMPT_CATEGORIES, GENERATOR_ROLES, GENERATOR_TONES, GENERATOR_MODELS } from '../../../data/prompts';
+
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+const rolesJson  = JSON.stringify(GENERATOR_ROLES);
+const tonesJson  = JSON.stringify(GENERATOR_TONES);
+const modelsJson = JSON.stringify(GENERATOR_MODELS);
+---
+
+<BaseLayout title="AI Prompt Generator & Library — AI·Verse" description="Generate custom AI prompts and browse 15+ ready-to-use prompt templates for writing, coding, marketing, analysis, and more." lang="en">
+  <main class="prompts-page">
+
+    <!-- Generator -->
+    <section class="generator-section">
+      <div class="container">
+        <div class="section-header">
+          <h1 class="page-title">AI Prompt Generator</h1>
+          <p class="page-subtitle">Describe what you need — get a structured, ready-to-use prompt.</p>
+        </div>
+        <div class="generator-card">
+          <div class="generator-fields">
+            <div class="field-group">
+              <label for="gen-goal">What do you want to do?</label>
+              <input id="gen-goal" type="text" placeholder="e.g. Write a product launch email, Explain machine learning, Debug my Python code..." maxlength="200" />
+            </div>
+            <div class="field-group">
+              <label for="gen-model">Target AI</label>
+              <div class="model-tabs" id="model-tabs">
+                {Object.entries(GENERATOR_MODELS).map(([k, v], i) => (
+                  <button class={`model-tab ${i === 0 ? 'active' : ''}`} data-model={k}>{v.en}</button>
+                ))}
+              </div>
+              <div id="model-hint" class="model-hint"></div>
+            </div>
+            <div class="field-row">
+              <div class="field-group">
+                <label for="gen-role">Your role</label>
+                <select id="gen-role">
+                  <option value="">— Select —</option>
+                  {Object.entries(GENERATOR_ROLES).map(([k, v]) => (
+                    <option value={k}>{v.en}</option>
+                  ))}
+                </select>
+                <input id="gen-role-custom" type="text" placeholder="Describe your role..." maxlength="80" class="hidden" />
+              </div>
+              <div class="field-group">
+                <label for="gen-tone">Tone</label>
+                <select id="gen-tone">
+                  <option value="">— Select —</option>
+                  {Object.entries(GENERATOR_TONES).map(([k, v]) => (
+                    <option value={k}>{v.en}</option>
+                  ))}
+                </select>
+                <input id="gen-tone-custom" type="text" placeholder="Describe the tone..." maxlength="80" class="hidden" />
+              </div>
+              <div class="field-group">
+                <label for="gen-audience">Target audience</label>
+                <input id="gen-audience" type="text" placeholder="e.g. B2B executives, beginners..." maxlength="100" />
+              </div>
+            </div>
+          </div>
+          <button id="gen-btn" class="gen-btn">Generate Prompt</button>
+          <div id="gen-output" class="gen-output hidden">
+            <div class="gen-output-header">
+              <span class="gen-output-label">Your Prompt</span>
+              <div style="display:flex;gap:8px">
+                <button id="gen-copy-btn" class="copy-btn-sm">Copy</button>
+                <button id="gen-close-btn" class="copy-btn-sm" aria-label="Collapse">Collapse ↑</button>
+              </div>
+            </div>
+            <pre id="gen-result"></pre>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Library -->
+    <section class="library-section">
+      <div class="container">
+        <div class="section-header">
+          <h2 class="section-title">Prompt Library</h2>
+          <p class="section-desc">Browse and copy ready-to-use prompts. Click any prompt to expand and copy.</p>
+        </div>
+
+        <!-- Search -->
+        <div class="search-bar">
+          <svg class="search-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+          <input id="prompt-search" type="search" placeholder="Search prompts by title, description, or tag…" autocomplete="off" />
+          <span id="search-count" class="search-count"></span>
+        </div>
+
+        <!-- Category Filter -->
+        <div class="category-tabs" id="category-tabs">
+          {PROMPT_CATEGORIES.map(cat => (
+            <button class={`cat-tab ${cat.id === 'all' ? 'active' : ''}`} data-cat={cat.id}>
+              {cat.en}
+            </button>
+          ))}
+        </div>
+
+        <!-- Prompt Grid -->
+        <div class="prompt-grid" id="prompt-grid">
+          {PROMPTS.map(p => (
+            <div class="prompt-card" data-cat={p.category} data-id={p.id}
+              data-search={`${p.title} ${p.description} ${p.tags.join(' ')}`}>
+              <div class="prompt-card-header">
+                <div>
+                  <span class={`cat-badge cat-${p.category}`}>{p.category}</span>
+                  <h3 class="prompt-title">{p.title}</h3>
+                  <p class="prompt-desc">{p.description}</p>
+                </div>
+                <button class="expand-btn" aria-label="Expand prompt">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+                </button>
+              </div>
+              <div class="prompt-body hidden">
+                <pre class="prompt-text">{p.prompt}</pre>
+                <div class="prompt-actions">
+                  <div class="prompt-tags">
+                    {p.tags.map(tag => <span class="tag">#{tag}</span>)}
+                  </div>
+                  <button class="copy-btn" data-prompt={p.prompt}>Copy Prompt</button>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  </main>
+
+<style>
+.prompts-page { padding-top: calc(var(--header-h) + 48px); padding-bottom: 80px; }
+
+.section-header { text-align: center; margin-bottom: 40px; }
+.page-title { font-size: clamp(2rem, 5vw, 3rem); font-weight: 800; background: var(--gradient-primary); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; margin-bottom: 12px; }
+.page-subtitle, .section-desc { color: var(--text-dim); font-size: 1.05rem; }
+.section-title { font-size: 1.6rem; font-weight: 700; color: var(--text); margin-bottom: 8px; }
+
+/* Generator */
+.generator-section { margin-bottom: 72px; }
+.generator-card { background: var(--bg-card); border: 1px solid var(--border); border-radius: 16px; padding: 32px; max-width: 860px; margin: 0 auto; }
+.generator-fields { display: flex; flex-direction: column; gap: 20px; margin-bottom: 24px; }
+.field-row { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; }
+.field-group { display: flex; flex-direction: column; gap: 8px; }
+.field-group label { font-size: 0.85rem; font-weight: 600; color: var(--text-dim); text-transform: uppercase; letter-spacing: 0.05em; }
+.field-group input, .field-group select {
+  background: var(--bg); border: 1px solid var(--border); border-radius: 8px;
+  color: var(--text); font-size: 0.95rem; padding: 10px 14px;
+  transition: border-color 0.2s;
+}
+.field-group input:focus, .field-group select:focus { outline: none; border-color: var(--accent); }
+.field-group select option { background: var(--bg-card); }
+
+.model-tabs { display: flex; flex-wrap: wrap; gap: 6px; }
+.model-tab {
+  padding: 5px 14px; border-radius: 16px; border: 1px solid var(--border);
+  background: transparent; color: var(--text-dim); font-size: 0.82rem; cursor: pointer; transition: all 0.18s;
+}
+.model-tab:hover { border-color: var(--accent); color: var(--accent); }
+.model-tab.active { background: var(--accent); border-color: var(--accent); color: #fff; font-weight: 600; }
+.model-hint { font-size: 0.8rem; color: var(--text-dim); margin-top: 6px; min-height: 1.2em; font-style: italic; }
+
+.gen-btn {
+  width: 100%; padding: 14px; border-radius: 10px; border: none; cursor: pointer;
+  background: var(--gradient-primary); color: #fff; font-size: 1rem; font-weight: 700;
+  transition: opacity 0.2s, transform 0.1s;
+}
+.gen-btn:hover { opacity: 0.9; }
+.gen-btn:active { transform: scale(0.99); }
+
+.gen-output { margin-top: 24px; background: var(--bg); border: 1px solid var(--border); border-radius: 10px; overflow: hidden; }
+.gen-output-header { display: flex; justify-content: space-between; align-items: center; padding: 12px 16px; border-bottom: 1px solid var(--border); }
+.gen-output-label { font-size: 0.8rem; font-weight: 600; color: var(--text-dim); text-transform: uppercase; letter-spacing: 0.05em; }
+#gen-result { padding: 16px; font-family: var(--font-mono); font-size: 0.88rem; line-height: 1.7; color: var(--text); white-space: pre-wrap; word-break: break-word; margin: 0; }
+
+/* Library */
+.library-section {}
+.search-bar { position: relative; display: flex; align-items: center; margin-bottom: 20px; }
+.search-icon { position: absolute; left: 14px; color: var(--text-dim); pointer-events: none; flex-shrink: 0; }
+#prompt-search {
+  width: 100%; padding: 10px 14px 10px 40px;
+  background: var(--bg); border: 1px solid var(--border); border-radius: 8px;
+  color: var(--text); font-size: 0.92rem; transition: border-color 0.2s;
+}
+#prompt-search:focus { outline: none; border-color: var(--accent); }
+#prompt-search::-webkit-search-cancel-button { cursor: pointer; }
+.search-count { position: absolute; right: 14px; font-size: 0.78rem; color: var(--text-dim); white-space: nowrap; pointer-events: none; }
+
+.category-tabs { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 32px; }
+.cat-tab {
+  padding: 7px 18px; border-radius: 20px; border: 1px solid var(--border);
+  background: transparent; color: var(--text-dim); font-size: 0.88rem; cursor: pointer;
+  transition: all 0.2s;
+}
+.cat-tab:hover { border-color: var(--accent); color: var(--accent); }
+.cat-tab.active { background: var(--accent); border-color: var(--accent); color: #fff; font-weight: 600; }
+
+.prompt-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(340px, 1fr)); gap: 16px; }
+.prompt-card { background: var(--bg-card); border: 1px solid var(--border); border-radius: 12px; overflow: hidden; transition: border-color 0.2s; }
+.prompt-card:hover { border-color: var(--accent); }
+.prompt-card.hidden-card { display: none; }
+
+.prompt-card-header { display: flex; justify-content: space-between; align-items: flex-start; padding: 20px; cursor: pointer; gap: 12px; }
+.cat-badge { font-size: 0.72rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.06em; padding: 2px 8px; border-radius: 4px; display: inline-block; margin-bottom: 8px; }
+.cat-writing    { background: rgba(16,185,129,0.15); color: #10B981; }
+.cat-coding     { background: rgba(79,172,254,0.15); color: #4FACFE; }
+.cat-marketing  { background: rgba(245,158,11,0.15); color: #F59E0B; }
+.cat-analysis   { background: rgba(168,85,247,0.15); color: #A855F7; }
+.cat-creative   { background: rgba(236,72,153,0.15); color: #EC4899; }
+.cat-learning   { background: rgba(6,182,212,0.15); color: #06B6D4; }
+
+.prompt-title { font-size: 1rem; font-weight: 700; color: var(--text); margin-bottom: 4px; }
+.prompt-desc { font-size: 0.85rem; color: var(--text-dim); line-height: 1.5; }
+.expand-btn { background: none; border: none; cursor: pointer; color: var(--text-dim); flex-shrink: 0; padding: 4px; transition: transform 0.2s, color 0.2s; }
+.expand-btn:hover { color: var(--accent); }
+.expand-btn.open { transform: rotate(180deg); }
+
+.prompt-body { border-top: 1px solid var(--border); padding: 20px; }
+.prompt-text { font-family: var(--font-mono); font-size: 0.82rem; line-height: 1.7; color: var(--text); white-space: pre-wrap; word-break: break-word; margin: 0 0 16px; max-height: 260px; overflow-y: auto; }
+.prompt-actions { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; }
+.prompt-tags { display: flex; flex-wrap: wrap; gap: 6px; }
+.tag { font-size: 0.75rem; color: var(--text-dim); }
+
+.copy-btn {
+  padding: 8px 18px; border-radius: 8px; border: 1px solid var(--accent);
+  background: transparent; color: var(--accent); font-size: 0.85rem; font-weight: 600;
+  cursor: pointer; transition: all 0.2s;
+}
+.copy-btn:hover { background: var(--accent); color: #fff; }
+.copy-btn.copied { background: var(--green); border-color: var(--green); color: #fff; }
+
+.copy-btn-sm {
+  padding: 5px 12px; border-radius: 6px; border: 1px solid var(--border);
+  background: transparent; color: var(--text-dim); font-size: 0.8rem; cursor: pointer;
+  transition: all 0.2s;
+}
+.copy-btn-sm:hover { border-color: var(--accent); color: var(--accent); }
+.copy-btn-sm.copied { border-color: var(--green); color: var(--green); }
+
+.hidden { display: none !important; }
+
+@media (max-width: 640px) {
+  .field-row { grid-template-columns: 1fr; }
+  .prompt-grid { grid-template-columns: 1fr; }
+  .generator-card { padding: 20px; }
+}
+</style>
+
+<script define:vars={{ rolesJson, tonesJson, modelsJson }}>
+const ROLES  = JSON.parse(rolesJson);
+const TONES  = JSON.parse(tonesJson);
+const MODELS = JSON.parse(modelsJson);
+
+// Model tabs
+let selectedModel = 'chatgpt';
+const modelHint = document.getElementById('model-hint');
+modelHint.textContent = MODELS[selectedModel]?.hint || '';
+
+document.getElementById('model-tabs').addEventListener('click', e => {
+  const btn = e.target.closest('.model-tab');
+  if (!btn) return;
+  document.querySelectorAll('.model-tab').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  selectedModel = btn.dataset.model;
+  modelHint.textContent = MODELS[selectedModel]?.hint || '';
+});
+
+// Show/hide custom inputs
+document.getElementById('gen-role').addEventListener('change', function() {
+  document.getElementById('gen-role-custom').classList.toggle('hidden', this.value !== 'custom');
+});
+document.getElementById('gen-tone').addEventListener('change', function() {
+  document.getElementById('gen-tone-custom').classList.toggle('hidden', this.value !== 'custom');
+});
+
+// Model-specific role prefix style
+function rolePrefix(role, model) {
+  if (!role) return '';
+  if (model === 'claude') return `I'd like you to approach this as a ${role}.\n`;
+  if (model === 'doubao' || model === 'ernie' || model === 'qwen') return `你是一位${role}。\n`;
+  return `Act as a ${role}.\n`;
+}
+
+// Model-specific reasoning suffix
+function modelSuffix(model, isComplex) {
+  if (!isComplex) return '';
+  if (model === 'deepseek') return '\nThink through this step by step before giving your final answer.';
+  if (model === 'claude') return '\nTake your time to reason through this carefully.';
+  if (model === 'gemini') return '\nCite sources or evidence where relevant.';
+  if (model === 'kimi') return '\nBe thorough and comprehensive in your response.';
+  return '';
+}
+
+document.getElementById('gen-btn').addEventListener('click', () => {
+  const goal = document.getElementById('gen-goal').value.trim();
+  if (!goal) { document.getElementById('gen-goal').focus(); return; }
+
+  const roleKey = document.getElementById('gen-role').value;
+  const toneKey = document.getElementById('gen-tone').value;
+  const audience = document.getElementById('gen-audience').value.trim();
+
+  const roleLabel = roleKey === 'custom'
+    ? document.getElementById('gen-role-custom').value.trim()
+    : roleKey ? ROLES[roleKey]?.en : '';
+  const toneLabel = toneKey === 'custom'
+    ? document.getElementById('gen-tone-custom').value.trim()
+    : toneKey ? TONES[toneKey]?.en : '';
+
+  const g = goal.toLowerCase();
+  const isDetailed = goal.length > 60;
+
+  const isEmail     = /email|letter|message|memo|write to|notify|announcement/.test(g);
+  const isDoc       = /report|article|blog|essay|summary|proposal|resume|cv|cover letter|document/.test(g);
+  const isShortDoc  = /note|leave|request|complaint|review|feedback|caption|bio|tagline/.test(g);
+  const isCoding    = /code|function|script|bug|debug|implement|class|api|component|program/.test(g);
+  const isAnalysis  = /analyz|analysis|compare|evaluate|assess|swot|pros and cons/.test(g);
+  const isExplain   = /explain|what is|how does|why|understand|define|describe/.test(g);
+  const isCreative  = /story|poem|brainstorm|ideas|creative|imagine|invent/.test(g);
+  const isTranslate = /translat/.test(g);
+
+  const lines = [];
+  lines.push(rolePrefix(roleLabel, selectedModel));
+
+  if (isEmail) {
+    lines.push(goal.endsWith('.') ? goal : goal + '.');
+    if (!isDetailed) lines.push(`\nInclude:\n- A clear subject line\n- Brief, purposeful opening\n- Main message (2–3 short paragraphs)\n- Specific call to action\n- Professional closing`);
+    lines.push(`\nTone: ${toneLabel || 'professional and clear'}. Every sentence should earn its place.`);
+  } else if (isDoc) {
+    lines.push(goal.endsWith('.') ? goal : goal + '.');
+    if (!isDetailed) lines.push(`\nStructure:\n- Strong opening that states the purpose\n- Well-organized body with clear sections\n- Concrete examples or evidence\n- Actionable conclusion`);
+    if (audience) lines.push(`Audience: ${audience}.`);
+    if (toneLabel) lines.push(`Tone: ${toneLabel}.`);
+  } else if (isShortDoc) {
+    lines.push(goal.endsWith('.') ? goal : goal + '.');
+    if (toneLabel) lines.push(`Tone: ${toneLabel}.`);
+    if (audience) lines.push(`For: ${audience}.`);
+    lines.push(`Keep it brief and to the point.`);
+  } else if (isCoding) {
+    lines.push(goal.endsWith('.') ? goal : goal + '.');
+    if (!isDetailed) lines.push(`\nRequirements:\n- Clean, readable code\n- Handle edge cases\n- Add comments for non-obvious logic\n- Briefly explain your approach`);
+    if (toneLabel) lines.push(`Style: ${toneLabel}.`);
+  } else if (isAnalysis) {
+    lines.push(goal.endsWith('.') ? goal : goal + '.');
+    if (!isDetailed) lines.push(`\nProvide:\n- Key findings with supporting evidence\n- Balanced perspective\n- Specific, actionable recommendations`);
+    if (audience) lines.push(`Audience: ${audience}.`);
+    if (toneLabel) lines.push(`Tone: ${toneLabel}.`);
+  } else if (isExplain) {
+    lines.push(goal.endsWith('.') ? goal : goal + '.');
+    if (!isDetailed) lines.push(`\nExplain clearly:\n- One-sentence plain-language definition\n- Real-world analogy or example\n- Key points without unnecessary jargon`);
+    if (audience) lines.push(`Assume the reader is: ${audience}.`);
+    if (toneLabel) lines.push(`Tone: ${toneLabel}.`);
+  } else if (isCreative) {
+    lines.push(goal.endsWith('.') ? goal : goal + '.');
+    if (!isDetailed) lines.push(`\nBe original and specific — avoid clichés. Surprise me.`);
+    if (toneLabel) lines.push(`Tone: ${toneLabel}.`);
+    if (audience) lines.push(`Audience: ${audience}.`);
+  } else if (isTranslate) {
+    lines.push(goal.endsWith('.') ? goal : goal + '.');
+    lines.push(`Preserve the original tone and meaning. Flag any phrases that don't translate naturally.`);
+  } else {
+    lines.push(goal.endsWith('.') ? goal : goal + '.');
+    if (audience) lines.push(`Audience: ${audience}.`);
+    if (toneLabel) lines.push(`Tone: ${toneLabel}.`);
+    if (isDetailed) lines.push(`\nBe specific and concrete. Structure your response clearly.`);
+  }
+
+  lines.push(modelSuffix(selectedModel, isDetailed || isCoding || isAnalysis));
+
+  document.getElementById('gen-result').textContent = lines.join('\n').replace(/\n{3,}/g, '\n\n').trim();
+  document.getElementById('gen-output').classList.remove('hidden');
+  document.getElementById('gen-output').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+});
+
+document.getElementById('gen-close-btn').addEventListener('click', () => {
+  document.getElementById('gen-output').classList.add('hidden');
+});
+
+document.getElementById('gen-copy-btn').addEventListener('click', function() {
+  const text = document.getElementById('gen-result').textContent;
+  navigator.clipboard.writeText(text).then(() => {
+    this.textContent = 'Copied!';
+    this.classList.add('copied');
+    setTimeout(() => { this.textContent = 'Copy'; this.classList.remove('copied'); }, 2000);
+  });
+});
+
+// Combined filter: category + search
+let activeCat = 'all';
+let searchQuery = '';
+
+function applyFilter() {
+  const q = searchQuery.toLowerCase();
+  let visible = 0;
+  document.querySelectorAll('.prompt-card').forEach(card => {
+    const catMatch = activeCat === 'all' || card.dataset.cat === activeCat;
+    const searchMatch = !q || card.dataset.search.toLowerCase().includes(q);
+    const hide = !catMatch || !searchMatch;
+    card.classList.toggle('hidden-card', hide);
+    if (!hide) visible++;
+  });
+  const countEl = document.getElementById('search-count');
+  countEl.textContent = q ? `${visible} result${visible !== 1 ? 's' : ''}` : '';
+}
+
+document.getElementById('category-tabs').addEventListener('click', e => {
+  const btn = e.target.closest('.cat-tab');
+  if (!btn) return;
+  document.querySelectorAll('.cat-tab').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  activeCat = btn.dataset.cat;
+  applyFilter();
+});
+
+document.getElementById('prompt-search').addEventListener('input', function() {
+  searchQuery = this.value.trim();
+  applyFilter();
+});
+
+// Expand/collapse + copy
+document.getElementById('prompt-grid').addEventListener('click', e => {
+  const copyBtn = e.target.closest('.copy-btn');
+  if (copyBtn) {
+    const text = copyBtn.dataset.prompt;
+    navigator.clipboard.writeText(text).then(() => {
+      copyBtn.textContent = 'Copied!';
+      copyBtn.classList.add('copied');
+      setTimeout(() => { copyBtn.textContent = 'Copy Prompt'; copyBtn.classList.remove('copied'); }, 2000);
+    });
+    return;
+  }
+  const header = e.target.closest('.prompt-card-header');
+  if (!header) return;
+  const card = header.closest('.prompt-card');
+  const body = card.querySelector('.prompt-body');
+  const btn = card.querySelector('.expand-btn');
+  body.classList.toggle('hidden');
+  btn.classList.toggle('open');
+});
+</script>
+
+</BaseLayout>
