@@ -1,6 +1,7 @@
 ---
 import BaseLayout from '../../../layouts/BaseLayout.astro';
 import { getCollection } from 'astro:content';
+import { extractTocItems } from '../../../utils/toc';
 
 export async function getStaticPaths() {
   const posts = await getCollection('posts-zh');
@@ -14,26 +15,7 @@ function formatDate(date: Date) {
   return date.toLocaleDateString('zh-CN', { year: 'numeric', month: 'long', day: 'numeric' });
 }
 
-const rawContent = post.body;
-const tocItems: { level: number; text: string; id: string }[] = [];
-
-const mdHeadingRegex = /^(#{2,3})\s+(.+)$/gm;
-let match;
-while ((match = mdHeadingRegex.exec(rawContent)) !== null) {
-  if (match[1].length !== 2) continue;
-  const text = match[2].trim();
-  const id = text.toLowerCase().replace(/['''\u2018\u2019]/g, '').replace(/[^\w\u4e00-\u9fff]+/g, '-').replace(/^-|-$/g, '');
-  tocItems.push({ level: 2, text, id });
-}
-
-const htmlH2Regex = /<h2[^>]*>(.*?)<\/h2>/gi;
-while ((match = htmlH2Regex.exec(rawContent)) !== null) {
-  const text = match[1].replace(/<[^>]+>/g, '').trim();
-  const id = text.toLowerCase().replace(/['''\u2018\u2019]/g, '').replace(/[^\w\u4e00-\u9fff]+/g, '-').replace(/^-|-$/g, '');
-  if (!tocItems.find(t => t.id === id)) tocItems.push({ level: 2, text, id });
-}
-
-tocItems.sort((a, b) => rawContent.indexOf(a.text) - rawContent.indexOf(b.text));
+const tocItems = extractTocItems(post.body);
 
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 
@@ -112,6 +94,8 @@ const jsonLd = {
     import '/src/scripts/prose-enhance.js';
   </script>
   <script>
+    import { generateHeadingId, getScrollTarget, SCROLL_OFFSET } from '../../../utils/toc';
+
     const toc = document.querySelector<HTMLElement>('.toc-sidebar');
     const articleMain = document.querySelector<HTMLElement>('.article-main');
     const prose = document.querySelector<HTMLElement>('.prose');
@@ -123,7 +107,7 @@ const jsonLd = {
       if (!id) return;
       if (!document.getElementById(id)) {
         const text = a.textContent?.trim();
-        const h = domHeadings.find(h => h.textContent?.trim() === text);
+        const h = domHeadings.find(h => generateHeadingId(h.textContent?.trim() ?? '') === id);
         if (h) h.id = id;
       }
     });
@@ -135,20 +119,17 @@ const jsonLd = {
         if (!id) return;
         const target = document.getElementById(id);
         if (target) {
-          target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          window.scrollTo({ top: getScrollTarget(target.offsetTop), behavior: 'smooth' });
         }
       });
     });
 
     function positionToc() {
-      if (!toc || !articleMain || !prose) return;
+      if (!toc || !articleMain) return;
       const rect = articleMain.getBoundingClientRect();
       const viewportWidth = window.innerWidth;
       if (viewportWidth - rect.right > 280) {
         toc.style.left = (rect.right + 32) + 'px';
-        const proseTop = prose.getBoundingClientRect().top;
-        const top = Math.max(80, proseTop);
-        toc.style.top = top + 'px';
         toc.style.display = 'block';
       } else {
         toc.style.display = 'none';
@@ -157,12 +138,11 @@ const jsonLd = {
 
     positionToc();
     window.addEventListener('resize', positionToc);
-    window.addEventListener('scroll', positionToc, { passive: true });
 
     function onScroll() {
       let current = '';
       for (const h of domHeadings) {
-        if (h.getBoundingClientRect().top <= 100) current = h.id;
+        if (h.offsetTop - window.scrollY <= SCROLL_OFFSET) current = h.id;
       }
       tocLinks.forEach(a => {
         const href = a.getAttribute('href') || '';
