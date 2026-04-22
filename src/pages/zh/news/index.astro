@@ -254,7 +254,9 @@ import BaseLayout from '../../../layouts/BaseLayout.astro';
     document.getElementById('sidebar-picks').innerHTML = picks.map((item, idx) => {
       const color = SOURCE_COLORS[item.source] ?? '#64748b';
       const title = esc(item.title_zh || item.title || '');
-      const thumb = item.image ? `<img src="${esc(item.image)}" alt="" class="sb-thumb" loading="lazy" />` : '';
+      const thumb = item.image
+        ? `<img src="${esc(item.image)}" alt="" class="sb-thumb" loading="lazy" />`
+        : `<div class="sb-thumb sb-thumb-placeholder"><img src="https://www.google.com/s2/favicons?domain=${esc(getDomain(item.url))}&sz=64" class="sb-thumb-logo" alt="" loading="lazy" /></div>`;
       return `<li class="sb-item">
         <a href="${esc(item.url)}" target="_blank" rel="noopener noreferrer" class="sb-link" style="--ic:${color}">
           <span class="sb-num">${String(idx + 1).padStart(2, '0')}</span>
@@ -712,6 +714,15 @@ import BaseLayout from '../../../layouts/BaseLayout.astro';
   border-radius: 5px;
   object-fit: cover;
 }
+.sb-thumb-placeholder {
+  display: flex; align-items: center; justify-content: center;
+  background: linear-gradient(135deg,
+    color-mix(in srgb, var(--ic) 15%, transparent),
+    color-mix(in srgb, var(--ic) 5%, transparent)
+  );
+  border: 1px solid color-mix(in srgb, var(--ic) 20%, transparent);
+}
+.sb-thumb-logo { width: 24px; height: 24px; object-fit: contain; opacity: 0.7; }
 
 /* 来源分布 */
 .sb-sources { padding: 10px 14px 12px; display: flex; flex-direction: column; gap: 7px; }
