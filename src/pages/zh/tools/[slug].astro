@@ -110,6 +110,14 @@ const startingPrice = tag.includes('免费') ? '免费' : tag;
             <Content />
           </div>
         )}
+
+        <!-- 点赞 -->
+        <div class="tool-reactions">
+          <button class="reaction-btn" id="btn-like">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 9V5a3 3 0 0 0-3-3l-4 9v11h11.28a2 2 0 0 0 2-1.7l1.38-9a2 2 0 0 0-2-2.3H14z"/><path d="M7 22H4a2 2 0 0 1-2-2v-7a2 2 0 0 1 2-2h3"/></svg>
+            <span class="reaction-count" id="count-like">--</span>
+          </button>
+        </div>
       </div>
 
       <!-- 侧边栏 -->
@@ -415,4 +423,78 @@ const startingPrice = tag.includes('免费') ? '免费' : tag;
     .features-grid { grid-template-columns: 1fr; }
     .pros-cons { grid-template-columns: 1fr; }
   }
+
+  .tool-reactions {
+    display: flex;
+    justify-content: center;
+    margin: 32px 0 8px;
+  }
+  .reaction-btn {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+    padding: 14px 40px;
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.1);
+    cursor: pointer;
+    color: var(--text-dim);
+    transition: all 0.2s;
+    min-width: 80px;
+  }
+  .reaction-btn:hover { border-color: var(--accent); color: var(--accent); transform: translateY(-2px); box-shadow: 0 8px 24px rgba(79,172,254,0.2); }
+  .reaction-btn--active { border-color: var(--accent) !important; color: var(--accent) !important; background: rgba(79,172,254,0.08); }
+  .reaction-count { font-size: 18px; font-weight: 700; font-family: var(--font-mono); line-height: 1; }
 </style>
+
+<script>
+  const WALINE = 'https://waline-bay-nu.vercel.app';
+  const toolPath = window.location.pathname;
+  const storageKey = 'reaction:' + toolPath;
+  const localCounts = { reaction0: 0 };
+
+  async function fetchReactions() {
+    try {
+      const res = await fetch(`${WALINE}/api/article?path=${encodeURIComponent(toolPath)}&type=reaction0`);
+      const json = await res.json();
+      const d = json.data?.[0];
+      localCounts.reaction0 = d?.reaction0 ?? 0;
+      document.getElementById('count-like').textContent = localCounts.reaction0;
+    } catch {}
+  }
+
+  let sessionVoted = null;
+  function getVoted() {
+    if (sessionVoted !== null) return sessionVoted;
+    try { return localStorage.getItem(storageKey); } catch { return null; }
+  }
+  function setVoted(v) {
+    sessionVoted = v;
+    try { localStorage.setItem(storageKey, v); } catch {}
+  }
+
+  function sendReaction() {
+    const prev = getVoted();
+    const action = prev === 'reaction0' ? 'desc' : 'inc';
+    if (action === 'desc') {
+      setVoted('');
+      localCounts.reaction0 = Math.max(0, localCounts.reaction0 - 1);
+    } else {
+      setVoted('reaction0');
+      localCounts.reaction0++;
+    }
+    document.getElementById('count-like').textContent = localCounts.reaction0;
+    fetch(`${WALINE}/api/article`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ path: toolPath, type: 'reaction0', action }),
+    }).catch(() => {});
+    document.getElementById('btn-like').classList.toggle('reaction-btn--active', getVoted() === 'reaction0');
+  }
+
+  if (getVoted() === 'reaction0') document.getElementById('btn-like').classList.add('reaction-btn--active');
+  document.getElementById('btn-like').addEventListener('click', sendReaction);
+  fetchReactions();
+</script>
