@@ -8,6 +8,8 @@ difficulty: "Intermediate"
 category: "industry-insights"
 ---
 
+> **TL;DR:** The trillion-dollar AI infrastructure buildout is on track for 2027, but widespread workplace impact will lag far behind due to adoption and scalability challenges, not technical limitations.
+
 **The trillion-dollar compute bet will likely arrive on schedule. The trillion-dollar impact on work won't.**
 
 This is where AI prediction has gone wrong in 2024-2026. We've tracked two separate stories as one. Leopold Aschenbrenner's "Situational Awareness" scenario got the physics right (compute clusters will exist by 2027) but adoption dynamics completely wrong. The gap isn't between dreamers and skeptics. It's between what's technically possible and what's workable at scale. For anyone betting on AI, that distinction determines whether your strategy survives the next 18 months.

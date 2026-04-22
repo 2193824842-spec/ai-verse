@@ -8,6 +8,28 @@ cover: "/covers/2026-03-26-build-ai-agent.png"
 tags: ["AI Agent", "Claude 4.6", "AI Tutorial", "Python", "LLM"]
 ---
 
+> **TL;DR:** Build a multi-step AI agent with Claude by defining tools, running a think-act-observe loop where Claude calls tools, receives results, and continues reasoning until completing the task.
+
+> **TL;DR:** I need to search for weather data.
+<tool_call: search_weather(city=Beijing)>
+
+Tool runs
+  ↓
+Tool result returned
+
+User: [tool result: Beijing weather 25°C, sunny]
+
+Claude continues thinking → final response
+```
+
+The core of an AI Agent is letting Claude **think → act → observe → continue** in a loop.
+
+## Building the Agent
+
+### Step 1: Define Tools
+
+```python
+
 ## Introduction
 
 In 2026, the hottest term in AI isn't "large language model" — it's **AI Agent**.

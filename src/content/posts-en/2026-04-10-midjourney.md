@@ -8,6 +8,8 @@ summary: "Step-by-step Midjourney tutorial for beginners: account setup, subscri
 cover: "/covers/midjourney.png"
 ---
 
+> **TL;DR:** To use Midjourney as a beginner, create an account, subscribe through Discord, write a text prompt using the /imagine command, then refine results with parameters and image-to-image features to generate your first AI image in ten straightforward steps.
+
 # How to Use Midjourney: Complete Guide (2026) — 10 Steps from Zero to First Image, with Error Fixes
 
 First time opening Midjourney and feeling lost between the all-English interface and Discord's unfamiliar layout?

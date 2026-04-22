@@ -8,6 +8,8 @@ summary: "The most complete list of free AI tools accessible in mainland China i
 cover: "/covers/2026-04-07-guonei-mianfei-ai.png"
 ---
 
+> **TL;DR:** Here are 30 free AI tools usable in mainland China without a VPN in 2026, organized by use case including conversation, image generation, video, coding, and productivity, with notes on each tool's free tier limits.
+
 Every time you want to use an AI tool, do you find yourself stuck: this one needs a VPN, that one only allows 10 free questions per day, and another turns out to require payment after you register?
 
 This article has done all the legwork for you. Below is a curated list of **free AI tools accessible in mainland China in 2026** — no VPN required, covering conversation/writing, image generation, video, coding, and productivity. All 30 tools are tested and include notes on free tier limitations.
