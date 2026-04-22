@@ -20,13 +20,17 @@ INDEX_PATH = Path(__file__).parent.parent / "public" / "data" / "published_index
 
 def main():
     parser = argparse.ArgumentParser()
-    parser.add_argument("--slug",         required=True)
-    parser.add_argument("--title",        required=True)
-    parser.add_argument("--article-type", required=True)
-    parser.add_argument("--tags",         required=True, help="Comma-separated tags")
-    parser.add_argument("--summary",      required=True)
-    parser.add_argument("--date",         required=True)
+    parser.add_argument("--slug",                required=True)
+    parser.add_argument("--title",               required=True)
+    parser.add_argument("--article-type",        required=True)
+    parser.add_argument("--tags",                required=True, help="Comma-separated tags")
+    parser.add_argument("--summary",             required=True)
+    parser.add_argument("--date",                required=True)
+    parser.add_argument("--primary-keyword",     default="")
+    parser.add_argument("--secondary-keywords",  default="", help="Comma-separated secondary keywords")
     args = parser.parse_args()
+
+    BASE_URL = "https://2193824842-spec.github.io/ai-verse"
 
     INDEX_PATH.parent.mkdir(parents=True, exist_ok=True)
     index = json.loads(INDEX_PATH.read_text(encoding="utf-8")) if INDEX_PATH.exists() else []
@@ -39,7 +43,10 @@ def main():
         "title": args.title,
         "article_type": args.article_type,
         "tags": [t.strip() for t in args.tags.split(",") if t.strip()],
+        "primary_keyword": args.primary_keyword,
+        "secondary_keywords": [k.strip() for k in args.secondary_keywords.split(",") if k.strip()],
         "summary": args.summary,
+        "url": f"{BASE_URL}/en/articles/{args.slug}",
         "date": args.date,
     })
 
