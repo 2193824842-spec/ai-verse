@@ -1,0 +1,390 @@
+[
+  {
+    "slug": "build-ai-agent",
+    "title": "Build Your First Multi-Step AI Agent with Claude 4.6 API",
+    "article_type": "tutorial",
+    "tags": [
+      "AI Agent",
+      "Claude 4.6",
+      "AI Tutorial",
+      "Python",
+      "LLM"
+    ],
+    "summary": "Step-by-step guide to building a real AI Agent using the Anthropic Python SDK — one that autonomously breaks down tasks, calls tools, and loops until done.",
+    "date": "2026-03-26"
+  },
+  {
+    "slug": "ai-54628f",
+    "title": "Best AI Image Generators in 2026: 8 Tools Compared (Including Chinese Options)",
+    "article_type": "review",
+    "tags": [
+      "AI Image Generator",
+      "AI Art Tools",
+      "AI Tools",
+      "Midjourney V7",
+      "Free AI"
+    ],
+    "summary": "The most comprehensive AI image generator comparison of 2026 — Midjourney V7, GPT Image 1.5, Flux 2.0, Stable Diffusion 3.5, Adobe Firefly, and more. Rated across image quality, ease of use, price, and commercial licensing.",
+    "date": "2026-03-30"
+  },
+  {
+    "slug": "ai-09f249",
+    "title": "The Complete Guide to AI Prompt Engineering (2026): From Beginner to Expert",
+    "article_type": "tutorial",
+    "tags": [
+      "AI Prompts",
+      "Prompt Engineering",
+      "AI Tutorial",
+      "AI Tools",
+      "ChatGPT",
+      "DeepSeek"
+    ],
+    "summary": "50 practical prompt engineering techniques covering ChatGPT, Claude, and DeepSeek — a complete guide from beginner to advanced.",
+    "date": "2026-03-31"
+  },
+  {
+    "slug": "ai-5cb8b5",
+    "title": "Best AI Coding Assistants in 2026: 6 Tools Compared (Including Chinese Options)",
+    "article_type": "review",
+    "tags": [
+      "AI Coding",
+      "Cursor",
+      "Copilot",
+      "AI Tools",
+      "Developer Tools"
+    ],
+    "summary": "2026 AI coding assistant comparison: Cursor, Copilot, CodeGeeX, and 3 more tools reviewed across code quality, context understanding, price, and use cases.",
+    "date": "2026-03-31"
+  },
+  {
+    "slug": "ai-dfb482",
+    "title": "The Ultimate AI Learning Guide (2026): From Zero to LLM Applications",
+    "article_type": "tutorial",
+    "tags": [
+      "AI Tutorial",
+      "AI for Beginners",
+      "AI Tools",
+      "LLM",
+      "ChatGPT"
+    ],
+    "summary": "The most comprehensive AI learning guide for 2026 — covering beginner tool usage, prompt engineering, and full LLM development paths, with a curated list of free resources.",
+    "date": "2026-03-31"
+  },
+  {
+    "slug": "claude-vs-chatgpt",
+    "title": "Claude vs ChatGPT 2026: Which AI Assistant Is Right for You?",
+    "article_type": "review",
+    "tags": [
+      "Claude",
+      "ChatGPT",
+      "AI Comparison",
+      "AI Assistant",
+      "AI Tools"
+    ],
+    "summary": "A 2026 deep-dive comparison of Claude and ChatGPT across capabilities, pricing, and use cases — so you can pick the right one for your workflow.",
+    "date": "2026-03-31"
+  },
+  {
+    "slug": "midjourney",
+    "title": "Midjourney Tutorial 2026: Complete Beginner's Guide from Sign-Up to First Image",
+    "article_type": "tutorial",
+    "tags": [
+      "Midjourney",
+      "AI Art",
+      "Image Generation",
+      "AI Tools",
+      "AI Tutorial"
+    ],
+    "summary": "The most up-to-date Midjourney beginner's guide for 2026 — from registration to your first image, covering V7 features, prompt techniques, and key parameters.",
+    "date": "2026-03-31"
+  },
+  {
+    "slug": "openai-122b-agentic-workflows-",
+    "title": "OpenAI's $122B Funding: Agentic Workflows & Enterprise AI 2026",
+    "article_type": "trending",
+    "tags": [
+      "OpenAI",
+      "AI Funding",
+      "Agentic AI",
+      "Enterprise AI"
+    ],
+    "summary": "OpenAI's $122 billion funding round powers agentic workflows with GPT-5.4. Explore enterprise AI adoption, IPO strategy, and the end of traditional software.",
+    "date": "2026-03-31"
+  },
+  {
+    "slug": "generative-ai-chip-design-ml-s",
+    "title": "Generative AI for Chip Design: How Machine Learning Cuts Costs 75%",
+    "article_type": "industry-insights",
+    "tags": [
+      "AI Chips",
+      "Semiconductor",
+      "Generative AI",
+      "Machine Learning"
+    ],
+    "summary": "Discover how generative AI for chip design cuts development costs by 75% and timelines in half, transforming semiconductor development with AI-powered EDA tools.",
+    "date": "2026-04-03"
+  },
+  {
+    "slug": "ai-startup-funding-trends-2026",
+    "title": "AI Startup Funding Trends 2026: $131.5B Invested in AI",
+    "article_type": "trending",
+    "tags": [
+      "AI Startups",
+      "AI Funding",
+      "Venture Capital",
+      "AI Investment"
+    ],
+    "summary": "Explore AI startup funding trends 2026: $131.5B invested globally, mega-rounds dominate, autonomous agents surge. Top AI startups, venture capital analysis, and investment opportunities.",
+    "date": "2026-04-07"
+  },
+  {
+    "slug": "guonei-mianfei-ai",
+    "title": "30 Free AI Tools in China (2026): No VPN Required, Organized by Use Case",
+    "article_type": "review",
+    "tags": [
+      "Free AI Tools",
+      "Free AI",
+      "AI Tools",
+      "Chinese AI Tools",
+      "DeepSeek"
+    ],
+    "summary": "The most complete list of free AI tools accessible in mainland China in 2026 — 30 tools covering writing, image generation, video, coding, and productivity, all tested and organized by use case.",
+    "date": "2026-04-07"
+  },
+  {
+    "slug": "cursor",
+    "title": "Cursor Tutorial for Beginners: Complete Guide from Install to Fluency (2026)",
+    "article_type": "tutorial",
+    "tags": [
+      "Cursor Tutorial",
+      "Cursor Beginner Guide",
+      "AI Coding Tools",
+      "How to Use Cursor"
+    ],
+    "summary": "Complete Cursor beginner tutorial covering installation, Tab completion, Chat, Agent mode, keyboard shortcuts, and free vs Pro comparison — get up to speed fast.",
+    "date": "2026-04-08"
+  },
+  {
+    "slug": "how-to-evaluate-ai-companies-f",
+    "title": "How to Evaluate AI Companies: Complete Framework for Investors",
+    "article_type": "industry-insights",
+    "tags": [
+      "AI Investment",
+      "AI Valuation",
+      "Enterprise AI",
+      "AI Startups"
+    ],
+    "summary": "Master AI company evaluation with our complete framework. Assess core capabilities, team talent, technology stack, revenue models, and competitive positioning to identify winning AI startups.",
+    "date": "2026-04-08"
+  },
+  {
+    "slug": "ai-469564",
+    "title": "Best Free Chinese AI Writing Tools in 2026: 8 Tested & Compared — Find the Right One for You",
+    "article_type": "review",
+    "tags": [
+      "free Chinese AI writing tools",
+      "AI writing tools 2026",
+      "domestic AI tools",
+      "DeepSeek Kimi Doubao"
+    ],
+    "summary": "Tested 8 top free Chinese AI writing tools in 2026 — Doubao, Kimi, DeepSeek & more. Clear comparisons and scene-based picks to help you choose fast.",
+    "date": "2026-04-09"
+  },
+  {
+    "slug": "ai-company-revenue",
+    "title": "AI Company Revenue Comparison 2026: Complete Financial Breakdown",
+    "article_type": "industry-insights",
+    "tags": [
+      "AI Revenue",
+      "OpenAI",
+      "Anthropic",
+      "AI Investment",
+      "Enterprise AI"
+    ],
+    "summary": "Comprehensive analysis of AI company revenues in 2026. OpenAI $20B, Anthropic $9B growth, profitability analysis, and the evolving AI economy.",
+    "date": "2026-04-09"
+  },
+  {
+    "slug": "ai-2027-scenario-realistic-inf",
+    "title": "Is the AI 2027 Scenario Realistic? Infrastructure vs Impact",
+    "article_type": "industry-insights",
+    "tags": [
+      "AI 2027",
+      "AI Infrastructure",
+      "AI Industry",
+      "AI Investment"
+    ],
+    "summary": "The trillion-dollar compute infrastructure will arrive by 2027, but the impact on jobs and business won't. Why AI adoption is slower than predictions.",
+    "date": "2026-04-10"
+  },
+  {
+    "slug": "ai-agent-market-consolidation-",
+    "title": "AI Agent Market Consolidation 2026: Framework Survival Guide",
+    "article_type": "industry-insights",
+    "tags": [
+      "AI Agents",
+      "AI Frameworks",
+      "LangChain",
+      "AI Investment"
+    ],
+    "summary": "The real AI agent market has 130 genuine players attracting $3.8B in funding. See which frameworks survive consolidation, market trends, and how to choose your stack.",
+    "date": "2026-04-10"
+  },
+  {
+    "slug": "ai-regulations-compliance",
+    "title": "AI Regulations Compliance Trends 2026: Investor & Business Guide",
+    "article_type": "industry-insights",
+    "tags": [
+      "AI Regulations",
+      "EU AI Act",
+      "AI Compliance",
+      "Enterprise AI",
+      "AI Investment"
+    ],
+    "summary": "August 2026 marks the EU AI Act high-risk compliance deadline with penalties up to 7% of global revenue. Essential guide for investors and businesses navigating AI regulatory requirements.",
+    "date": "2026-04-10"
+  },
+  {
+    "slug": "ai-unicorn-bubble-reality-chec",
+    "title": "AI Unicorn Bubble Reality Check 2026: Startups Will Fail",
+    "article_type": "trending",
+    "tags": [
+      "AI Unicorns",
+      "AI Startups",
+      "AI Investment",
+      "Startup Failure"
+    ],
+    "summary": "The AI unicorn bubble quietly deflates in 2026 through down rounds and shutdowns. Half of 308 unicorns will restructure by 2027 as valuations face reality.",
+    "date": "2026-04-10"
+  },
+  {
+    "slug": "ai-venture-capital-trends-2026",
+    "title": "AI Venture Capital Trends 2026: Where the Money Is",
+    "article_type": "industry-insights",
+    "tags": [
+      "Venture Capital",
+      "AI Investment",
+      "AI Funding",
+      "AI Startups"
+    ],
+    "summary": "$160B raised in 2 months. See where AI funding is concentrating, which startups are winning, and investment opportunities across valuations.",
+    "date": "2026-04-10"
+  },
+  {
+    "slug": "ai2026",
+    "title": "2026 China AI Tools Ranking: 8 Domestic AI Tools Scored and Compared",
+    "article_type": "review",
+    "tags": [
+      "China AI tools ranking 2026",
+      "Chinese AI tools comparison",
+      "DeepSeek vs Doubao",
+      "best AI tools China"
+    ],
+    "summary": "Scored comparison of 8 top Chinese AI tools in 2026 across 5 dimensions — find the right tool for your needs in under 10 minutes.",
+    "date": "2026-04-10"
+  },
+  {
+    "slug": "midjourney",
+    "title": "How to Use Midjourney: Complete Guide (2026) — 10 Steps from Zero to First Image, with Error Fixes",
+    "article_type": "tutorial",
+    "tags": [
+      "how to use Midjourney",
+      "Midjourney tutorial",
+      "AI image generation",
+      "Midjourney prompts"
+    ],
+    "summary": "Step-by-step Midjourney tutorial for beginners: account setup, subscription, prompts, parameters, image-to-image, and common error fixes.",
+    "date": "2026-04-10"
+  },
+  {
+    "slug": "chatgptai",
+    "title": "7 Free ChatGPT Alternatives in China (2026): Pick by Use Case, Skip the Traps",
+    "article_type": "review",
+    "tags": [
+      "free Chinese AI tools",
+      "ChatGPT alternatives China",
+      "no VPN AI tools",
+      "AI assistant recommendations"
+    ],
+    "summary": "7 free Chinese AI tools in 2026—Doubao, Kimi, DeepSeek & more. No VPN, no credit card. Pick the right one by use case.",
+    "date": "2026-04-13"
+  },
+  {
+    "slug": "google-gemini",
+    "title": "2026 AI Office Tools: 15 Productivity Boosters by Workplace Scenario",
+    "article_type": "review",
+    "tags": [
+      "AI productivity tools",
+      "AI office tools",
+      "best AI tools for work",
+      "workplace AI 2026"
+    ],
+    "summary": "15 tested AI office tools for 2026, organized across five scenarios: document writing, presentations, meeting transcription, data analysis, and general assistants.",
+    "date": "2026-04-16"
+  },
+  {
+    "slug": "ai2026",
+    "title": "Best AI Video Generation Tools 2026: One Pick Per Use Case (6 Scenarios)",
+    "article_type": "review",
+    "tags": [
+      "AI video tools",
+      "video generation",
+      "2026 guide",
+      "AI tools comparison"
+    ],
+    "summary": "Cut through the noise — our 2026 AI video tool guide picks one winner for each use case: short-form creators, ecommerce, training, filmmaking, beginners, a",
+    "date": "2026-04-17"
+  },
+  {
+    "slug": "deepseek",
+    "title": "How to Use DeepSeek? A Complete Beginner's Guide for 2026 (With FAQ)",
+    "article_type": "tutorial",
+    "tags": [
+      "DeepSeek tutorial",
+      "AI tools",
+      "beginner guide",
+      "API"
+    ],
+    "summary": "Step-by-step guide to using DeepSeek in 2026 — registration, chat, file analysis, prompting tips, and API setup for beginners.",
+    "date": "2026-04-17"
+  },
+  {
+    "slug": "ai-e20c44",
+    "title": "Best Completely Free AI Tools in 2026: Build Your Full AI Stack at Zero Cost",
+    "article_type": "review",
+    "tags": [
+      "free AI tools",
+      "AI productivity",
+      "AI writing tools",
+      "AI tools 2026"
+    ],
+    "summary": "Discover truly free AI tools in 2026 — no credit card, no trial countdowns. Build a complete AI workflow for writing, image generation, coding, and product",
+    "date": "2026-04-20"
+  },
+  {
+    "slug": "biggest-ai-acquisitions-2026",
+    "title": "Biggest AI Acquisitions 2026: The $1.2T Land Grab",
+    "article_type": "industry-insights",
+    "tags": [
+      "enterprise-ai",
+      "ai-research",
+      "generative-ai",
+      "ai-tools"
+    ],
+    "summary": "Q1 2026 saw $1.22T in AI-driven M&A — the biggest AI acquisitions 2026 are locking up compute, data, and energy. Here's who's winning and what it means.",
+    "date": "2026-04-21"
+  },
+  {
+    "slug": "cursor-vs-copilot",
+    "title": "Cursor vs Copilot: Which Is Better? A 2026 Guide by Developer Profile",
+    "article_type": "review",
+    "tags": [
+      "AI Coding Tools",
+      "Cursor vs Copilot",
+      "AI Coding Assistant Comparison",
+      "Cursor Copilot Review"
+    ],
+    "summary": "Cursor vs Copilot — which should you choose? Skip the feature lists. We give direct recommendations for 6 developer profiles — indie devs, team engineers, JetBrains users — with 2026 pricing and switching cost analysis.",
+    "date": "2026-04-21"
+  }
+]
