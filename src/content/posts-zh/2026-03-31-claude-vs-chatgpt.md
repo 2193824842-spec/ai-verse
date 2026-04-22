@@ -8,6 +8,8 @@ difficulty: "入门"
 category: "review"
 ---
 
+> **一句话总结：** Claude免费版更慷慨，ChatGPT生态更完整，写作和安全场景选Claude，编程和多模态任务选ChatGPT，按需求选择比盲目追热更实用。
+
 # Claude vs ChatGPT 2026深度对比：哪个AI助手更适合你？
 
 **发布日期：** 2026年3月31日

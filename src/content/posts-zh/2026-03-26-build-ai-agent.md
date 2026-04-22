@@ -8,6 +8,8 @@ cover: "/covers/2026-03-26-build-ai-agent.png"
 tags: ["AI Agent", "Claude 4.6", "AI教程", "Python", "大模型"]
 ---
 
+> **一句话总结：** 本文手把手教你用Claude 4.6 API和Python构建多步骤AI Agent，核心是实现思考-调用-反馈的Agentic Loop循环机制。
+
 ## 引言
 
 2026 年，AI 领域最热的词不是"大模型"，而是 **AI Agent**。
