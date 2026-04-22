@@ -1144,6 +1144,522 @@ Guidelines:
     tags: ['flashcards', 'memorization', 'study'],
     tagsZh: ['闪卡', '记忆', '学习'],
   },
+
+  // Writing (continued)
+  {
+    id: 'press-release',
+    title: 'Press Release',
+    titleZh: '新闻稿',
+    category: 'writing',
+    categoryZh: '写作',
+    description: 'Write a professional press release for announcements or launches.',
+    descriptionZh: '为产品发布或重要公告撰写专业新闻稿。',
+    prompt: `Write a press release for [COMPANY/ORGANIZATION] announcing [NEWS/EVENT].
+
+Include:
+- Headline and dateline
+- Lead paragraph (who, what, when, where, why)
+- 2-3 body paragraphs with quotes from a spokesperson
+- Boilerplate "About [Company]" section
+- Contact information placeholder
+
+Tone: formal, newsworthy, third-person
+Keep it under 500 words.`,
+    promptZh: `为【公司/机构】撰写一篇关于【新闻/事件】的新闻稿。
+
+包含：
+- 标题和日期行
+- 导语段（何人、何事、何时、何地、为何）
+- 2-3段正文，含发言人引语
+- 公司简介（"关于【公司】"）
+- 联系方式占位符
+
+语气：正式、具有新闻价值、第三人称
+控制在500字以内。`,
+    tags: ['PR', 'press release', 'announcement'],
+    tagsZh: ['公关', '新闻稿', '公告'],
+  },
+  {
+    id: 'linkedin-post',
+    title: 'LinkedIn Post',
+    titleZh: 'LinkedIn 帖子',
+    category: 'writing',
+    categoryZh: '写作',
+    description: 'Craft a high-engagement LinkedIn post that builds your personal brand.',
+    descriptionZh: '撰写高互动率的 LinkedIn 帖子，打造个人品牌。',
+    prompt: `Write a LinkedIn post about [TOPIC/EXPERIENCE/INSIGHT].
+
+Format:
+- Hook first line (no "I'm excited to share…")
+- 3-5 short paragraphs or punchy lines
+- One concrete takeaway or lesson
+- End with a question to spark comments
+
+Tone: authentic, professional, conversational
+No hashtag spam — max 3 relevant hashtags at the end.`,
+    promptZh: `围绕【主题/经历/洞察】写一篇 LinkedIn 帖子。
+
+格式：
+- 第一行就是钩子（不要用"很高兴分享……"）
+- 3-5段简短段落或有力短句
+- 一个具体的收获或教训
+- 结尾提问，引发评论
+
+语气：真实、专业、对话式
+不要堆砌标签——结尾最多3个相关话题标签。`,
+    tags: ['LinkedIn', 'personal brand', 'social'],
+    tagsZh: ['LinkedIn', '个人品牌', '社交'],
+  },
+  {
+    id: 'apology-letter',
+    title: 'Apology / Reconciliation Letter',
+    titleZh: '道歉/和解信',
+    category: 'writing',
+    categoryZh: '写作',
+    description: 'Write a sincere apology letter for professional or personal situations.',
+    descriptionZh: '为职场或个人场景撰写真诚的道歉信。',
+    prompt: `Write a sincere apology letter for [SITUATION].
+
+Recipient: [WHO — e.g. client, colleague, partner]
+What went wrong: [BRIEF DESCRIPTION]
+
+Structure:
+1. Acknowledge the mistake clearly, without excuses
+2. Express genuine regret and empathy
+3. Explain what you will do differently
+4. Offer a concrete remedy if applicable
+5. Close with a forward-looking statement
+
+Tone: humble, sincere, professional`,
+    promptZh: `为【情况】撰写一封真诚的道歉信。
+
+收件人：【对象，如：客户、同事、合作伙伴】
+出了什么问题：【简要描述】
+
+结构：
+1. 清晰承认错误，不找借口
+2. 表达真诚的遗憾与共情
+3. 说明今后会如何改进
+4. 如适用，提出具体补救措施
+5. 以积极展望作结
+
+语气：谦逊、真诚、专业`,
+    tags: ['apology', 'letter', 'professional'],
+    tagsZh: ['道歉', '信件', '职场'],
+  },
+
+  // Coding (continued)
+  {
+    id: 'debug-helper',
+    title: 'Debug Assistant',
+    titleZh: '调试助手',
+    category: 'coding',
+    categoryZh: '编程',
+    description: 'Systematically diagnose and fix bugs in any codebase.',
+    descriptionZh: '系统性地诊断并修复任意代码库中的 Bug。',
+    prompt: `I have a bug in my [LANGUAGE] code. Help me debug it systematically.
+
+Error message / unexpected behavior:
+[PASTE ERROR OR DESCRIBE BEHAVIOR]
+
+Relevant code:
+\`\`\`
+[PASTE CODE]
+\`\`\`
+
+Please:
+1. Identify the most likely root cause
+2. Explain why this causes the observed behavior
+3. Provide a corrected version of the code
+4. Suggest how to prevent this class of bug in the future`,
+    promptZh: `我的【语言】代码有一个 Bug，请帮我系统性地调试。
+
+报错信息/异常行为：
+【粘贴报错或描述现象】
+
+相关代码：
+\`\`\`
+【粘贴代码】
+\`\`\`
+
+请：
+1. 找出最可能的根本原因
+2. 解释为什么会导致这个现象
+3. 提供修正后的代码
+4. 建议如何避免此类 Bug 再次出现`,
+    tags: ['debug', 'bug fix', 'troubleshoot'],
+    tagsZh: ['调试', 'Bug修复', '排查'],
+  },
+  {
+    id: 'regex-builder',
+    title: 'Regex Builder',
+    titleZh: '正则表达式生成',
+    category: 'coding',
+    categoryZh: '编程',
+    description: 'Generate and explain regular expressions for any pattern matching need.',
+    descriptionZh: '为任意模式匹配需求生成并解释正则表达式。',
+    prompt: `Write a regular expression for the following requirement:
+
+What to match: [DESCRIBE THE PATTERN — e.g. valid email addresses, dates in YYYY-MM-DD format, URLs]
+Language/flavor: [e.g. JavaScript, Python, PCRE]
+Edge cases to handle: [LIST ANY SPECIAL CASES]
+
+Please provide:
+1. The regex pattern
+2. A plain-English explanation of each part
+3. 3-5 test cases showing what it matches and what it rejects
+4. Any known limitations`,
+    promptZh: `为以下需求编写正则表达式：
+
+匹配目标：【描述模式，如：有效邮箱地址、YYYY-MM-DD 格式日期、URL】
+语言/风格：【如：JavaScript、Python、PCRE】
+需处理的边界情况：【列出特殊情况】
+
+请提供：
+1. 正则表达式
+2. 每个部分的通俗解释
+3. 3-5个测试用例（展示匹配和不匹配的情况）
+4. 已知局限性`,
+    tags: ['regex', 'pattern matching', 'string'],
+    tagsZh: ['正则', '模式匹配', '字符串'],
+  },
+  {
+    id: 'code-docs',
+    title: 'Code Documentation',
+    titleZh: '代码文档生成',
+    category: 'coding',
+    categoryZh: '编程',
+    description: 'Generate clear, complete documentation for functions, classes, or modules.',
+    descriptionZh: '为函数、类或模块生成清晰完整的文档注释。',
+    prompt: `Generate documentation for the following [LANGUAGE] code:
+
+\`\`\`
+[PASTE CODE]
+\`\`\`
+
+Include:
+- A concise description of what it does
+- Parameters with types and descriptions
+- Return value description
+- Usage example
+- Any important notes or side effects
+
+Format: [e.g. JSDoc, Python docstring, Markdown]`,
+    promptZh: `为以下【语言】代码生成文档：
+
+\`\`\`
+【粘贴代码】
+\`\`\`
+
+包含：
+- 功能简述
+- 参数（含类型和说明）
+- 返回值说明
+- 使用示例
+- 重要注意事项或副作用
+
+格式：【如：JSDoc、Python docstring、Markdown】`,
+    tags: ['documentation', 'comments', 'JSDoc'],
+    tagsZh: ['文档', '注释', '代码说明'],
+  },
+
+  // Marketing (continued)
+  {
+    id: 'email-sequence',
+    title: 'Email Drip Sequence',
+    titleZh: '邮件序列策划',
+    category: 'marketing',
+    categoryZh: '营销',
+    description: 'Plan a multi-email nurture sequence to convert leads into customers.',
+    descriptionZh: '策划多封培育邮件序列，将潜在客户转化为付费用户。',
+    prompt: `Design a [NUMBER]-email drip sequence for [PRODUCT/SERVICE].
+
+Target audience: [WHO THEY ARE AND WHERE THEY ARE IN THE FUNNEL]
+Goal: [e.g. trial-to-paid conversion, onboarding, re-engagement]
+
+For each email provide:
+- Email number and send timing (e.g. Day 1, Day 3)
+- Subject line (write 2 options)
+- Preview text
+- Core message (2-3 sentences)
+- Primary CTA
+
+Keep each email focused on one idea. Avoid hard selling in early emails.`,
+    promptZh: `为【产品/服务】设计一套【数量】封邮件的培育序列。
+
+目标受众：【他们是谁，处于漏斗哪个阶段】
+目标：【如：试用转付费、用户引导、重新激活】
+
+每封邮件请提供：
+- 编号和发送时机（如：第1天、第3天）
+- 主题行（写2个备选）
+- 预览文字
+- 核心信息（2-3句话）
+- 主要行动号召
+
+每封邮件聚焦一个主题，前期邮件避免硬销售。`,
+    tags: ['email', 'drip', 'nurture', 'funnel'],
+    tagsZh: ['邮件', '序列', '培育', '漏斗'],
+  },
+  {
+    id: 'seo-meta',
+    title: 'SEO Meta Tags',
+    titleZh: 'SEO 元标签',
+    category: 'marketing',
+    categoryZh: '营销',
+    description: 'Write optimized title tags and meta descriptions for any page.',
+    descriptionZh: '为任意页面撰写优化的 title 标签和 meta 描述。',
+    prompt: `Write SEO-optimized meta tags for a web page about [TOPIC].
+
+Target keyword: [PRIMARY KEYWORD]
+Secondary keywords: [2-3 RELATED TERMS]
+Page type: [e.g. product page, blog post, landing page]
+
+Provide:
+1. Title tag (50-60 characters) — write 3 variations
+2. Meta description (150-160 characters) — write 2 variations
+3. Brief note on why each choice works
+
+Rules: include the primary keyword naturally, be compelling to click, avoid keyword stuffing.`,
+    promptZh: `为一个关于【主题】的网页撰写 SEO 优化的元标签。
+
+目标关键词：【主关键词】
+次要关键词：【2-3个相关词】
+页面类型：【如：产品页、博客文章、落地页】
+
+提供：
+1. Title 标签（50-60字符）——写3个变体
+2. Meta 描述（150-160字符）——写2个变体
+3. 简要说明每个选择的理由
+
+规则：自然融入主关键词，有吸引点击的冲动，避免关键词堆砌。`,
+    tags: ['SEO', 'meta', 'title tag', 'search'],
+    tagsZh: ['SEO', '元标签', '搜索优化'],
+  },
+
+  // Analysis (continued)
+  {
+    id: 'business-plan-section',
+    title: 'Business Plan Section',
+    titleZh: '商业计划书章节',
+    category: 'analysis',
+    categoryZh: '分析',
+    description: 'Draft a specific section of a business plan with structured analysis.',
+    descriptionZh: '撰写商业计划书的特定章节，含结构化分析。',
+    prompt: `Write the [SECTION — e.g. Executive Summary, Market Analysis, Financial Projections] section of a business plan for [BUSINESS IDEA].
+
+Business overview: [1-2 sentences describing the business]
+Target market: [WHO YOU SERVE]
+Stage: [e.g. pre-revenue, seed stage, growth]
+
+Requirements:
+- Be specific and data-driven where possible
+- Use placeholder brackets for figures I need to fill in
+- Keep it investor-ready: clear, concise, credible
+- Length: [SHORT (1 page) / MEDIUM (2-3 pages)]`,
+    promptZh: `为【商业创意】撰写商业计划书的【章节，如：执行摘要、市场分析、财务预测】部分。
+
+业务概述：【1-2句话描述业务】
+目标市场：【服务对象】
+阶段：【如：未盈利、种子期、成长期】
+
+要求：
+- 尽可能具体、数据驱动
+- 需要填写的数字用括号占位
+- 保持投资人可读：清晰、简洁、可信
+- 长度：【短（1页）/ 中（2-3页）】`,
+    tags: ['business plan', 'startup', 'strategy'],
+    tagsZh: ['商业计划', '创业', '战略'],
+  },
+  {
+    id: 'risk-assessment',
+    title: 'Risk Assessment',
+    titleZh: '风险评估',
+    category: 'analysis',
+    categoryZh: '分析',
+    description: 'Identify and evaluate risks for a project, decision, or initiative.',
+    descriptionZh: '识别并评估项目、决策或举措的潜在风险。',
+    prompt: `Conduct a risk assessment for [PROJECT/DECISION/INITIATIVE].
+
+Context: [BRIEF DESCRIPTION OF WHAT YOU ARE DOING]
+Stakeholders: [WHO IS AFFECTED]
+Timeline: [WHEN]
+
+For each risk identified:
+- Risk description
+- Likelihood (High / Medium / Low)
+- Impact (High / Medium / Low)
+- Risk score (Likelihood × Impact)
+- Mitigation strategy
+
+Organize by risk category (e.g. technical, financial, operational, reputational).
+Conclude with the top 3 risks to prioritize.`,
+    promptZh: `对【项目/决策/举措】进行风险评估。
+
+背景：【简要描述你在做什么】
+利益相关方：【谁会受到影响】
+时间线：【何时】
+
+对每个识别出的风险：
+- 风险描述
+- 可能性（高/中/低）
+- 影响（高/中/低）
+- 风险评分（可能性×影响）
+- 缓解策略
+
+按风险类别组织（如：技术、财务、运营、声誉）。
+最后列出需要优先关注的3大风险。`,
+    tags: ['risk', 'assessment', 'project management'],
+    tagsZh: ['风险', '评估', '项目管理'],
+  },
+
+  // Creative (continued)
+  {
+    id: 'character-design',
+    title: 'Character Design',
+    titleZh: '角色设计',
+    category: 'creative',
+    categoryZh: '创意',
+    description: 'Create a rich, believable character profile for fiction or games.',
+    descriptionZh: '为小说或游戏创建丰富、可信的角色档案。',
+    prompt: `Design a detailed character for [GENRE — e.g. fantasy novel, sci-fi game, thriller].
+
+Character basics:
+- Name, age, appearance
+- Background and origin
+- Core personality traits (3-5)
+- Greatest strength and fatal flaw
+- What they want (external goal) vs. what they need (internal arc)
+- A secret they keep
+- Speech pattern or verbal tic
+- One defining memory that shaped them
+
+Make the character feel real, contradictory, and compelling — not a trope.`,
+    promptZh: `为【类型，如：奇幻小说、科幻游戏、惊悚片】设计一个详细的角色。
+
+角色基本信息：
+- 姓名、年龄、外貌
+- 背景与出身
+- 核心性格特征（3-5个）
+- 最大优点与致命缺陷
+- 他们想要什么（外部目标）vs. 他们需要什么（内在成长弧）
+- 一个隐藏的秘密
+- 说话方式或口头禅
+- 一段塑造了他们的决定性记忆
+
+让角色感觉真实、有矛盾、引人入胜——而不是一个套路。`,
+    tags: ['character', 'fiction', 'worldbuilding'],
+    tagsZh: ['角色', '小说', '世界观'],
+  },
+  {
+    id: 'pitch-deck-story',
+    title: 'Pitch Deck Narrative',
+    titleZh: '路演故事线',
+    category: 'creative',
+    categoryZh: '创意',
+    description: 'Craft a compelling narrative arc for a startup pitch deck.',
+    descriptionZh: '为创业路演 PPT 打造引人入胜的故事线。',
+    prompt: `Write the narrative storyline for a pitch deck for [STARTUP/PRODUCT].
+
+Problem: [WHAT PAIN POINT YOU SOLVE]
+Solution: [YOUR APPROACH]
+Target customer: [WHO]
+
+Structure the story as:
+1. The world before (status quo pain)
+2. The moment of insight (why now, why you)
+3. The hero's journey (how your product transforms the customer)
+4. The vision (what the world looks like when you win)
+
+Each slide should have: a headline, 1-2 supporting sentences, and a suggested visual.
+Tone: confident, clear, emotionally resonant.`,
+    promptZh: `为【创业公司/产品】的路演 PPT 撰写叙事故事线。
+
+问题：【你解决的痛点】
+解决方案：【你的方法】
+目标客户：【谁】
+
+将故事结构化为：
+1. 改变前的世界（现状痛点）
+2. 洞察时刻（为什么是现在，为什么是你）
+3. 英雄之旅（你的产品如何改变客户）
+4. 愿景（你赢了之后世界是什么样子）
+
+每张幻灯片包含：标题、1-2句支撑语、建议配图。
+语气：自信、清晰、有情感共鸣。`,
+    tags: ['pitch', 'startup', 'storytelling', 'investor'],
+    tagsZh: ['路演', '创业', '故事', '投资人'],
+  },
+
+  // Learning (continued)
+  {
+    id: 'rubber-duck',
+    title: 'Rubber Duck Explainer',
+    titleZh: '小黄鸭讲解法',
+    category: 'learning',
+    categoryZh: '学习',
+    description: 'Explain a complex concept back to you simply to test your understanding.',
+    descriptionZh: '用简单语言把复杂概念讲回给你，检验真实理解程度。',
+    prompt: `I'm going to explain [CONCEPT/TOPIC] to you as if you know nothing about it. After I finish, tell me:
+1. What I got right
+2. What I got wrong or oversimplified
+3. What important nuances I missed
+4. A better analogy if my analogy was weak
+
+Here's my explanation:
+[YOUR EXPLANATION]
+
+Be honest and specific — the goal is to find gaps in my understanding, not to validate me.`,
+    promptZh: `我要像你完全不懂一样，向你解释【概念/主题】。我讲完后，请告诉我：
+1. 我说对了什么
+2. 我说错了或过度简化了什么
+3. 我遗漏了哪些重要细节
+4. 如果我的类比不够好，给出更好的类比
+
+我的解释如下：
+【你的解释】
+
+请诚实、具体——目标是找出我理解的盲点，而不是夸我。`,
+    tags: ['learning', 'understanding', 'rubber duck'],
+    tagsZh: ['学习', '理解', '费曼技巧'],
+  },
+  {
+    id: 'interview-prep',
+    title: 'Interview Preparation',
+    titleZh: '面试准备',
+    category: 'learning',
+    categoryZh: '学习',
+    description: 'Simulate a job interview and get feedback on your answers.',
+    descriptionZh: '模拟求职面试，获得答题反馈与改进建议。',
+    prompt: `Act as an experienced interviewer for a [JOB TITLE] position at a [COMPANY TYPE — e.g. startup, Fortune 500, tech company].
+
+My background: [BRIEF SUMMARY OF YOUR EXPERIENCE]
+
+Please:
+1. Ask me 5 interview questions (mix of behavioral, situational, and technical)
+2. After I answer each one, give me feedback on:
+   - What was strong
+   - What was weak or missing
+   - A model answer structure (STAR format where applicable)
+3. At the end, give an overall assessment and the 2 areas I should most improve
+
+Start with the first question now.`,
+    promptZh: `扮演一位在【公司类型，如：初创公司、500强、科技公司】招聘【职位名称】的资深面试官。
+
+我的背景：【简要描述你的经历】
+
+请：
+1. 向我提5个面试问题（行为类、情境类、技术类混合）
+2. 我每回答一个后，给出反馈：
+   - 哪里答得好
+   - 哪里薄弱或遗漏
+   - 参考答案结构（适用时用STAR法则）
+3. 最后给出整体评价，以及我最需要改进的2个方面
+
+现在开始第一个问题。`,
+    tags: ['interview', 'career', 'job search', 'practice'],
+    tagsZh: ['面试', '求职', '职业', '练习'],
+  },
 ];
 
 // Generator templates

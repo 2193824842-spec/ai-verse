@@ -75,6 +75,23 @@ const modelsJson = JSON.stringify(GENERATOR_MODELS);
       </div>
     </section>
 
+    <!-- My Secrets -->
+    <section class="secrets-section">
+      <div class="container">
+        <div class="section-header">
+          <h2 class="section-title">我的秘诀</h2>
+          <p class="section-desc">把你觉得好用的提示词存在这里。数据只保存在你的浏览器本地，完全私密。</p>
+        </div>
+        <div class="secrets-add-bar">
+          <input id="secret-title" type="text" placeholder="标题" maxlength="80" />
+          <textarea id="secret-body" placeholder="粘贴你的提示词…" rows="3" maxlength="2000"></textarea>
+          <button id="secret-add-btn" class="gen-btn" style="width:auto;padding:10px 28px">保存提示词</button>
+        </div>
+        <div id="secrets-grid" class="prompt-grid secrets-grid"></div>
+        <p id="secrets-empty" class="secrets-empty">还没有保存的提示词。从下方库中收藏，或在上方手动添加。</p>
+      </div>
+    </section>
+
     <!-- Library -->
     <section class="library-section">
       <div class="container">
@@ -121,6 +138,7 @@ const modelsJson = JSON.stringify(GENERATOR_MODELS);
                     {p.tagsZh.map(tag => <span class="tag">#{tag}</span>)}
                   </div>
                   <button class="copy-btn" data-prompt={p.promptZh}>复制提示词</button>
+                  <button class="save-btn" data-title={p.titleZh} data-prompt={p.promptZh} aria-label="收藏到我的秘诀">&#9733; 收藏</button>
                 </div>
               </div>
             </div>
@@ -234,6 +252,28 @@ const modelsJson = JSON.stringify(GENERATOR_MODELS);
 .copy-btn-sm.copied { border-color: var(--green); color: var(--green); }
 
 .hidden { display: none !important; }
+
+/* My Secrets */
+.secrets-section { margin-bottom: 72px; }
+.secrets-add-bar { display: flex; flex-direction: column; gap: 10px; max-width: 860px; margin: 0 auto 32px; background: var(--bg-card); border: 1px solid var(--border); border-radius: 16px; padding: 24px; }
+.secrets-add-bar input, .secrets-add-bar textarea {
+  background: var(--bg); border: 1px solid var(--border); border-radius: 8px;
+  color: var(--text); font-size: 0.95rem; padding: 10px 14px; font-family: var(--font-sans); resize: vertical;
+}
+.secrets-add-bar input:focus, .secrets-add-bar textarea:focus { outline: none; border-color: var(--accent); }
+.secrets-grid { margin-bottom: 0; }
+.secrets-empty { text-align: center; color: var(--text-dim); font-size: 0.9rem; padding: 32px 0; }
+.save-btn {
+  padding: 8px 14px; border-radius: 8px; border: 1px solid var(--border);
+  background: transparent; color: var(--text-dim); font-size: 0.82rem; cursor: pointer; transition: all 0.2s; white-space: nowrap;
+}
+.save-btn:hover { border-color: #F59E0B; color: #F59E0B; }
+.save-btn.saved { border-color: #F59E0B; color: #F59E0B; }
+.secret-delete-btn {
+  padding: 5px 12px; border-radius: 6px; border: 1px solid var(--danger);
+  background: transparent; color: var(--danger); font-size: 0.8rem; cursor: pointer; transition: all 0.2s;
+}
+.secret-delete-btn:hover { background: var(--danger); color: #fff; }
 
 @media (max-width: 640px) {
   .field-row { grid-template-columns: 1fr; }
@@ -428,6 +468,95 @@ document.getElementById('prompt-grid').addEventListener('click', e => {
   body.classList.toggle('hidden');
   btn.classList.toggle('open');
 });
+
+// ── 我的秘诀 ──────────────────────────────────────────
+const STORAGE_KEY = 'aiverse_secrets_zh';
+
+function loadSecrets() {
+  try { return JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]'); } catch { return []; }
+}
+function saveSecrets(list) {
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(list));
+}
+
+function renderSecrets() {
+  const list = loadSecrets();
+  const grid = document.getElementById('secrets-grid');
+  const empty = document.getElementById('secrets-empty');
+  grid.innerHTML = '';
+  if (list.length === 0) { empty.style.display = ''; return; }
+  empty.style.display = 'none';
+  list.forEach((s, i) => {
+    const card = document.createElement('div');
+    card.className = 'prompt-card';
+    card.innerHTML = `
+      <div class="prompt-card-header" style="cursor:pointer">
+        <div>
+          <span class="cat-badge" style="background:rgba(245,158,11,0.15);color:#F59E0B">我的秘诀</span>
+          <h3 class="prompt-title">${s.title}</h3>
+        </div>
+        <button class="expand-btn" aria-label="展开"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg></button>
+      </div>
+      <div class="prompt-body hidden">
+        <pre class="prompt-text">${s.body}</pre>
+        <div class="prompt-actions">
+          <div></div>
+          <div style="display:flex;gap:8px">
+            <button class="copy-btn" data-prompt="${s.body.replace(/"/g,'&quot;')}">复制提示词</button>
+            <button class="secret-delete-btn" data-index="${i}">删除</button>
+          </div>
+        </div>
+      </div>`;
+    card.querySelector('.prompt-card-header').addEventListener('click', e => {
+      if (e.target.closest('.secret-delete-btn')) return;
+      const b = card.querySelector('.prompt-body');
+      const eb = card.querySelector('.expand-btn');
+      b.classList.toggle('hidden');
+      eb.classList.toggle('open');
+    });
+    card.querySelector('.copy-btn').addEventListener('click', function() {
+      navigator.clipboard.writeText(s.body).then(() => {
+        this.textContent = '已复制！'; this.classList.add('copied');
+        setTimeout(() => { this.textContent = '复制提示词'; this.classList.remove('copied'); }, 2000);
+      });
+    });
+    card.querySelector('.secret-delete-btn').addEventListener('click', () => {
+      const l = loadSecrets(); l.splice(i, 1); saveSecrets(l); renderSecrets();
+    });
+    grid.appendChild(card);
+  });
+}
+
+document.getElementById('secret-add-btn').addEventListener('click', () => {
+  const title = document.getElementById('secret-title').value.trim();
+  const body = document.getElementById('secret-body').value.trim();
+  if (!title || !body) return;
+  const list = loadSecrets();
+  list.unshift({ title, body });
+  saveSecrets(list);
+  renderSecrets();
+  document.getElementById('secret-title').value = '';
+  document.getElementById('secret-body').value = '';
+});
+
+document.getElementById('prompt-grid').addEventListener('click', e => {
+  const saveBtn = e.target.closest('.save-btn');
+  if (saveBtn) {
+    const title = saveBtn.dataset.title;
+    const body = saveBtn.dataset.prompt;
+    const list = loadSecrets();
+    if (!list.find(s => s.title === title)) {
+      list.unshift({ title, body });
+      saveSecrets(list);
+      renderSecrets();
+    }
+    saveBtn.textContent = '★ 已收藏';
+    saveBtn.classList.add('saved');
+    return;
+  }
+}, true);
+
+renderSecrets();
 </script>
 
 </BaseLayout>
