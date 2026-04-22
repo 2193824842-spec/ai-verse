@@ -10,7 +10,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).parent.parent
 POSTS_DIR = ROOT / "src" / "content" / "posts-en"
-INDEX_PATH = ROOT / "_ops" / "data" / "published_index.json"
+INDEX_PATH = ROOT / "public" / "data" / "published_index.json"
 
 
 def parse_frontmatter(text: str) -> dict:

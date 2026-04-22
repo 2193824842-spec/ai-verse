@@ -15,7 +15,7 @@ import json
 import argparse
 from pathlib import Path
 
-INDEX_PATH = Path(__file__).parent.parent / "_ops" / "data" / "published_index.json"
+INDEX_PATH = Path(__file__).parent.parent / "public" / "data" / "published_index.json"
 
 
 def main():
