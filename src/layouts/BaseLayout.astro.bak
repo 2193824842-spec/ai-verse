@@ -1,0 +1,202 @@
+---
+import '../styles/global.css';
+
+interface Props {
+  title: string;
+  description?: string;
+  lang?: 'zh' | 'en';
+}
+const { title, description = 'AI 技术教程博客', lang = 'zh' } = Astro.props;
+const htmlLang = lang === 'en' ? 'en' : 'zh-CN';
+const ogLocale = lang === 'en' ? 'en_US' : 'zh_CN';
+const base = import.meta.env.BASE_URL;
+const articlesHref = `${base}/${lang}/`;
+---
+
+<!doctype html>
+<html lang={htmlLang}>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content={description} />
+    <meta name="google-site-verification" content="azDQKFOaF1WTTS9FXHmNz7lDeRDGITYuJfUqcTYDqEs" />
+    <link rel="canonical" href={Astro.url.href} />
+    <!-- Open Graph -->
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={Astro.url.href} />
+    <meta property="og:type" content="article" />
+    <meta property="og:locale" content={ogLocale} />
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="base-url" content={base} />
+    <title>{title}</title>
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🤖</text></svg>" />
+  </head>
+  <body>
+    <header>
+      <div class="container inner">
+        <a href={`${base}/`} class="logo">
+          <span class="logo-ai">ai</span><span class="logo-dot">.</span><span class="logo-blog">blog</span>
+        </a>
+        <nav>
+          <div class="nav-links">
+            <a href={articlesHref}>{lang === 'en' ? 'Home' : '首页'}</a>
+            <a href={`${base}/zh/articles/`} class="nav-primary">{lang === 'en' ? 'Articles' : '文章'}</a>
+            <a href={`${base}/zh/tools/`} class="nav-primary">{lang === 'en' ? 'Tools' : '工具'}</a>
+            <a href={`${base}/zh/news/`} class="nav-primary">{lang === 'en' ? 'News' : '资讯'}</a>
+            <a href={`${base}/about/`}>{lang === 'en' ? 'About' : '关于'}</a>
+            <a href="https://github.com" target="_blank">GitHub</a>
+          </div>
+          <div class="nav-actions">
+            <button id="search-btn" aria-label="Search">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+            </button>
+            <button id="theme-btn" aria-label="Toggle theme">
+              <svg id="theme-icon-dark" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+              <svg id="theme-icon-light" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display:none"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+            </button>
+            <a id="lang-toggle" href="#" aria-label="Switch language">{lang === 'en' ? '中' : 'EN'}</a>
+          </div>
+        </nav>
+      </div>
+      <div id="search-overlay" class="search-overlay" hidden>
+        <input id="search-overlay-input" type="search" placeholder={lang === 'en' ? 'Search articles...' : '搜索文章...'} autocomplete="off" />
+      </div>
+    </header>
+
+    <main class="container">
+      <slot />
+    </main>
+
+    <footer>
+      <div class="container footer-inner">
+        <div class="footer-copy">
+          © 2026 AI Blog · 专注 AI 工具评测
+        </div>
+        <div class="footer-links">
+          <span class="footer-links-label">友情链接：</span>
+          <a href="https://www.qbitai.com" target="_blank" rel="noopener noreferrer">量子位</a>
+          <a href="https://sspai.com" target="_blank" rel="noopener noreferrer">少数派</a>
+        </div>
+      </div>
+    </footer>
+
+    <style>
+      .logo-ai {
+        background: linear-gradient(135deg, #4FACFE 0%, #A855F7 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+      }
+      .logo-dot {
+        color: var(--color-accent, #A855F7);
+      }
+      .logo-blog {
+        /* inherits default logo color */
+      }
+      /* Gradient bottom border on header */
+      header::after {
+        content: '';
+        position: absolute;
+        bottom: -1px;
+        left: 0;
+        right: 0;
+        height: 1px;
+        background: linear-gradient(90deg, transparent 0%, rgba(79,172,254,0.5) 30%, rgba(168,85,247,0.5) 70%, transparent 100%);
+        pointer-events: none;
+      }
+      .nav-primary {
+        font-weight: 700;
+      }
+      .footer-inner {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        gap: 0.5rem;
+      }
+      .footer-links {
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+        font-size: 0.85em;
+      }
+      .footer-links-label {
+        opacity: 0.6;
+      }
+      .footer-links a {
+        opacity: 0.75;
+        text-decoration: none;
+        transition: opacity 0.2s;
+      }
+      .footer-links a:hover {
+        opacity: 1;
+      }
+    </style>
+
+    <script>
+      // Theme toggle
+      const themeBtn = document.getElementById('theme-btn') as HTMLButtonElement;
+      const iconDark = document.getElementById('theme-icon-dark') as SVGElement;
+      const iconLight = document.getElementById('theme-icon-light') as SVGElement;
+
+      function applyTheme(theme: string) {
+        document.documentElement.setAttribute('data-theme', theme);
+        if (theme === 'light') {
+          iconDark.style.display = 'none';
+          iconLight.style.display = '';
+        } else {
+          iconDark.style.display = '';
+          iconLight.style.display = 'none';
+        }
+      }
+
+      const saved = localStorage.getItem('theme') || 'dark';
+      applyTheme(saved);
+
+      themeBtn.addEventListener('click', () => {
+        const next = document.documentElement.getAttribute('data-theme') === 'light' ? 'dark' : 'light';
+        localStorage.setItem('theme', next);
+        applyTheme(next);
+      });
+
+      const toggle = document.getElementById('lang-toggle') as HTMLAnchorElement;
+      const path = window.location.pathname;
+      if (path.includes('/zh/')) {
+        toggle.href = path.replace('/zh/', '/en/');
+      } else if (path.includes('/en/')) {
+        toggle.href = path.replace('/en/', '/zh/');
+      }
+
+      // Search
+      const searchBtn = document.getElementById('search-btn') as HTMLButtonElement;
+      const overlay = document.getElementById('search-overlay') as HTMLDivElement;
+      const searchInput = document.getElementById('search-overlay-input') as HTMLInputElement;
+      const base = document.querySelector('meta[name="base-url"]')?.getAttribute('content') || '/ai-blog';
+      const lang = document.documentElement.lang.startsWith('en') ? 'en' : 'zh';
+
+      searchBtn.addEventListener('click', () => {
+        overlay.hidden = !overlay.hidden;
+        if (!overlay.hidden) searchInput.focus();
+      });
+
+      searchInput.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' && searchInput.value.trim()) {
+          window.location.href = `${base}/search/?q=${encodeURIComponent(searchInput.value.trim())}&lang=${lang}`;
+        }
+        if (e.key === 'Escape') { overlay.hidden = true; }
+      });
+
+      document.addEventListener('keydown', (e) => {
+        if ((e.key === 'k' && (e.metaKey || e.ctrlKey)) || e.key === '/') {
+          e.preventDefault();
+          overlay.hidden = false;
+          searchInput.focus();
+        }
+      });
+    </script>
+  </body>
+</html>

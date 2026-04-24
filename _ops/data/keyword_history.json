@@ -1,0 +1,142 @@
+[
+  {
+    "date": "2026-04-03",
+    "topic": "machine learning fundamentals",
+    "primary_keyword": "best machine learning frameworks 2026",
+    "opportunity": "high",
+    "reason": "Multiple recent 2026 articles from smaller/mid-tier sites, fresh content, less saturated than comparison topics"
+  },
+  {
+    "date": "2026-04-07",
+    "topic": "AI startups and investment",
+    "primary_keyword": "how to evaluate AI companies",
+    "opportunity": "medium",
+    "reason": "Learner-focused tutorial intent, mix of authority and specialized sites, gap for beginner-friendly evaluation framework"
+  },
+  {
+    "date": "2026-04-07",
+    "topic": "AI startups and investment",
+    "primary_keyword": "AI startup funding trends 2026",
+    "opportunity": "high",
+    "reason": "Investor-focused, fresh Q1 2026 data from Crunchbase/Qubit Capital, multiple specialized sources, timely market analysis angle"
+  },
+  {
+    "date": "2026-04-09",
+    "topic": "AI coding and development",
+    "primary_keyword": "how to use AI for coding",
+    "opportunity": "medium",
+    "reason": "Learner-focused tutorial intent, mix of authority and specialized sites, gap for comprehensive step-by-step beginner guide, fresh 2026 content"
+  },
+  {
+    "date": "2026-04-09",
+    "topic": "AI coding and development",
+    "primary_keyword": "Claude Code tutorial for beginners",
+    "opportunity": "medium",
+    "reason": "Learner-focused tutorial intent, search results show strong demand (multiple YouTube tutorials, official docs, recent guides from Mar 2026). Mix of authority (Anthropic official docs) and developer blogs. Gap for comprehensive written step-by-step guide. Audience: developers and students learning Claude Code."
+  },
+  {
+    "date": "2026-04-09",
+    "topic": "AI startups and investment",
+    "primary_keyword": "AI startup valuations and unicorns",
+    "opportunity": "high",
+    "reason": "Investor-focused listicle, high opportunity market gap. Search results show mix of LinkedIn, niche blogs, and authority sites with less saturation than generic 'top startups' listicles. Current AI unicorn landscape (500+ unicorns at $2.7T valuation) is timely and data-rich. Investor audience seeks valuation metrics, investment landscape analysis, and competitive positioning data."
+  },
+  {
+    "date": "2026-04-09",
+    "topic": "AI agents and automation",
+    "primary_keyword": "how to build AI agents for beginners",
+    "opportunity": "medium-high",
+    "reason": "Learner-focused tutorial intent, mix of authority (OpenAI, Microsoft Learn, IBM) and specialized sites (Botpress, CodeWave). Fresh 2026 content available. Strong search demand. Gap for comprehensive step-by-step written guide beyond official docs. Audience: developers and students learning agentic AI patterns. Avoids duplication with published articles on coding tutorials and startups."
+  },
+  {
+    "date": "2026-04-09",
+    "topic": "AI startups and investment",
+    "primary_keyword": "AI company revenue comparison 2026",
+    "opportunity": "high",
+    "reason": "Investor-focused comparison analysis. Search results show mix of specialized finance (Forbes, Goldman Sachs analysis) and niche blogs with fresh April 2026 content on seed-stage AI startup revenues. High relevance to investor audience seeking financial metrics, profitability analysis, and revenue trends. Avoids duplication with published Articles 4, 10 (funding/valuation focused) by emphasizing revenue and profitability metrics."
+  },
+  {
+    "date": "2026-04-09",
+    "topic": "AI agents and automation",
+    "primary_keyword": "AI agent platforms pricing comparison 2026",
+    "opportunity": "high",
+    "reason": "Serves both learner and investor audiences. HIGH search opportunity: multiple niche platforms on page 1 (ShipSquad, NoCodeFinder, Halk.io, pxlpeak), fresh Feb-Mar 2026 content, less direct major site competition. Learners seek feature/platform comparison, investors seek cost analysis and ROI. Avoids duplication with published agents article (which focuses on beginner build tutorial). Comparison intent naturally captures both audiences."
+  },
+  {
+    "date": "2026-04-10",
+    "topic": "AI industry trends",
+    "primary_keyword": "is ai 2027 scenario realistic",
+    "opportunity": "medium",
+    "reason": "Opinion article on AI predictions and market impact. High PAA engagement (4 questions on 'future of ai in 2027') indicates strong audience interest. Content gap: existing articles from May 2025 by Gary Marcus (critical) and Vox (balanced). Opportunity for April 2026 retrospective opinion: 'one year later, what did AI 2027 get right/wrong?' Serves both audiences—learners with AI capability analysis, investors with market disruption timeline. Avoids duplication with published articles (none specifically on AI 2027 scenario evaluation)."
+  },
+  {
+    "date": "2026-04-10",
+    "topic": "AI startups and investment",
+    "primary_keyword": "AI venture capital trends 2026",
+    "opportunity": "high",
+    "reason": "Investor + learner focused. High SERP authority (TechCrunch, Forbes), 3 PAA questions, fresh March-April 2026 content from multiple sources. Content gaps: sector breakdown (which AI verticals getting most VC $), investor thesis shifts, global (non-US) AI funding analysis, IPO impact on VC allocations. Serves both audiences: investors analyzing capital flows and sector concentration, learners understanding startup market landscape and opportunities. Comparison/analysis intent with timely data."
+  },
+  {
+    "date": "2026-04-10",
+    "topic": "AI agents and automation",
+    "primary_keyword": "best AI agent frameworks 2026",
+    "opportunity": "medium",
+    "reason": "Comparison listicle intent serving both audiences. Moderate search opportunity: 0 authority sites, 0 PAA questions, but 11+ competitor articles indicate strong demand. Fresh March 2026 content. Content gaps: learner decision framework (how to choose by use case), investor adoption trends (market share by framework), enterprise ROI comparison. Framework selection impact on development cost and time-to-market. Serves learners (technical comparison, setup complexity) and investors (platform adoption, cost analysis, market concentration). Avoids duplication with published agent-building tutorial by focusing on framework comparison rather than 'how to build' mechanics."
+  },
+  {
+    "date": "2026-04-10",
+    "topic": "AI agents and automation",
+    "primary_keyword": "AI agent market consolidation 2026",
+    "opportunity": "medium-high",
+    "reason": "Market analysis article serving both audiences. SERP features: 1 authority site (Forbes), 0 PAA, recent March-April 2026 content. Mighty Blog article (Mar 6) extremely comprehensive (3500+ words) on market maps and M&A trends, but opportunity for angle focusing on consolidation winners/losers and framework adoption impact. Content gaps: forward-looking consolidation predictions for 2027, impact analysis on enterprise customers, valuation trends across agent verticals (AI coding agents vs SDRs vs browser agents). Serves learners (which frameworks will survive consolidation, adoption patterns) and investors (M&A signals, capital allocation trends, market concentration). Avoids duplication with published VC/funding articles by focusing on M&A consolidation and framework market share rather than funding amounts."
+  },
+  {
+    "date": "2026-04-10",
+    "topic": "AI industry trends",
+    "primary_keyword": "open source AI models vs proprietary 2026",
+    "opportunity": "high",
+    "reason": "Comparison article serving both audiences. HIGH search opportunity: 3 PAA questions indicate question-heavy topic, fresh Jan-April 2026 content from WhatLLM and Medium sources. Content gap: existing articles are developer-focused (benchmarks, cost analysis); opportunity for investor angle on licensing implications, market consolidation impact, and enterprise vendor selection. Serves learners (model capability comparison, deployment options) and investors (cost/license business model trends, market share shifts between proprietary vs open source). Avoids duplication with published coding/agent articles by focusing on model economics rather than specific tools or agent frameworks."
+  },
+  {
+    "date": "2026-04-14",
+    "topic": "AI industry trends",
+    "primary_keyword": "AI regulations compliance trends 2026",
+    "opportunity": "high",
+    "reason": "Serves both learner and investor audiences. SERP features: 0 authority sites dominating (law firms and niche sources), 0 PAA questions but regulatory deadline-driven content, fresh Jan-April 2026 articles with timely August 2026 EU AI Act deadline and state-level compliance requirements. Content gaps: business-focused (non-legal) compliance checklist and strategy, investor analysis of regulatory risk impact on AI company valuations and market consolidation. Gap in word count and business narrative simplification of complex legal requirements. Serves learners (compliance obligations for AI use), investors (regulatory risk assessment). Avoids duplication with published opinion articles on AI trends and valuations by focusing on specific regulatory compliance landscape."
+  },
+  {
+    "date": "2026-04-14",
+    "topic": "large language models",
+    "primary_keyword": "Claude vs GPT-5 vs Gemini 2026",
+    "opportunity": "high",
+    "reason": "Model comparison serving both learner and investor audiences. HIGH search opportunity: 0 authority sites (lower competition), 3 PAA questions indicate question-heavy topic, fresh March-April 2026 content from multiple specialized sources (DEV.to, GuruSup, TLDL). Content gaps from top 2 results: 1) practical use-case matrix for specific domains (learners need clarity on 'which model for my task'), 2) Total Cost of Ownership analysis including context window and latency costs (investors/devs need financial ROI). Serves learners (feature-by-feature technical comparison, setup tutorials), investors (pricing breakdown, market share analysis, enterprise adoption rates). Topic with lowest coverage in pool (3 articles vs 4-6 for other topics)."
+  },
+  {
+    "date": "2026-04-21",
+    "topic": "AI Model Releases",
+    "primary_keyword": "best AI models 2026 ranked",
+    "opportunity": "high",
+    "reason": "Listicle + comparison article serving all ICP audiences. HIGH search opportunity: 0 authority sites dominating SERP (niche sites: buildfastwithai, neuralstackly, red-engage, popularaitools, chromeosphere), fresh April 2026 content with GPT-5.4, Claude Opus 4.6, Gemini 3.1 Pro, Grok 4 all recently released. Multiple PAA-style questions ('which model should I use', 'best model per task'). Content gaps: 1) task-by-task decision matrix (coding vs writing vs reasoning vs multimodal), 2) pricing/TCO comparison across all tiers ($0 free to $200/month), 3) market share shift analysis (ChatGPT dropped from 87% to 68%, Gemini surged to 18%). Avoids duplication with published 'Claude vs ChatGPT 2026' (assistant comparison) and 'Best AI Coding Assistants' (tool-focused) by covering full model benchmark landscape with investor market share angle."
+  },
+  {
+    "date": "2026-04-21",
+    "topic": "AI Enterprise Adoption",
+    "primary_keyword": "enterprise AI adoption 2026",
+    "opportunity": "high",
+    "reason": "Analysis + data article serving all ICP audiences (watchers, investors, professionals). HIGH search opportunity: SERP dominated by niche/mid-tier sites (writer.com, unoiatech, teamazing, janeasystems, bitdeal.net) — no major authority sites (Forbes, McKinsey, Gartner) dominating page 1. Compelling data tension: 72% of enterprises have deployed AI, yet 95% fail to get measurable ROI (MIT study) and only 10% successfully scale (Forrester/Accenture). Fresh April 2026 Forbes articles confirm the ROI gap narrative. Content gaps: 1) investor-angle analysis of which enterprise AI vendors are winning despite adoption struggles, 2) sector-by-sector breakdown of where AI ROI is actually materializing, 3) actionable framework for the 10% who succeed. Avoids duplication with published articles (none on enterprise adoption; closest is AI regulations compliance which focuses on policy, not ROI/adoption). Topic is priority 4, tier 1 in keyword matrix with zero published coverage."
+  },
+  {
+    "date": "2026-04-21",
+    "topic": "AI Infrastructure & Compute",
+    "primary_keyword": "AI compute costs breakdown 2026",
+    "opportunity": "high",
+    "reason": "Industry analysis serving investor and professional audiences. HIGH search opportunity: 0 authority sites dominating SERP (niche sites: nerdleveltech, spheron, revolutionai, metavert), 3+ PAA questions on inference vs training cost split and enterprise cost optimization, fresh March-April 2026 content. Content gaps: no multi-year cost trend analysis (2023-2026 price evolution), no investor angle on $700B hyperscaler CapEx wave beneficiaries, no real-world enterprise cost failure case studies, no managed services vs self-hosted TCO comparison. Serves investors (infrastructure investment thesis, cost deflation vs demand explosion) and professionals (enterprise budget planning, hyperscaler vs specialized GPU cloud trade-offs). Topic has zero prior coverage in keyword history (T2, priority 5)."
+  },
+  {
+    "date": "2026-04-21",
+    "topic": "AI Funding & M&A",
+    "primary_keyword": "biggest AI acquisitions 2026",
+    "opportunity": "high",
+    "reason": "Listicle + industry analysis serving investor and watcher audiences. HIGH search opportunity: SERP dominated by niche/mid-tier sites (financialcontent.com, ceotodaymagazine.com, privsource.com, index.dev) with only 1-2 authority sites (Wikipedia), 3+ PAA questions, fresh April 2026 content driven by record $1.22T Q1 M&A. Content gaps: no complete Q1 2026 deal list with per-deal strategic rationale, no investor angle on market concentration risk, no FAQ, no non-US acquisition coverage. Topic has zero prior coverage in keyword history (T1, priority 2). Avoids duplication with published articles (funding trends, VC trends, company revenue) by focusing specifically on acquisition deals and M&A strategy."
+  }
+]

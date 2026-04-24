@@ -1,0 +1,221 @@
+{
+  "created": "2026-04-07",
+  "updated": "2026-04-21",
+  "icp": {
+    "primary_users": [
+      "AI industry watchers (follow model releases, company moves, market dynamics)",
+      "AI investors and analysts (funding, M&A, valuations, market opportunities)",
+      "Business professionals tracking AI adoption and policy",
+      "Tech-savvy readers following AI hot topics and trends"
+    ],
+    "search_intents": ["informational", "news", "analysis", "trending"]
+  },
+  "target_audience_options": ["watcher", "investor", "professional", "all"],
+  "topics": [
+    {
+      "topic": "AI Model Releases",
+      "priority": 1,
+      "tier": 1,
+      "cadence": "2-3x per week",
+      "opportunity": "high",
+      "content_types": ["news", "trending"],
+      "description": "新模型发布报道、版本对比、能力突破解读、benchmark 分析、发布时间线梳理",
+      "keywords": [
+        {"keyword": "best AI models benchmark comparison 2026", "intent": "comparison", "competition": "medium", "audience": "all"},
+        {"keyword": "best new AI models released 2026", "intent": "listicle", "competition": "medium", "audience": "all"},
+        {"keyword": "AI model capability breakthroughs 2026", "intent": "informational", "competition": "low", "audience": "watcher"},
+        {"keyword": "latest LLM releases ranked 2026", "intent": "listicle", "competition": "low", "audience": "all"}
+      ]
+    },
+    {
+      "topic": "AI Funding & M&A",
+      "priority": 2,
+      "tier": 1,
+      "cadence": "2-3x per week",
+      "opportunity": "high",
+      "content_types": ["news", "analysis"],
+      "description": "融资轮次、收购事件、估值变化、投资方分析、并购背后的战略意图",
+      "keywords": [
+        {"keyword": "AI startup funding rounds 2026", "intent": "informational", "competition": "low", "audience": "investor"},
+        {"keyword": "biggest AI acquisitions 2026", "intent": "listicle", "competition": "low", "audience": "investor"},
+        {"keyword": "AI company valuations 2026 analysis", "intent": "analysis", "competition": "medium", "audience": "investor"},
+        {"keyword": "AI M&A trends 2026", "intent": "analysis", "competition": "low", "audience": "investor"}
+      ]
+    },
+    {
+      "topic": "AI Market Dynamics",
+      "priority": 3,
+      "tier": 1,
+      "cadence": "2-3x per week",
+      "opportunity": "high",
+      "content_types": ["insights", "analysis"],
+      "description": "市场份额变化、竞争格局分析、行业集中度、赢家/输家判断、未来预测",
+      "keywords": [
+        {"keyword": "AI market share winners losers 2026", "intent": "analysis", "competition": "medium", "audience": "all"},
+        {"keyword": "AI industry competitive landscape 2026", "intent": "informational", "competition": "medium", "audience": "investor"},
+        {"keyword": "who is winning the AI race 2026", "intent": "analysis", "competition": "low", "audience": "all"},
+        {"keyword": "AI market consolidation predictions 2027", "intent": "opinion", "competition": "low", "audience": "investor"}
+      ]
+    },
+    {
+      "topic": "AI Enterprise Adoption",
+      "priority": 4,
+      "tier": 1,
+      "cadence": "2-3x per week",
+      "opportunity": "high",
+      "content_types": ["insights", "trending"],
+      "description": "企业落地案例、行业应用、ROI 数据、采购决策分析、实施障碍",
+      "keywords": [
+        {"keyword": "AI enterprise adoption case studies 2026", "intent": "informational", "competition": "low", "audience": "professional"},
+        {"keyword": "AI ROI for businesses real data 2026", "intent": "analysis", "competition": "low", "audience": "investor"},
+        {"keyword": "how companies are using AI 2026", "intent": "informational", "competition": "medium", "audience": "all"},
+        {"keyword": "AI implementation challenges enterprises 2026", "intent": "informational", "competition": "low", "audience": "professional"}
+      ]
+    },
+    {
+      "topic": "AI Infrastructure & Compute",
+      "priority": 5,
+      "tier": 2,
+      "cadence": "1x per week",
+      "opportunity": "medium",
+      "content_types": ["insights", "analysis"],
+      "description": "芯片供需、数据中心扩张、云 GPU 价格战、能耗与可持续性、算力格局变化",
+      "keywords": [
+        {"keyword": "AI chip market Nvidia AMD competition 2026", "intent": "analysis", "competition": "medium", "audience": "investor"},
+        {"keyword": "AI data center investment trends 2026", "intent": "informational", "competition": "low", "audience": "investor"},
+        {"keyword": "cloud GPU pricing war 2026", "intent": "analysis", "competition": "low", "audience": "all"},
+        {"keyword": "AI compute costs breakdown 2026", "intent": "analysis", "competition": "low", "audience": "investor"}
+      ]
+    },
+    {
+      "topic": "AI Research Breakthroughs",
+      "priority": 6,
+      "tier": 2,
+      "cadence": "1x per week",
+      "opportunity": "medium",
+      "content_types": ["news", "insights"],
+      "description": "重要论文解读、能力边界突破、学术热点转化为产业影响的分析",
+      "keywords": [
+        {"keyword": "biggest AI research breakthroughs 2026", "intent": "listicle", "competition": "medium", "audience": "watcher"},
+        {"keyword": "AI reasoning capabilities latest research 2026", "intent": "informational", "competition": "medium", "audience": "watcher"},
+        {"keyword": "multimodal AI advances what it means 2026", "intent": "analysis", "competition": "low", "audience": "all"},
+        {"keyword": "AI safety research progress 2026", "intent": "informational", "competition": "low", "audience": "watcher"}
+      ]
+    },
+    {
+      "topic": "AI Geopolitics",
+      "priority": 7,
+      "tier": 2,
+      "cadence": "1x per week",
+      "opportunity": "medium",
+      "content_types": ["insights", "analysis"],
+      "description": "中美 AI 竞争、各国国家 AI 战略、出口管制影响、地缘政治对 AI 供应链的影响",
+      "keywords": [
+        {"keyword": "US China AI competition 2026 who is winning", "intent": "analysis", "competition": "medium", "audience": "all"},
+        {"keyword": "AI export controls impact on industry 2026", "intent": "analysis", "competition": "low", "audience": "investor"},
+        {"keyword": "national AI strategies comparison 2026", "intent": "informational", "competition": "low", "audience": "all"},
+        {"keyword": "DeepSeek effect on global AI market 2026", "intent": "analysis", "competition": "low", "audience": "all"}
+      ]
+    },
+    {
+      "topic": "AI Policy & Regulation",
+      "priority": 8,
+      "tier": 2,
+      "cadence": "1x per week",
+      "opportunity": "medium",
+      "content_types": ["insights", "news"],
+      "description": "EU AI Act 进展、美国联邦/州级立法、中国监管动态、合规要求变化、政策对企业的实际影响",
+      "keywords": [
+        {"keyword": "EU AI Act compliance deadline August 2026", "intent": "informational", "competition": "medium", "audience": "professional"},
+        {"keyword": "US AI regulation state laws 2026", "intent": "informational", "competition": "low", "audience": "professional"},
+        {"keyword": "AI regulation business impact analysis 2026", "intent": "analysis", "competition": "low", "audience": "investor"},
+        {"keyword": "global AI policy comparison 2026", "intent": "informational", "competition": "low", "audience": "all"}
+      ]
+    },
+    {
+      "topic": "AI Business Models",
+      "priority": 9,
+      "tier": 3,
+      "cadence": "hot-topic driven",
+      "opportunity": "medium",
+      "content_types": ["insights", "analysis"],
+      "description": "AI 公司定价策略演变、API vs SaaS vs 订阅、盈利路径分析、哪些商业模式在跑通",
+      "keywords": [
+        {"keyword": "AI startup business models 2026", "intent": "analysis", "competition": "low", "audience": "investor"},
+        {"keyword": "AI API vs SaaS pricing comparison 2026", "intent": "comparison", "competition": "low", "audience": "all"},
+        {"keyword": "how AI startups make money 2026", "intent": "informational", "competition": "low", "audience": "investor"},
+        {"keyword": "AI monetization strategies analysis 2026", "intent": "analysis", "competition": "low", "audience": "investor"}
+      ]
+    },
+    {
+      "topic": "AI Talent & Workforce",
+      "priority": 10,
+      "tier": 3,
+      "cadence": "hot-topic driven",
+      "opportunity": "medium",
+      "content_types": ["insights", "trending"],
+      "description": "顶级 AI 人才流向、薪资趋势、大厂 vs 创业公司人才争夺、AI 对就业的实际影响数据",
+      "keywords": [
+        {"keyword": "AI engineer salaries trends 2026", "intent": "informational", "competition": "medium", "audience": "all"},
+        {"keyword": "AI talent war big tech vs startups 2026", "intent": "analysis", "competition": "low", "audience": "all"},
+        {"keyword": "AI impact on jobs real data 2026", "intent": "informational", "competition": "medium", "audience": "all"},
+        {"keyword": "top AI researchers where they work 2026", "intent": "informational", "competition": "low", "audience": "investor"}
+      ]
+    },
+    {
+      "topic": "AI Consumer Products",
+      "priority": 11,
+      "tier": 3,
+      "cadence": "hot-topic driven",
+      "opportunity": "medium",
+      "content_types": ["news", "trending"],
+      "description": "爆款 AI 应用分析、用户增长数据、产品形态演变、消费级 AI 的商业化路径",
+      "keywords": [
+        {"keyword": "fastest growing AI apps 2026", "intent": "listicle", "competition": "medium", "audience": "all"},
+        {"keyword": "ChatGPT vs Perplexity vs Grok user growth 2026", "intent": "comparison", "competition": "medium", "audience": "all"},
+        {"keyword": "AI consumer product trends 2026", "intent": "informational", "competition": "low", "audience": "watcher"},
+        {"keyword": "AI app monetization success stories 2026", "intent": "analysis", "competition": "low", "audience": "investor"}
+      ]
+    },
+    {
+      "topic": "AI Open Source Ecosystem",
+      "priority": 12,
+      "tier": 3,
+      "cadence": "hot-topic driven",
+      "opportunity": "medium",
+      "content_types": ["insights", "trending"],
+      "description": "开源模型发布、社区动态、Hugging Face/Ollama 等平台生态、开源 vs 闭源的市场博弈",
+      "keywords": [
+        {"keyword": "best open source AI models 2026 ranked", "intent": "listicle", "competition": "medium", "audience": "all"},
+        {"keyword": "open source vs closed source AI market impact 2026", "intent": "analysis", "competition": "low", "audience": "investor"},
+        {"keyword": "Llama Mistral Qwen comparison 2026", "intent": "comparison", "competition": "medium", "audience": "watcher"},
+        {"keyword": "open source AI ecosystem growth 2026", "intent": "informational", "competition": "low", "audience": "watcher"}
+      ]
+    },
+    {
+      "topic": "AI in Verticals",
+      "priority": 13,
+      "tier": 3,
+      "cadence": "hot-topic driven",
+      "opportunity": "medium",
+      "content_types": ["insights", "analysis"],
+      "description": "医疗/法律/金融/教育 AI 的专项落地分析，每篇聚焦一个行业，深度 > 广度",
+      "verticals": ["healthcare", "finance", "legal", "education"],
+      "keywords": [
+        {"keyword": "AI in healthcare adoption ROI 2026", "intent": "analysis", "competition": "low", "audience": "investor"},
+        {"keyword": "AI in finance use cases 2026", "intent": "informational", "competition": "medium", "audience": "investor"},
+        {"keyword": "AI legal industry disruption 2026", "intent": "analysis", "competition": "low", "audience": "professional"},
+        {"keyword": "AI education market growth 2026", "intent": "informational", "competition": "low", "audience": "investor"}
+      ]
+    }
+  ],
+  "competitors": [
+    {"domain": "nxcode.io", "type": "AI tool comparisons", "strength": "high volume, developer-focused"},
+    {"domain": "similarlabs.com", "type": "AI tool reviews", "strength": "multilingual, tested & ranked format"},
+    {"domain": "startus-insights.com", "type": "AI startup rankings", "strength": "investor-focused listicles"},
+    {"domain": "tech-insider.org", "type": "AI tech analysis", "strength": "funding analysis, deep dives"},
+    {"domain": "the-decoder.com", "type": "AI news", "strength": "fast model release coverage, research-to-industry translation"},
+    {"domain": "aimodels.fyi", "type": "model tracking", "strength": "benchmark tracking, model release timeline"},
+    {"domain": "emerj.com", "type": "AI business analysis", "strength": "enterprise adoption, ROI case studies, vertical deep dives"}
+  ]
+}
