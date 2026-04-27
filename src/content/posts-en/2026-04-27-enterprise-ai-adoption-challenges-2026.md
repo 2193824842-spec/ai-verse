@@ -1,7 +1,7 @@
 ---
 title: "Enterprise AI Adoption Challenges 2026: Why 79% Struggle"
 date: 2026-04-27
-category: "Industry Insights"
+category: "industry-insights"
 tags: ["enterprise-ai", "ai-agents", "ai-safety", "generative-ai", "llm"]
 difficulty: "Intermediate"
 summary: "79% of enterprises face AI adoption challenges in 2026, yet high adopters achieve 5.8x ROI. Discover what separates winners from the rest."
