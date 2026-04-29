@@ -4,6 +4,15 @@ on:
   schedule:
     - cron: '0 12 * * *'  # UTC 12:00（北京时间 20:00）
   workflow_dispatch:
+    inputs:
+      backfill_from:
+        description: '回填起始日期 (YYYY-MM-DD)，留空则正常抓今日'
+        required: false
+        default: ''
+      backfill_to:
+        description: '回填结束日期 (YYYY-MM-DD)，留空则正常抓今日'
+        required: false
+        default: ''
 
 permissions:
   contents: write
@@ -22,10 +31,15 @@ jobs:
         run: pip install anthropic
 
       - name: Fetch news
-        run: python scripts/fetch_news.py
+        run: |
+          if [ -n "${{ github.event.inputs.backfill_from }}" ]; then
+            python scripts/backfill_news.py --from ${{ github.event.inputs.backfill_from }} --to ${{ github.event.inputs.backfill_to }}
+          else
+            python scripts/fetch_news.py
+          fi
         env:
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
-          ANTHROPIC_BASE_URL: https://aiapi.tnt-pub.com/
+          ANTHROPIC_BASE_URL: https://aiapi.tnt-pub.com
 
       - name: Commit & push if changed
         run: |

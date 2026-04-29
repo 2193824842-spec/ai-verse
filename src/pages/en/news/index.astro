@@ -122,10 +122,10 @@ import BaseLayout from '../../../layouts/BaseLayout.astro';
     'Hugging Face':   'huggingface.co',
   };
   const CAT_KEYWORDS = {
-    'LLMs':        ['model', 'gpt', 'claude', 'gemini', 'llm', 'language model', 'llama', 'deepseek', 'qwen', 'grok', 'mistral', 'o1', 'o3', 'phi'],
-    'Image/Video': ['image', 'video', 'sora', 'text-to-image', 'dall', 'stable diffusion', 'midjourney', 'kling', 'runway', 'imagen', 'generation'],
-    'Industry':    ['funding', 'acquisition', 'valuation', 'ipo', 'billion', 'layoff', 'merger', 'raised', 'investment'],
-    'Tools':       ['launch', 'release', 'update', 'version', 'feature', 'new feature', 'upgrade', 'introduces', 'announces'],
+    'LLMs':        ['model', 'gpt', 'claude', 'gemini', 'llm', 'language model', 'llama', 'deepseek', 'qwen', 'grok', 'mistral', 'o1', 'o3', 'phi', 'agent', 'reasoning', 'benchmark', 'training', 'inference', 'foundation', 'multimodal', 'chatbot', 'ai double', 'ai character', 'nova', 'bedrock'],
+    'Image/Video': ['image', 'video', 'sora', 'text-to-image', 'dall', 'stable diffusion', 'midjourney', 'kling', 'runway', 'imagen', 'generation', 'diffusion', 'visual', 'photo', 'likeness', 'detection'],
+    'Industry':    ['funding', 'acquisition', 'valuation', 'ipo', 'billion', 'layoff', 'merger', 'raised', 'investment', 'resign', 'ceo', 'cfo', 'startup', 'nuclear', 'cybersecurity', 'security', 'regulation', 'policy', 'summit', 'conference'],
+    'Tools':       ['launch', 'release', 'update', 'version', 'feature', 'new feature', 'upgrade', 'introduces', 'announces', 'sagemaker', 'platform', 'api', 'sdk', 'plugin', 'integration', 'deploy', 'accelerate', 'instance', 'infrastructure'],
   };
   const CAT_COLORS = {
     'LLMs':        '#8b5cf6',
@@ -214,7 +214,7 @@ import BaseLayout from '../../../layouts/BaseLayout.astro';
         const summary = esc(item.summary_en || item.summary || '');
         const thumb = item.image
           ? `<img src="${esc(item.image)}" alt="" class="ni-img" loading="lazy" />`
-          : `<div class="ni-placeholder"></div>`;
+          : `<div class="ni-placeholder"><img src="https://www.google.com/s2/favicons?domain=${esc(domain)}&sz=64" class="ni-placeholder-logo" alt="" loading="lazy" /></div>`;
         html += `<a href="${esc(item.url)}" target="_blank" rel="noopener noreferrer"
           class="news-item" data-source="${esc(item.source)}" data-cat="${esc(cat)}" style="--ic:${color}">
           <div class="ni-time">${esc(getTimeLabel(item.date))}</div>
@@ -253,7 +253,9 @@ import BaseLayout from '../../../layouts/BaseLayout.astro';
     document.getElementById('sidebar-picks').innerHTML = picks.map((item, idx) => {
       const color = SOURCE_COLORS[item.source] ?? '#64748b';
       const title = esc(item.title_en || item.title || '');
-      const thumb = item.image ? `<img src="${esc(item.image)}" alt="" class="sb-thumb" loading="lazy" />` : '';
+      const thumb = item.image
+        ? `<img src="${esc(item.image)}" alt="" class="sb-thumb" loading="lazy" />`
+        : `<div class="sb-thumb sb-thumb-placeholder"><img src="https://www.google.com/s2/favicons?domain=${esc(getDomain(item.url))}&sz=64" class="sb-thumb-logo" alt="" loading="lazy" /></div>`;
       return `<li class="sb-item">
         <a href="${esc(item.url)}" target="_blank" rel="noopener noreferrer" class="sb-link" style="--ic:${color}">
           <span class="sb-num">${String(idx + 1).padStart(2, '0')}</span>
@@ -608,12 +610,19 @@ import BaseLayout from '../../../layouts/BaseLayout.astro';
 .news-item:hover .ni-img { transform: scale(1.06); }
 .ni-placeholder {
   width: 100%; height: 100%;
+  display: flex; align-items: center; justify-content: center;
   background: linear-gradient(135deg,
     color-mix(in srgb, var(--ic) 15%, transparent),
     color-mix(in srgb, var(--ic) 5%, transparent)
   );
   border: 1px solid color-mix(in srgb, var(--ic) 20%, transparent);
   border-radius: 8px;
+}
+.ni-placeholder-logo {
+  width: 40px; height: 40px;
+  object-fit: contain;
+  opacity: 0.7;
+  border-radius: 4px;
 }
 @media (max-width: 480px) {
   .ni-thumb { width: 72px; height: 54px; }
@@ -702,6 +711,15 @@ import BaseLayout from '../../../layouts/BaseLayout.astro';
   border-radius: 5px;
   object-fit: cover;
 }
+.sb-thumb-placeholder {
+  display: flex; align-items: center; justify-content: center;
+  background: linear-gradient(135deg,
+    color-mix(in srgb, var(--ic) 15%, transparent),
+    color-mix(in srgb, var(--ic) 5%, transparent)
+  );
+  border: 1px solid color-mix(in srgb, var(--ic) 20%, transparent);
+}
+.sb-thumb-logo { width: 24px; height: 24px; object-fit: contain; opacity: 0.7; }
 
 /* Source distribution */
 .sb-sources { padding: 10px 14px 12px; display: flex; flex-direction: column; gap: 7px; }

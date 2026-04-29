@@ -377,7 +377,9 @@ def translate_items(items: list, api_key: str, base_url: str) -> None:
         )
         results = extract_json_array(resp.content[0].text.strip())
     except Exception as e:
+        import traceback
         print(f"  [WARN] 翻译失败: {e}")
+        traceback.print_exc()
         results = []
 
     for j, item in enumerate(to_translate):
@@ -470,7 +472,7 @@ def main():
     print(f"  → {len(reps)} 个独立事件，{len(unique) - len(reps)} 条重复")
 
     api_key  = os.environ.get("ANTHROPIC_API_KEY", "")
-    base_url = os.environ.get("ANTHROPIC_BASE_URL", "https://aiapi.tnt-pub.com/")
+    base_url = os.environ.get("ANTHROPIC_BASE_URL", "https://aiapi.tnt-pub.com").rstrip("/")
 
     if api_key:
         unique = claude_filter(unique, api_key, base_url)

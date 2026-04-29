@@ -10,7 +10,8 @@ from pathlib import Path
 
 ROOT = Path(__file__).parent.parent
 POSTS_DIR = ROOT / "src" / "content" / "posts-en"
-INDEX_PATH = ROOT / "public" / "data" / "published_index.json"
+INDEX_PATH = ROOT / "_ops" / "data" / "published_index.json"
+BASE_URL = "https://2193824842-spec.github.io/ai-verse"
 
 
 def parse_frontmatter(text: str) -> dict:
@@ -36,13 +37,32 @@ def parse_frontmatter(text: str) -> dict:
     return result
 
 
-def extract_slug(filename: str, frontmatter: dict) -> str:
-    # 优先用 frontmatter 里的 slug，否则从文件名提取
-    if frontmatter.get("slug"):
-        return frontmatter["slug"]
-    name = Path(filename).stem
-    # 去掉日期前缀 YYYY-MM-DD-
-    return re.sub(r'^\d{4}-\d{2}-\d{2}-', '', name)
+def extract_slug(filename: str, fm: dict) -> str:
+    # 优先从 cover 字段提取（最准确，无截断）
+    cover = fm.get("cover", "")
+    m = re.search(r'/covers/(.+?)\.(?:png|jpg|webp)$', cover)
+    if m:
+        return m.group(1)
+    # 其次用 frontmatter slug 字段
+    if fm.get("slug"):
+        return fm["slug"]
+    # 最后从文件名去掉日期前缀
+    return re.sub(r'^\d{4}-\d{2}-\d{2}-', '', Path(filename).stem)
+
+
+def extract_keywords(text: str, fm: dict) -> tuple[str, list[str]]:
+    """从正文提取 primary_keyword 和 secondary_keywords（frontmatter 无此字段时降级推断）"""
+    primary = fm.get("primary_keyword", "")
+    secondary = []
+    sec_raw = fm.get("secondary_keywords", "")
+    if sec_raw:
+        secondary = [k.strip().strip('"') for k in sec_raw.strip("[]").split(",") if k.strip()]
+
+    # 降级：用 tags 前两个作为 secondary
+    if not secondary:
+        secondary = fm.get("tags", [])[:3]
+
+    return primary, secondary
 
 
 def main():
@@ -57,12 +77,17 @@ def main():
             continue
 
         slug = extract_slug(md_file.name, fm)
+        primary_keyword, secondary_keywords = extract_keywords(text, fm)
+
         entry = {
             "slug": slug,
             "title": fm.get("title", ""),
             "article_type": fm.get("article_type") or fm.get("category", ""),
             "tags": fm.get("tags", []),
+            "primary_keyword": primary_keyword,
+            "secondary_keywords": secondary_keywords,
             "summary": fm.get("summary") or fm.get("excerpt", ""),
+            "url": f"{BASE_URL}/en/articles/{slug}",
             "date": fm.get("date", ""),
         }
         entries.append(entry)

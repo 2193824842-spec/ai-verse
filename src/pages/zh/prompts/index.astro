@@ -1,0 +1,562 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import { PROMPTS, PROMPT_CATEGORIES, GENERATOR_ROLES, GENERATOR_TONES, GENERATOR_MODELS } from '../../../data/prompts';
+
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+const rolesJson  = JSON.stringify(GENERATOR_ROLES);
+const tonesJson  = JSON.stringify(GENERATOR_TONES);
+const modelsJson = JSON.stringify(GENERATOR_MODELS);
+---
+
+<BaseLayout title="AI Prompt 生成器与提示词库 — AI·Verse" description="生成定制化 AI 提示词，浏览 15+ 即用型 Prompt 模板，覆盖写作、编程、营销、分析等场景。" lang="zh">
+  <main class="prompts-page">
+
+    <!-- Generator -->
+    <section class="generator-section">
+      <div class="container">
+        <div class="section-header">
+          <h1 class="page-title">AI Prompt 生成器</h1>
+          <p class="page-subtitle">描述你的需求，一键生成结构化、即用型提示词。</p>
+        </div>
+        <div class="generator-card">
+          <div class="generator-fields">
+            <div class="field-group">
+              <label for="gen-goal">你想做什么？</label>
+              <input id="gen-goal" type="text" placeholder="例如：写一封产品发布邮件、解释机器学习原理、调试我的 Python 代码..." maxlength="200" />
+            </div>
+            <div class="field-group">
+              <label for="gen-model">目标 AI</label>
+              <div class="model-tabs" id="model-tabs">
+                {Object.entries(GENERATOR_MODELS).map(([k, v], i) => (
+                  <button class={`model-tab ${i === 0 ? 'active' : ''}`} data-model={k}>{v.zh}</button>
+                ))}
+              </div>
+              <div id="model-hint" class="model-hint"></div>
+            </div>
+            <div class="field-row">
+              <div class="field-group">
+                <label for="gen-role">你的角色</label>
+                <select id="gen-role">
+                  <option value="">— 请选择 —</option>
+                  {Object.entries(GENERATOR_ROLES).map(([k, v]) => (
+                    <option value={k}>{v.zh}</option>
+                  ))}
+                </select>
+                <input id="gen-role-custom" type="text" placeholder="描述你的角色..." maxlength="80" class="hidden" />
+              </div>
+              <div class="field-group">
+                <label for="gen-tone">语气风格</label>
+                <select id="gen-tone">
+                  <option value="">— 请选择 —</option>
+                  {Object.entries(GENERATOR_TONES).map(([k, v]) => (
+                    <option value={k}>{v.zh}</option>
+                  ))}
+                </select>
+                <input id="gen-tone-custom" type="text" placeholder="描述语气风格..." maxlength="80" class="hidden" />
+              </div>
+              <div class="field-group">
+                <label for="gen-audience">目标受众</label>
+                <input id="gen-audience" type="text" placeholder="例如：B2B 企业决策者、初学者..." maxlength="100" />
+              </div>
+            </div>
+          </div>
+          <button id="gen-btn" class="gen-btn">生成 Prompt</button>
+          <div id="gen-output" class="gen-output hidden">
+            <div class="gen-output-header">
+              <span class="gen-output-label">生成结果</span>
+              <div style="display:flex;gap:8px">
+                <button id="gen-copy-btn" class="copy-btn-sm">复制</button>
+                <button id="gen-close-btn" class="copy-btn-sm" aria-label="收起">收起 ↑</button>
+              </div>
+            </div>
+            <pre id="gen-result"></pre>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- My Secrets -->
+    <section class="secrets-section">
+      <div class="container">
+        <div class="section-header">
+          <h2 class="section-title">我的秘诀</h2>
+          <p class="section-desc">把你觉得好用的提示词存在这里。数据只保存在你的浏览器本地，完全私密。</p>
+        </div>
+        <div class="secrets-add-bar">
+          <input id="secret-title" type="text" placeholder="标题" maxlength="80" />
+          <textarea id="secret-body" placeholder="粘贴你的提示词…" rows="3" maxlength="2000"></textarea>
+          <button id="secret-add-btn" class="gen-btn" style="width:auto;padding:10px 28px">保存提示词</button>
+        </div>
+        <div id="secrets-grid" class="prompt-grid secrets-grid"></div>
+        <p id="secrets-empty" class="secrets-empty">还没有保存的提示词。从下方库中收藏，或在上方手动添加。</p>
+      </div>
+    </section>
+
+    <!-- Library -->
+    <section class="library-section">
+      <div class="container">
+        <div class="section-header">
+          <h2 class="section-title">Prompt 库</h2>
+          <p class="section-desc">浏览并复制即用型提示词模板，点击任意卡片展开查看完整内容。</p>
+        </div>
+
+        <!-- Search -->
+        <div class="search-bar">
+          <svg class="search-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+          <input id="prompt-search" type="search" placeholder="搜索提示词标题、描述或标签…" autocomplete="off" />
+          <span id="search-count" class="search-count"></span>
+        </div>
+
+        <!-- Category Filter -->
+        <div class="category-tabs" id="category-tabs">
+          {PROMPT_CATEGORIES.map(cat => (
+            <button class={`cat-tab ${cat.id === 'all' ? 'active' : ''}`} data-cat={cat.id}>
+              {cat.zh}
+            </button>
+          ))}
+        </div>
+
+        <!-- Prompt Grid -->
+        <div class="prompt-grid" id="prompt-grid">
+          {PROMPTS.map(p => (
+            <div class="prompt-card" data-cat={p.category} data-id={p.id}
+              data-search={`${p.titleZh} ${p.descriptionZh} ${p.tagsZh.join(' ')}`}>
+              <div class="prompt-card-header">
+                <div>
+                  <span class={`cat-badge cat-${p.category}`}>{p.categoryZh}</span>
+                  <h3 class="prompt-title">{p.titleZh}</h3>
+                  <p class="prompt-desc">{p.descriptionZh}</p>
+                </div>
+                <button class="expand-btn" aria-label="展开提示词">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+                </button>
+              </div>
+              <div class="prompt-body hidden">
+                <pre class="prompt-text">{p.promptZh}</pre>
+                <div class="prompt-actions">
+                  <div class="prompt-tags">
+                    {p.tagsZh.map(tag => <span class="tag">#{tag}</span>)}
+                  </div>
+                  <button class="copy-btn" data-prompt={p.promptZh}>复制提示词</button>
+                  <button class="save-btn" data-title={p.titleZh} data-prompt={p.promptZh} aria-label="收藏到我的秘诀">&#9733; 收藏</button>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  </main>
+
+<style>
+.prompts-page { padding-top: calc(var(--header-h) + 48px); padding-bottom: 80px; }
+
+.section-header { text-align: center; margin-bottom: 40px; }
+.page-title { font-size: clamp(2rem, 5vw, 3rem); font-weight: 800; background: var(--gradient-primary); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; margin-bottom: 12px; }
+.page-subtitle, .section-desc { color: var(--text-dim); font-size: 1.05rem; }
+.section-title { font-size: 1.6rem; font-weight: 700; color: var(--text); margin-bottom: 8px; }
+
+.generator-section { margin-bottom: 72px; }
+.generator-card { background: var(--bg-card); border: 1px solid var(--border); border-radius: 16px; padding: 32px; max-width: 860px; margin: 0 auto; }
+.generator-fields { display: flex; flex-direction: column; gap: 20px; margin-bottom: 24px; }
+.field-row { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; }
+.field-group { display: flex; flex-direction: column; gap: 8px; }
+.field-group label { font-size: 0.85rem; font-weight: 600; color: var(--text-dim); text-transform: uppercase; letter-spacing: 0.05em; }
+.field-group input, .field-group select {
+  background: var(--bg); border: 1px solid var(--border); border-radius: 8px;
+  color: var(--text); font-size: 0.95rem; padding: 10px 14px; transition: border-color 0.2s;
+}
+.field-group input:focus, .field-group select:focus { outline: none; border-color: var(--accent); }
+.field-group select option { background: var(--bg-card); }
+
+.model-tabs { display: flex; flex-wrap: wrap; gap: 6px; }
+.model-tab {
+  padding: 5px 14px; border-radius: 16px; border: 1px solid var(--border);
+  background: transparent; color: var(--text-dim); font-size: 0.82rem; cursor: pointer; transition: all 0.18s;
+}
+.model-tab:hover { border-color: var(--accent); color: var(--accent); }
+.model-tab.active { background: var(--accent); border-color: var(--accent); color: #fff; font-weight: 600; }
+.model-hint { font-size: 0.8rem; color: var(--text-dim); margin-top: 6px; min-height: 1.2em; font-style: italic; }
+
+.gen-btn {
+  width: 100%; padding: 14px; border-radius: 10px; border: none; cursor: pointer;
+  background: var(--gradient-primary); color: #fff; font-size: 1rem; font-weight: 700;
+  transition: opacity 0.2s, transform 0.1s;
+}
+.gen-btn:hover { opacity: 0.9; }
+.gen-btn:active { transform: scale(0.99); }
+
+.gen-output { margin-top: 24px; background: var(--bg); border: 1px solid var(--border); border-radius: 10px; overflow: hidden; }
+.gen-output-header { display: flex; justify-content: space-between; align-items: center; padding: 12px 16px; border-bottom: 1px solid var(--border); }
+.gen-output-label { font-size: 0.8rem; font-weight: 600; color: var(--text-dim); text-transform: uppercase; letter-spacing: 0.05em; }
+#gen-result { padding: 16px; font-family: var(--font-mono); font-size: 0.88rem; line-height: 1.7; color: var(--text); white-space: pre-wrap; word-break: break-word; margin: 0; }
+
+.search-bar { position: relative; display: flex; align-items: center; margin-bottom: 20px; }
+.search-icon { position: absolute; left: 14px; color: var(--text-dim); pointer-events: none; flex-shrink: 0; }
+#prompt-search {
+  width: 100%; padding: 10px 14px 10px 40px;
+  background: var(--bg); border: 1px solid var(--border); border-radius: 8px;
+  color: var(--text); font-size: 0.92rem; transition: border-color 0.2s;
+}
+#prompt-search:focus { outline: none; border-color: var(--accent); }
+#prompt-search::-webkit-search-cancel-button { cursor: pointer; }
+.search-count { position: absolute; right: 14px; font-size: 0.78rem; color: var(--text-dim); white-space: nowrap; pointer-events: none; }
+
+.category-tabs { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 32px; }
+.cat-tab {
+  padding: 7px 18px; border-radius: 20px; border: 1px solid var(--border);
+  background: transparent; color: var(--text-dim); font-size: 0.88rem; cursor: pointer; transition: all 0.2s;
+}
+.cat-tab:hover { border-color: var(--accent); color: var(--accent); }
+.cat-tab.active { background: var(--accent); border-color: var(--accent); color: #fff; font-weight: 600; }
+
+.prompt-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(340px, 1fr)); gap: 16px; }
+.prompt-card { background: var(--bg-card); border: 1px solid var(--border); border-radius: 12px; overflow: hidden; transition: border-color 0.2s; }
+.prompt-card:hover { border-color: var(--accent); }
+.prompt-card.hidden-card { display: none; }
+
+.prompt-card-header { display: flex; justify-content: space-between; align-items: flex-start; padding: 20px; cursor: pointer; gap: 12px; }
+.cat-badge { font-size: 0.72rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.06em; padding: 2px 8px; border-radius: 4px; display: inline-block; margin-bottom: 8px; }
+.cat-writing    { background: rgba(16,185,129,0.15); color: #10B981; }
+.cat-coding     { background: rgba(79,172,254,0.15); color: #4FACFE; }
+.cat-marketing  { background: rgba(245,158,11,0.15); color: #F59E0B; }
+.cat-analysis   { background: rgba(168,85,247,0.15); color: #A855F7; }
+.cat-creative   { background: rgba(236,72,153,0.15); color: #EC4899; }
+.cat-learning   { background: rgba(6,182,212,0.15); color: #06B6D4; }
+
+.prompt-title { font-size: 1rem; font-weight: 700; color: var(--text); margin-bottom: 4px; }
+.prompt-desc { font-size: 0.85rem; color: var(--text-dim); line-height: 1.5; }
+.expand-btn { background: none; border: none; cursor: pointer; color: var(--text-dim); flex-shrink: 0; padding: 4px; transition: transform 0.2s, color 0.2s; }
+.expand-btn:hover { color: var(--accent); }
+.expand-btn.open { transform: rotate(180deg); }
+
+.prompt-body { border-top: 1px solid var(--border); padding: 20px; }
+.prompt-text { font-family: var(--font-mono); font-size: 0.82rem; line-height: 1.7; color: var(--text); white-space: pre-wrap; word-break: break-word; margin: 0 0 16px; max-height: 260px; overflow-y: auto; }
+.prompt-actions { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; }
+.prompt-tags { display: flex; flex-wrap: wrap; gap: 6px; }
+.tag { font-size: 0.75rem; color: var(--text-dim); }
+
+.copy-btn {
+  padding: 8px 18px; border-radius: 8px; border: 1px solid var(--accent);
+  background: transparent; color: var(--accent); font-size: 0.85rem; font-weight: 600;
+  cursor: pointer; transition: all 0.2s;
+}
+.copy-btn:hover { background: var(--accent); color: #fff; }
+.copy-btn.copied { background: var(--green); border-color: var(--green); color: #fff; }
+
+.copy-btn-sm {
+  padding: 5px 12px; border-radius: 6px; border: 1px solid var(--border);
+  background: transparent; color: var(--text-dim); font-size: 0.8rem; cursor: pointer; transition: all 0.2s;
+}
+.copy-btn-sm:hover { border-color: var(--accent); color: var(--accent); }
+.copy-btn-sm.copied { border-color: var(--green); color: var(--green); }
+
+.hidden { display: none !important; }
+
+/* My Secrets */
+.secrets-section { margin-bottom: 72px; }
+.secrets-add-bar { display: flex; flex-direction: column; gap: 10px; max-width: 860px; margin: 0 auto 32px; background: var(--bg-card); border: 1px solid var(--border); border-radius: 16px; padding: 24px; }
+.secrets-add-bar input, .secrets-add-bar textarea {
+  background: var(--bg); border: 1px solid var(--border); border-radius: 8px;
+  color: var(--text); font-size: 0.95rem; padding: 10px 14px; font-family: var(--font-sans); resize: vertical;
+}
+.secrets-add-bar input:focus, .secrets-add-bar textarea:focus { outline: none; border-color: var(--accent); }
+.secrets-grid { margin-bottom: 0; }
+.secrets-empty { text-align: center; color: var(--text-dim); font-size: 0.9rem; padding: 32px 0; }
+.save-btn {
+  padding: 8px 14px; border-radius: 8px; border: 1px solid var(--border);
+  background: transparent; color: var(--text-dim); font-size: 0.82rem; cursor: pointer; transition: all 0.2s; white-space: nowrap;
+}
+.save-btn:hover { border-color: #F59E0B; color: #F59E0B; }
+.save-btn.saved { border-color: #F59E0B; color: #F59E0B; }
+.secret-delete-btn {
+  padding: 5px 12px; border-radius: 6px; border: 1px solid var(--danger);
+  background: transparent; color: var(--danger); font-size: 0.8rem; cursor: pointer; transition: all 0.2s;
+}
+.secret-delete-btn:hover { background: var(--danger); color: #fff; }
+
+@media (max-width: 640px) {
+  .field-row { grid-template-columns: 1fr; }
+  .prompt-grid { grid-template-columns: 1fr; }
+  .generator-card { padding: 20px; }
+}
+</style>
+
+<script define:vars={{ rolesJson, tonesJson, modelsJson }}>
+const ROLES  = JSON.parse(rolesJson);
+const TONES  = JSON.parse(tonesJson);
+const MODELS = JSON.parse(modelsJson);
+
+let selectedModel = 'chatgpt';
+const modelHint = document.getElementById('model-hint');
+modelHint.textContent = MODELS[selectedModel]?.hintZh || '';
+
+document.getElementById('model-tabs').addEventListener('click', e => {
+  const btn = e.target.closest('.model-tab');
+  if (!btn) return;
+  document.querySelectorAll('.model-tab').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  selectedModel = btn.dataset.model;
+  modelHint.textContent = MODELS[selectedModel]?.hintZh || '';
+});
+
+document.getElementById('gen-role').addEventListener('change', function() {
+  document.getElementById('gen-role-custom').classList.toggle('hidden', this.value !== 'custom');
+});
+document.getElementById('gen-tone').addEventListener('change', function() {
+  document.getElementById('gen-tone-custom').classList.toggle('hidden', this.value !== 'custom');
+});
+
+// 根据模型生成角色前缀
+function rolePrefix(role, model) {
+  if (!role) return '';
+  if (model === 'claude') return `请你以${role}的视角来处理这个问题。\n`;
+  return `你是一位${role}。\n`;
+}
+
+// 根据模型生成结尾提示
+function modelSuffix(model, isComplex) {
+  if (!isComplex) return '';
+  if (model === 'deepseek') return '\n请一步一步思考，再给出最终答案。';
+  if (model === 'claude') return '\n请仔细推理后再作答。';
+  if (model === 'gemini') return '\n请在相关处提供来源或依据。';
+  if (model === 'kimi') return '\n请全面详尽地回答。';
+  return '';
+}
+
+document.getElementById('gen-btn').addEventListener('click', () => {
+  const goal = document.getElementById('gen-goal').value.trim();
+  if (!goal) { document.getElementById('gen-goal').focus(); return; }
+
+  const roleKey = document.getElementById('gen-role').value;
+  const toneKey = document.getElementById('gen-tone').value;
+  const audience = document.getElementById('gen-audience').value.trim();
+
+  const roleLabel = roleKey === 'custom'
+    ? document.getElementById('gen-role-custom').value.trim()
+    : roleKey ? ROLES[roleKey]?.zh : '';
+  const toneLabel = toneKey === 'custom'
+    ? document.getElementById('gen-tone-custom').value.trim()
+    : toneKey ? TONES[toneKey]?.zh : '';
+
+  const g = goal;
+  const isDetailed = goal.length > 30;
+
+  const isEmail     = /邮件|信|通知|公告|消息|留言|写给|致/.test(g);
+  const isDoc       = /报告|文章|博客|论文|总结|提案|简历|求职信|方案|文档|策划/.test(g);
+  const isShortDoc  = /请假条|请假|便条|申请|投诉|评价|反馈|简介|标语|口号|文案/.test(g);
+  const isCoding    = /代码|函数|脚本|bug|调试|实现|组件|接口|程序|开发/.test(g);
+  const isAnalysis  = /分析|对比|评估|比较|SWOT|优缺点|调研|研究/.test(g);
+  const isExplain   = /解释|什么是|怎么|为什么|如何理解|介绍一下|说明/.test(g);
+  const isCreative  = /故事|诗|创意|头脑风暴|想法|点子|构思|创作/.test(g);
+  const isTranslate = /翻译/.test(g);
+
+  const lines = [];
+  lines.push(rolePrefix(roleLabel, selectedModel));
+
+  if (isEmail) {
+    lines.push(goal.endsWith('。') ? goal : goal + '。');
+    if (!isDetailed) lines.push(`\n要求：\n- 主题明确\n- 开头简洁，直入主题\n- 正文分段，逻辑清晰（2-3段）\n- 明确的行动号召或下一步\n- 得体的结尾`);
+    lines.push(`\n语气：${toneLabel || '专业、简洁'}。每句话都要有价值，避免废话。`);
+  } else if (isDoc) {
+    lines.push(goal.endsWith('。') ? goal : goal + '。');
+    if (!isDetailed) lines.push(`\n结构要求：\n- 开篇点明主旨\n- 正文分节，条理清晰\n- 有具体案例或数据支撑\n- 结尾有明确结论或建议`);
+    if (audience) lines.push(`受众：${audience}。`);
+    if (toneLabel) lines.push(`语气：${toneLabel}。`);
+  } else if (isShortDoc) {
+    lines.push(goal.endsWith('。') ? goal : goal + '。');
+    if (toneLabel) lines.push(`语气：${toneLabel}。`);
+    if (audience) lines.push(`收件人/对象：${audience}。`);
+    lines.push(`简洁明了，格式规范。`);
+  } else if (isCoding) {
+    lines.push(goal.endsWith('。') ? goal : goal + '。');
+    if (!isDetailed) lines.push(`\n要求：\n- 代码清晰可读\n- 处理边界情况\n- 关键逻辑加注释\n- 简要说明实现思路`);
+    if (toneLabel) lines.push(`风格：${toneLabel}。`);
+  } else if (isAnalysis) {
+    lines.push(goal.endsWith('。') ? goal : goal + '。');
+    if (!isDetailed) lines.push(`\n输出：\n- 关键发现，附数据或案例支撑\n- 客观呈现优势与不足\n- 具体可操作的建议`);
+    if (audience) lines.push(`受众：${audience}。`);
+    if (toneLabel) lines.push(`语气：${toneLabel}。`);
+  } else if (isExplain) {
+    lines.push(goal.endsWith('。') ? goal : goal + '。');
+    if (!isDetailed) lines.push(`\n要求：\n- 先用一句话给出通俗定义\n- 用生活中的类比或例子说明\n- 抓住核心，不堆砌术语`);
+    if (audience) lines.push(`假设读者是：${audience}。`);
+    if (toneLabel) lines.push(`语气：${toneLabel}。`);
+  } else if (isCreative) {
+    lines.push(goal.endsWith('。') ? goal : goal + '。');
+    if (!isDetailed) lines.push(`\n要有原创性，避免陈词滥调，给我惊喜。`);
+    if (toneLabel) lines.push(`语气：${toneLabel}。`);
+    if (audience) lines.push(`受众：${audience}。`);
+  } else if (isTranslate) {
+    lines.push(goal.endsWith('。') ? goal : goal + '。');
+    lines.push(`保留原文语气和含义。遇到不自然的表达请标注并给出替代方案。`);
+  } else {
+    lines.push(goal.endsWith('。') ? goal : goal + '。');
+    if (audience) lines.push(`受众：${audience}。`);
+    if (toneLabel) lines.push(`语气：${toneLabel}。`);
+    if (isDetailed) lines.push(`\n请具体、有实质内容，结构清晰。`);
+  }
+
+  lines.push(modelSuffix(selectedModel, isDetailed || isCoding || isAnalysis));
+
+  document.getElementById('gen-result').textContent = lines.join('\n').replace(/\n{3,}/g, '\n\n').trim();
+  document.getElementById('gen-output').classList.remove('hidden');
+  document.getElementById('gen-output').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+});
+
+document.getElementById('gen-close-btn').addEventListener('click', () => {
+  document.getElementById('gen-output').classList.add('hidden');
+});
+
+document.getElementById('gen-copy-btn').addEventListener('click', function() {
+  const text = document.getElementById('gen-result').textContent;
+  navigator.clipboard.writeText(text).then(() => {
+    this.textContent = '已复制！';
+    this.classList.add('copied');
+    setTimeout(() => { this.textContent = '复制'; this.classList.remove('copied'); }, 2000);
+  });
+});
+
+// 分类 + 搜索联合过滤
+let activeCat = 'all';
+let searchQuery = '';
+
+function applyFilter() {
+  const q = searchQuery.toLowerCase();
+  let visible = 0;
+  document.querySelectorAll('.prompt-card').forEach(card => {
+    const catMatch = activeCat === 'all' || card.dataset.cat === activeCat;
+    const searchMatch = !q || card.dataset.search.toLowerCase().includes(q);
+    const hide = !catMatch || !searchMatch;
+    card.classList.toggle('hidden-card', hide);
+    if (!hide) visible++;
+  });
+  const countEl = document.getElementById('search-count');
+  countEl.textContent = q ? `找到 ${visible} 条` : '';
+}
+
+document.getElementById('category-tabs').addEventListener('click', e => {
+  const btn = e.target.closest('.cat-tab');
+  if (!btn) return;
+  document.querySelectorAll('.cat-tab').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  activeCat = btn.dataset.cat;
+  applyFilter();
+});
+
+document.getElementById('prompt-search').addEventListener('input', function() {
+  searchQuery = this.value.trim();
+  applyFilter();
+});
+
+document.getElementById('prompt-grid').addEventListener('click', e => {
+  const copyBtn = e.target.closest('.copy-btn');
+  if (copyBtn) {
+    const text = copyBtn.dataset.prompt;
+    navigator.clipboard.writeText(text).then(() => {
+      copyBtn.textContent = '已复制！';
+      copyBtn.classList.add('copied');
+      setTimeout(() => { copyBtn.textContent = '复制提示词'; copyBtn.classList.remove('copied'); }, 2000);
+    });
+    return;
+  }
+  const header = e.target.closest('.prompt-card-header');
+  if (!header) return;
+  const card = header.closest('.prompt-card');
+  const body = card.querySelector('.prompt-body');
+  const btn = card.querySelector('.expand-btn');
+  body.classList.toggle('hidden');
+  btn.classList.toggle('open');
+});
+
+// ── 我的秘诀 ──────────────────────────────────────────
+const STORAGE_KEY = 'aiverse_secrets_zh';
+
+function loadSecrets() {
+  try { return JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]'); } catch { return []; }
+}
+function saveSecrets(list) {
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(list));
+}
+
+function renderSecrets() {
+  const list = loadSecrets();
+  const grid = document.getElementById('secrets-grid');
+  const empty = document.getElementById('secrets-empty');
+  grid.innerHTML = '';
+  if (list.length === 0) { empty.style.display = ''; return; }
+  empty.style.display = 'none';
+  list.forEach((s, i) => {
+    const card = document.createElement('div');
+    card.className = 'prompt-card';
+    card.innerHTML = `
+      <div class="prompt-card-header" style="cursor:pointer">
+        <div>
+          <span class="cat-badge" style="background:rgba(245,158,11,0.15);color:#F59E0B">我的秘诀</span>
+          <h3 class="prompt-title">${s.title}</h3>
+        </div>
+        <button class="expand-btn" aria-label="展开"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg></button>
+      </div>
+      <div class="prompt-body hidden">
+        <pre class="prompt-text">${s.body}</pre>
+        <div class="prompt-actions">
+          <div></div>
+          <div style="display:flex;gap:8px">
+            <button class="copy-btn" data-prompt="${s.body.replace(/"/g,'&quot;')}">复制提示词</button>
+            <button class="secret-delete-btn" data-index="${i}">删除</button>
+          </div>
+        </div>
+      </div>`;
+    card.querySelector('.prompt-card-header').addEventListener('click', e => {
+      if (e.target.closest('.secret-delete-btn')) return;
+      const b = card.querySelector('.prompt-body');
+      const eb = card.querySelector('.expand-btn');
+      b.classList.toggle('hidden');
+      eb.classList.toggle('open');
+    });
+    card.querySelector('.copy-btn').addEventListener('click', function() {
+      navigator.clipboard.writeText(s.body).then(() => {
+        this.textContent = '已复制！'; this.classList.add('copied');
+        setTimeout(() => { this.textContent = '复制提示词'; this.classList.remove('copied'); }, 2000);
+      });
+    });
+    card.querySelector('.secret-delete-btn').addEventListener('click', () => {
+      const l = loadSecrets(); l.splice(i, 1); saveSecrets(l); renderSecrets();
+    });
+    grid.appendChild(card);
+  });
+}
+
+document.getElementById('secret-add-btn').addEventListener('click', () => {
+  const title = document.getElementById('secret-title').value.trim();
+  const body = document.getElementById('secret-body').value.trim();
+  if (!title || !body) return;
+  const list = loadSecrets();
+  list.unshift({ title, body });
+  saveSecrets(list);
+  renderSecrets();
+  document.getElementById('secret-title').value = '';
+  document.getElementById('secret-body').value = '';
+});
+
+document.getElementById('prompt-grid').addEventListener('click', e => {
+  const saveBtn = e.target.closest('.save-btn');
+  if (saveBtn) {
+    const title = saveBtn.dataset.title;
+    const body = saveBtn.dataset.prompt;
+    const list = loadSecrets();
+    if (!list.find(s => s.title === title)) {
+      list.unshift({ title, body });
+      saveSecrets(list);
+      renderSecrets();
+    }
+    saveBtn.textContent = '★ 已收藏';
+    saveBtn.classList.add('saved');
+    return;
+  }
+}, true);
+
+renderSecrets();
+</script>
+
+</BaseLayout>
