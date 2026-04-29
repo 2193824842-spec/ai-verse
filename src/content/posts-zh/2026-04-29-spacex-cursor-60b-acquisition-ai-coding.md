@@ -2,7 +2,7 @@
 title: "SpaceX 600亿美元收购 Cursor：AI 编程市场变天了"
 date: 2026-04-29
 slug: spacex-cursor-60b-acquisition-ai-coding
-category: "industry-insights"
+category: "trending"
 tags: ["enterprise-ai", "code-generation", "ai-agents", "generative-ai"]
 difficulty: "中级"
 summary: "SpaceX 以 600 亿美元期权收购 Cursor，重塑 AI 编程市场格局。本文拆解交易结构、竞争影响及投资信号。"
