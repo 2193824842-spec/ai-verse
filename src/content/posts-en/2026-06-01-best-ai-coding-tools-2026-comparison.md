@@ -1,7 +1,7 @@
 ---
 title: "Best AI Coding Tools 2026: Complete Comparison for Developers"
 date: 2026-06-01
-category: "trending"
+category: "review"
 tags: ["AI coding tools", "Claude Code", "Cursor", "GitHub Copilot", "developer productivity"]
 difficulty: "Intermediate"
 summary: "Compare the best AI coding tools in 2026 including Claude Code, Cursor, GitHub Copilot, Kiro, and Windsurf. Real pricing, features, and which tool fits your workflow."

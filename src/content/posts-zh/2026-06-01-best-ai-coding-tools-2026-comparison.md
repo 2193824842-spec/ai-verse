@@ -1,7 +1,7 @@
 ---
 title: "2026年最佳AI编程工具全面对比：开发者选择指南"
 date: 2026-06-01
-category: "trending"
+category: "review"
 tags: ["AI编程工具", "Claude Code", "Cursor", "GitHub Copilot", "开发者效率"]
 difficulty: "中级"
 summary: "全面对比2026年最佳AI编程工具：Claude Code、Cursor、GitHub Copilot、Kiro和Windsurf，包含真实定价、功能差异和选择建议。"
