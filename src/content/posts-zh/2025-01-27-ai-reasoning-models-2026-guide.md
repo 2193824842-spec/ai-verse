@@ -2,7 +2,7 @@
 title: "2026年AI推理模型完全指南：测试时计算扩展技术详解"
 slug: ai-reasoning-models-2026-guide
 description: "深度解析2026年AI推理模型：测试时计算扩展如何实现96%准确率。对比OpenAI o3、DeepSeek-R1、Gemini Deep Think等主流模型。"
-pubDate: 2025-01-27
+date: 2025-01-27
 category: industry-insights
 tags:
   - llm

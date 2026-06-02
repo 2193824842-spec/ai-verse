@@ -2,7 +2,7 @@
 title: "AI Reasoning Models 2026: The Complete Guide to Test-Time Compute"
 slug: ai-reasoning-models-2026-guide
 description: "AI reasoning models 2026 explained: how test-time compute scaling enables 96% accuracy on complex tasks. Compare OpenAI o3, DeepSeek-R1, Gemini Deep Think."
-pubDate: 2025-01-27
+date: 2025-01-27
 category: industry-insights
 tags:
   - llm
