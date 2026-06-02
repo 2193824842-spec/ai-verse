@@ -2,7 +2,7 @@
 title: "SpaceX's $60B Cursor Deal: What It Means for AI Coding"
 date: 2026-04-29
 slug: spacex-cursor-60b-acquisition-ai-coding
-category: "Industry Insights"
+category: "trending"
 tags: ["enterprise-ai", "code-generation", "ai-agents", "generative-ai"]
 difficulty: "Intermediate"
 summary: "SpaceX's $60 billion option to acquire Cursor reshapes the AI coding market. We break down the deal structure, competitive implications, and what it signals for investors."
