@@ -2,7 +2,7 @@
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import { getCollection } from 'astro:content';
 import { TOOLS } from '../../data/tools';
-import newsData from '../../data/news.json';
+import newsData from '../../../public/data/news.json';
 
 const allPosts = await getCollection('posts-zh');
 const latest = allPosts
@@ -35,8 +35,16 @@ const hotTools = TOOLS.flatMap(cat =>
   cat.items.slice(0, 2).map(t => ({ ...t, catStyle: CAT_STYLE[cat.slug] ?? CAT_STYLE.coding }))
 );
 
-// 最新资讯（取 4 条）
-const latestNews = (newsData.items ?? []).slice(0, 4);
+// 每周热点（7天内，按热度排序取前4条）
+const cutoff = new Date(Date.now() - 7 * 86400000).toISOString().slice(0, 10);
+const latestNews = [...(newsData.items ?? [])]
+  .filter(i => !(i as any).duplicate && (i.date?.slice(0, 10) ?? '') >= cutoff)
+  .sort((a, b) => {
+    const ha = ((a as any).score ?? 0) * 2 + ((a as any).duplicate_count ?? 0);
+    const hb = ((b as any).score ?? 0) * 2 + ((b as any).duplicate_count ?? 0);
+    return hb - ha;
+  })
+  .slice(0, 4);
 ---
 
 <BaseLayout
@@ -139,7 +147,7 @@ const latestNews = (newsData.items ?? []).slice(0, 4);
 {latestNews.length > 0 && (
   <section class="home-section">
     <div class="section-hd">
-      <h2>每日资讯</h2>
+      <h2>每周热点</h2>
       <a href={`${base}/zh/news/`} class="more-link">更多资讯 →</a>
     </div>
     <ul class="news-list">

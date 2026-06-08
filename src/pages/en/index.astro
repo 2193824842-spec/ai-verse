@@ -2,7 +2,7 @@
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import { getCollection } from 'astro:content';
 import { TOOLS } from '../../data/tools';
-import newsData from '../../data/news.json';
+import newsData from '../../../public/data/news.json';
 
 const allPosts = await getCollection('posts-en');
 const latest = allPosts
@@ -53,8 +53,16 @@ const hotTools = TOOLS.flatMap(cat =>
   }))
 );
 
-// Latest news (4 items)
-const latestNews = (newsData.items ?? []).slice(0, 4) as {
+// Weekly hot news (7-day window, sorted by heat score, top 4)
+const cutoff = new Date(Date.now() - 7 * 86400000).toISOString().slice(0, 10);
+const latestNews = [...(newsData.items ?? [])]
+  .filter(i => !(i as any).duplicate && (i.date?.slice(0, 10) ?? '') >= cutoff)
+  .sort((a, b) => {
+    const ha = ((a as any).score ?? 0) * 2 + ((a as any).duplicate_count ?? 0);
+    const hb = ((b as any).score ?? 0) * 2 + ((b as any).duplicate_count ?? 0);
+    return hb - ha;
+  })
+  .slice(0, 4) as {
   title: string; title_en: string; title_zh: string;
   url: string; source: string; date: string;
 }[];
@@ -160,7 +168,7 @@ const latestNews = (newsData.items ?? []).slice(0, 4) as {
 {latestNews.length > 0 && (
   <section class="home-section">
     <div class="section-hd">
-      <h2>Latest News</h2>
+      <h2>Weekly Hot</h2>
       <a href={`${base}/en/news/`} class="more-link">More News →</a>
     </div>
     <ul class="news-list">
